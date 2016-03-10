@@ -21,11 +21,7 @@ package models.creatures;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import models.jeu.Jeu;
-
-import ai.Gold;
-import ai.Speed;
-import ai.Health;
+import ai.Constants;
 
 /**
  * Classe de gestion d'une creature volante.
@@ -57,7 +53,8 @@ public class Pigeon extends Creature
 	}
 	
 	public Pigeon(){
-		this(0, 0, Health.PIGEON, Gold.CREATURE ,Speed.NORMAL);
+		this(0, 0, Constants.PIGEON, 0 ,Constants.NORMAL);
+		setDropValue();
 	}
 	
 	/**
@@ -81,11 +78,5 @@ public class Pigeon extends Creature
 	public Creature copier()
 	{
 		return new Pigeon(x,y,getSanteMax(),getNbPiecesDOr(),getVitesseNormale());
-	}
-
-	@Override
-	public Creature upgrade(int hp) {
-		return new Pigeon(x,y,Health.PIGEON+ Health.PIGEON*hp,Gold.UPGRADE,getVitesseNormale());
-		
 	}
 }

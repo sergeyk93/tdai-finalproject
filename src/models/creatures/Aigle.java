@@ -21,11 +21,7 @@ package models.creatures;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import models.jeu.Jeu;
-
-import ai.Gold;
-import ai.Speed;
-import ai.Health;
+import ai.Constants;
 
 /**
  * Classe de gestion d'une creature volante.
@@ -56,7 +52,8 @@ public class Aigle extends Creature
 		this(0, 0, santeMax, nbPiecesDOr,vitesse);
 	}
 	public Aigle(){
-		this(0, 0, Health.EAGLE, Gold.CREATURE ,Speed.NORMAL);
+		this(0, 0, Constants.EAGLE, 0 ,Constants.NORMAL);
+		setDropValue();
 	}
 	
 	/**
@@ -80,10 +77,5 @@ public class Aigle extends Creature
 	public Creature copier()
 	{
 		return new Aigle(x,y,getSanteMax(),getNbPiecesDOr(),getVitesseNormale());
-	}
-	@Override
-	public Creature upgrade(int hp) {
-		return new Aigle(x,y,Health.EAGLE+ Health.EAGLE*hp,Gold.UPGRADE,getVitesseNormale());
-		
 	}
 }

@@ -2,13 +2,24 @@ package ai;
 
 import java.util.ArrayList;
 
-import models.creatures.*;
+import models.creatures.Aigle;
+import models.creatures.Araignee;
+import models.creatures.Creature;
+import models.creatures.Elephant;
+import models.creatures.Mouton;
+import models.creatures.MoutonNoir;
+import models.creatures.Paysan;
+import models.creatures.Pigeon;
+import models.creatures.Rhinoceros;
 import models.jeu.Jeu;
 
 public class PriceCalculator {
-	
+
 	private ArrayList<Price> priceList;
-	
+	private double minPrice;
+	// Upgrade factor - probably will be changed later
+	private static final double upgradeFactor = 2;
+
 	public PriceCalculator(){
 		priceList=new ArrayList<Price>();
 		priceList.add(new Price(new Mouton()));
@@ -19,42 +30,66 @@ public class PriceCalculator {
 		priceList.add(new Price(new Paysan()));
 		priceList.add(new Price(new Elephant()));
 		priceList.add(new Price(new Pigeon()));
-	}
-	
-	public void upgrade(){
-		for (Price p : priceList){
-			p.upgrade();
+		minPrice = Double.MAX_VALUE;
+		for(Price p : priceList){
+			if(p.getPrice() <= minPrice){
+				minPrice = p.getPrice();
+			}
 		}
 	}
 	
+	private double getGrade(Creature c){
+		Grade grade = new Grade(c);
+		return grade.getGrade();
+	}
+
+	private Price getBestCreature(){
+		Price bestCreature = null;
+		double maxGrade = Double.MIN_VALUE;
+		for(Price p : priceList){
+			double grade = getGrade(p.getCreature());
+			if(grade > maxGrade){
+				maxGrade = grade;
+				bestCreature = p;
+			}
+			else if(grade == maxGrade){
+				int rand = (int)(Math.random() + 0.5);
+				bestCreature = rand == 0 ? bestCreature : p;
+			}
+		}
+
+		return bestCreature;
+	}
+
 	public ArrayList<Creature> compute(){
 		ArrayList<Creature> ans = new ArrayList<Creature>();
-		boolean allChosen = false;
-		do{
-			double sum = 0;
-			double budget = Jeu.getWallet();
-			Price p = null;
-			do{
-				int rand = (int)(Math.random()*priceList.size());
-				p = priceList.get(rand);
-			}while (p.isChosen());
-			double price = p.getPrice();
-			while (budget - price > 0 && sum <= 800){
-				ans.add(p.getCreature());
-				sum += price;
-				budget -= price;
-			}
-			p.choose();
-			allChosen = true;
-			for (Price pp : priceList)
-				if (pp.isChosen() == false){
-					allChosen = false;
-					break;
+		ArrayList<Price> prices = new ArrayList<Price>();
+		
+		int waveSize = 0;
+		double budget = Jeu.getWallet();
+		
+		while(minPrice > 0 && waveSize <= 15){
+			Price p = getBestCreature();
+			prices.add(p);
+			budget -= p.getPrice();
+		}
+		
+		while(budget > minPrice * upgradeFactor){
+			double prevBudget = budget;
+			for(Price p : prices){
+				if(p.getUpgradePrice() < budget){
+					budget += p.getPrice() - p.getUpgradePrice();
+					p.upgrade();
 				}
-			Jeu.setWallet(Jeu.getWallet() - sum);
-		}while (Jeu.getWallet() > 0 && allChosen == false);
-		for (Price p : priceList)
-			p.unChoose();
+			}
+			if(prevBudget == budget){
+				break;
+			}
+		}
+		
+		for(Price p : prices){
+			ans.add(p.getCreature());
+		}
 		return ans;
 	}
 }

@@ -104,10 +104,4 @@ public class CreatureAnimee extends Creature
 	{
 		return new CreatureAnimee(x,y,getSanteMax(),getNbPiecesDOr(),getVitesseNormale());
 	}
-
-	@Override
-	public Creature upgrade(int hp) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

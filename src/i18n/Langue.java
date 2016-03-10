@@ -390,9 +390,9 @@ public class Langue
             jo.put(ID_TXT_ATTAQUE_LA_CREATURE,"Attacks the");
             jo.put(ID_TXT_AIR,"Air");
             jo.put(ID_TXT_TERRE,"Earth");  
-            jo.put(ID_TXT_SANTE,"Health");
+            jo.put(ID_TXT_SANTE,"Constants");
             jo.put(ID_TXT_GAIN,"Gain");
-            jo.put(ID_TXT_VITESSE,"Speed");
+            jo.put(ID_TXT_VITESSE,"Constants");
             jo.put(ID_TXT_TERRIENNE,"Earthling");
             jo.put(ID_TXT_AERIENNE,"Air");
             jo.put(ID_TXT_SCORE_OBTENU,"Your score");
@@ -534,7 +534,7 @@ public class Langue
             jo.put(ID_TXT_ZOOM_ARRIERE_ET_RACCOURCI,"Zoom out [Mouse wheel]");
             jo.put(ID_TXT_CENTRER_ET_RACCOURCI,"Center [Double-click]");
             jo.put(ID_TXT_MAXI_MINI_FENETRE,"Maximization / Minimization of windows");
-            jo.put(ID_TXT_VITESSE_DU_JEU,"Speed of the game");
+            jo.put(ID_TXT_VITESSE_DU_JEU,"Constants of the game");
             
             jo.put(ID_TXT_1_ETOILE_MIN,"1 star required");
             jo.put(ID_TXT_X_ETOILES_MIN,"%d stars required");
@@ -550,8 +550,8 @@ public class Langue
             jo.put(ID_TXT_VENDRE_TOUR,"Sell the selected tower");
             jo.put(ID_TXT_METTRE_JEU_EN_PAUSE,"Switch pause");
             jo.put(ID_TXT_SUIVRE_CREATURE,"Follow the selected creature");
-            jo.put(ID_TXT_AUGMENTER_VITESSE_JEU,"Increase the speed of the game");
-            jo.put(ID_TXT_DIMINUER_VITESSE_JEU,"Decrease the speed of the game");
+            jo.put(ID_TXT_AUGMENTER_VITESSE_JEU,"Increase the Constants of the game");
+            jo.put(ID_TXT_DIMINUER_VITESSE_JEU,"Decrease the Constants of the game");
             jo.put(ID_TXT_ZOMMER,"Zoom");
             jo.put(ID_TXT_ROULETTE_SOURIS,"Mouse wheel");
             jo.put(ID_TXT_ACTIF,"Active");

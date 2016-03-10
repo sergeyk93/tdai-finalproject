@@ -21,8 +21,7 @@ package models.creatures;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import ai.Speed;
-import ai.Health;
+import ai.Constants;
 
 /**
  * Classe de gestion d'une creature.
@@ -55,7 +54,7 @@ public class GrandeAraignee extends Creature
 	}
 	
 	public GrandeAraignee(){
-		this(0, 0, Health.BOSS, (int)Math.ceil(Health.BOSS/ Speed.SLOW) ,Speed.NORMAL);
+		this(0, 0, Constants.BOSS, (int)Math.ceil(Constants.BOSS/ Constants.SLOW) ,Constants.NORMAL);
 	}
 	
 	/**
@@ -79,11 +78,5 @@ public class GrandeAraignee extends Creature
 	public Creature copier()
 	{
 		return new GrandeAraignee(x,y,getSanteMax(),getNbPiecesDOr(),getVitesseNormale());
-	}
-
-	@Override
-	public Creature upgrade(int hp) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

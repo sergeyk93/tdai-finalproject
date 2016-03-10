@@ -21,11 +21,7 @@ package models.creatures;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import models.jeu.Jeu;
-
-import ai.Gold;
-import ai.Speed;
-import ai.Health;
+import ai.Constants;
 
 /**
  * Classe de gestion d'un paysan.
@@ -63,7 +59,8 @@ public class Paysan extends Creature
 	}
 	
 	public Paysan(){
-		this(0, 0, Health.PEASENT, Gold.CREATURE ,Speed.NORMAL);
+		this(0, 0, Constants.PEASENT, 0 ,Constants.NORMAL);
+		setDropValue();
 	}
 
 	/**
@@ -104,11 +101,4 @@ public class Paysan extends Creature
 	        temps -= 300;
 	    }
 	}
-
-	@Override
-	public Creature upgrade(int hp) {
-		return new Paysan(x,y,Health.PEASENT+ Health.PEASENT*hp,Gold.UPGRADE,getVitesseNormale());
-		
-	}
-	
 }

@@ -108,12 +108,12 @@ public abstract class Creature extends Rectangle
 	 * sante maximale de la creature. Utilise pour calculer le pourcentage de 
 	 * vie restante de la creature.
 	 */
-	private long santeMax;
+	protected long santeMax;
 	
 	/**
 	 * le nombre de pieces d'or que la creature fourni au joueur apres ca mort
 	 */
-	private int nbPiecesDOr;
+	protected int nbPiecesDOr;
 	
 	/**
      * le prix de la créature
@@ -766,6 +766,24 @@ public abstract class Creature extends Rectangle
             }
         }
     }
-
-	public abstract Creature upgrade(int hp);
+    
+    /*
+     * returns the upgraded creature
+     */
+	public void upgrade(){
+		santeMax *= 1.1;
+		vitesseNormale *= 1.05;
+		setDropValue(1.1);
+	}
+	/*
+	 * returns the price of the creature for the resource manager
+	 */
+	public void setDropValue(){
+		setDropValue(1);
+	}
+	
+	public void setDropValue(double factor){
+		nbPiecesDOr = (int)(Math.floor(santeMax / vitesseNormale) * factor);
+		nbPiecesDOr = nbPiecesDOr == 0 ? 1 : nbPiecesDOr;
+	}
 }

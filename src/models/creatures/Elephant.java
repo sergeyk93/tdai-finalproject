@@ -21,11 +21,7 @@ package models.creatures;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import models.jeu.Jeu;
-
-import ai.Gold;
-import ai.Speed;
-import ai.Health;
+import ai.Constants;
 
 /**
  * Classe de gestion d'une creature.
@@ -58,7 +54,8 @@ public class Elephant extends Creature
 	}
 	
 	public Elephant(){
-		this(0, 0, Health.ELEPHANT, Gold.CREATURE ,Speed.SLOW);
+		this(0, 0, Constants.ELEPHANT, 0 ,Constants.SLOW);
+		setDropValue();
 	}
 	
 	/**
@@ -82,11 +79,5 @@ public class Elephant extends Creature
 	public Creature copier()
 	{
 		return new Elephant(x,y,getSanteMax(),getNbPiecesDOr(),getVitesseNormale());
-	}
-
-	@Override
-	public Creature upgrade(int hp) {
-		return new Elephant(x,y,Health.ELEPHANT + Health.ELEPHANT*hp,Gold.UPGRADE,getVitesseNormale());
-		
 	}
 }

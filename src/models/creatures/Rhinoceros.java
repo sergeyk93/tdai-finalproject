@@ -21,11 +21,7 @@ package models.creatures;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import models.jeu.Jeu;
-
-import ai.Gold;
-import ai.Speed;
-import ai.Health;
+import ai.Constants;
 
 /**
  * Classe de gestion d'une creature volante.
@@ -57,7 +53,8 @@ public class Rhinoceros extends Creature
 	}
 	
 	public Rhinoceros(){
-		this(0, 0, Health.RHINO, Gold.CREATURE ,Speed.SLOW);
+		this(0, 0, Constants.RHINO, 0 ,Constants.SLOW);
+		setDropValue();
 	}
 	
 	/**
@@ -81,11 +78,5 @@ public class Rhinoceros extends Creature
 	public Creature copier()
 	{
 		return new Rhinoceros(x,y,getSanteMax(),getNbPiecesDOr(),getVitesseNormale());
-	}
-
-	@Override
-	public Creature upgrade(int hp) {
-		return new Rhinoceros(x,y,Health.RHINO+ Health.RHINO*hp,Gold.UPGRADE,getVitesseNormale());
-		
 	}
 }

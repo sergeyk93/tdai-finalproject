@@ -1,9 +1,6 @@
 package ai;
 
-import models.creatures.Aigle;
 import models.creatures.Creature;
-import models.creatures.Pigeon;
-import models.jeu.Jeu;
 
 public class Price {
 	
@@ -11,12 +8,13 @@ public class Price {
 	private double price;
 	private boolean wasChosen;
 	private final double AIR_ADDITION = 20;
+	private final double upgradeFactor = 1.5;
 	
 	public Price(Creature creature){
 		this.creature=creature;
 		wasChosen = false;
 		price = creature.getSanteMax() + creature.getVitesseNormale();
-		if(creature instanceof Aigle || creature instanceof Pigeon){
+		if(creature.getType() == Creature.TYPE_AERIENNE){
 			price += AIR_ADDITION;
 		}
 	}
@@ -44,9 +42,13 @@ public class Price {
 	public void unChoose(){
 		wasChosen = false;
 	}
-
-	public void upgrade() {
-		creature = creature.upgrade(2*Jeu.getUpgrade());
-		price += price;
+	
+	public void upgrade(){
+		creature.upgrade();
+		price *= upgradeFactor;
+	}
+	
+	public double getUpgradePrice(){
+		return price * upgradeFactor;
 	}
 }

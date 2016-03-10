@@ -21,11 +21,7 @@ package models.creatures;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import models.jeu.Jeu;
-
-import ai.Gold;
-import ai.Speed;
-import ai.Health;
+import ai.Constants;
 
 /**
  * Classe de gestion d'un mouton noir.
@@ -58,7 +54,8 @@ public class MoutonNoir extends Creature
 	}
 	
 	public MoutonNoir(){
-		this(0, 0, Health.BLACK_SHEEP, Gold.CREATURE ,Speed.NORMAL);
+		this(0, 0, Constants.BLACK_SHEEP, 0 ,Constants.NORMAL);
+		setDropValue();
 	}
 
 	/**
@@ -82,11 +79,5 @@ public class MoutonNoir extends Creature
 	public Creature copier()
 	{
 		return new MoutonNoir(x,y,getSanteMax(),getNbPiecesDOr(),getVitesseNormale());
-	}
-
-	@Override
-	public Creature upgrade(int hp) {
-		return new MoutonNoir(x,y,Health.BLACK_SHEEP + Health.BLACK_SHEEP*hp,Gold.UPGRADE,getVitesseNormale());
-		
 	}
 }

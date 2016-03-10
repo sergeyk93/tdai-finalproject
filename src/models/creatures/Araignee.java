@@ -21,11 +21,7 @@ package models.creatures;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import models.jeu.Jeu;
-
-import ai.Gold;
-import ai.Speed;
-import ai.Health;
+import ai.Constants;
 
 /**
  * Classe de gestion d'une creature.
@@ -62,7 +58,8 @@ public class Araignee extends Creature
 	}
 	
 	public Araignee(){
-		this(0, 0, Health.SPIDER, Gold.CREATURE ,Speed.FAST);
+		this(0, 0, Constants.SPIDER, 0 ,Constants.FAST);
+		setDropValue();
 	}
 	
 	/**
@@ -102,10 +99,4 @@ public class Araignee extends Creature
             temps -= 100;
         }
     }
-
-	@Override
-	public Creature upgrade(int hp) {
-		return new Araignee(x,y,Health.SPIDER + Health.SPIDER*hp,Gold.UPGRADE,getVitesseNormale());
-		
-	}
 }

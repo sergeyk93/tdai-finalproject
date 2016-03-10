@@ -1,8 +1,8 @@
 package ai;
 
-public class Health {
+public class Constants {
 	/**
-	 * The base health of all the units
+	 * The base Constants of all the units
 	 */
 	public static int SHEEP = 30;
 	public static int BLACK_SHEEP = 50;

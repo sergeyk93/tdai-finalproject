@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import models.jeu.Jeu;
 
 import i18n.Langue;
-import ai.Health;
+import ai.Constants;
 import ai.WaveGenerator;
 
 /**
@@ -177,7 +177,7 @@ public class VagueDeCreatures
     	
 		if (Jeu.getNumVagueCourante()%10 == 0){
 			GrandeAraignee boss = new GrandeAraignee();
-			boss.setSante(Health.BOSS + (int)(Health.BOSS*0.5*(Jeu.getUpgrade())));
+			boss.setSante(Constants.BOSS + (int)(Constants.BOSS*0.5*(Jeu.getUpgrade())));
 			wave.add(boss);
 		}	
     	return new VagueDeCreatures(wave.size(), wave.get(0),
