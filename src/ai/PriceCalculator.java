@@ -68,10 +68,11 @@ public class PriceCalculator {
 		int waveSize = 0;
 		double budget = gameSession.getWallet();
 		
-		while(minPrice > 0 && waveSize <= 15){
+		while(budget > 0 && waveSize <= 15){
 			Price p = getBestCreature();
 			prices.add(p);
 			budget -= p.getPrice();
+			waveSize++;
 		}
 		
 		while(budget > minPrice * upgradeFactor){
