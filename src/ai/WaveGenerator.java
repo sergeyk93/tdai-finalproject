@@ -12,7 +12,7 @@ public class WaveGenerator {
 	public WaveGenerator(){
 		pc = new PriceCalculator();
 	}
-	
+	//test
 	public ArrayList<Creature> generate() throws Exception{
 		if (Jeu.getNumVagueCourante() / 10 > Jeu.getUpgrade()){
 			Jeu.incUpgrade();
