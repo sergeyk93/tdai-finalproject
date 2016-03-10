@@ -46,4 +46,9 @@ public class Grade {
 		avgDistance = newNum;
 		avgNum = newNum;
 	}
+	
+	public double getGrade(){
+		
+		return grade;
+	}
 }
