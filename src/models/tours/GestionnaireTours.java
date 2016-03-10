@@ -19,7 +19,9 @@
 package models.tours;
 
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.Vector;
+
 import models.creatures.Creature;
 import models.jeu.Jeu;
 
@@ -262,5 +264,9 @@ public class GestionnaireTours implements Runnable
     {
         arreterTours();
         tours.clear();
+    }
+    
+    public Iterator<Tour> getTourIter(){
+    	return tours.iterator();
     }
 }

@@ -181,13 +181,13 @@ public abstract class Jeu implements EcouteurDeJoueur,
      */
     private double coeffVitesse;
     
-    private static double wallet=0;
+    private double wallet=0;
     
-    public static void setWallet(double newWallet){
+    public void setWallet(double newWallet){
     	wallet=newWallet;
     }
     
-    public static double getWallet(){
+    public double getWallet(){
     	return wallet;
     }
     
@@ -201,7 +201,7 @@ public abstract class Jeu implements EcouteurDeJoueur,
         gestionnaireTours      = new GestionnaireTours(this);
         gestionnaireCreatures  = new GestionnaireCreatures(this);
         gestionnaireAnimations = new GestionnaireAnimations(this);
-        wg = new WaveGenerator();
+        wg = new WaveGenerator(this);
     }
     
     /**
@@ -1008,6 +1008,10 @@ public abstract class Jeu implements EcouteurDeJoueur,
     public static void incUpgrade()
     {
         upgrade++;
+    }
+    
+    public Iterator<Tour> getTourIter(){
+    	return gestionnaireTours.getTourIter();
     }
     
     /**
