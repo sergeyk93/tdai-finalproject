@@ -1,5 +1,5 @@
 /*
-  Copyright (C) 2010 Aurelien Da Campo
+gameSession  Copyright (C) 2010 Aurelien Da Campo
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -131,7 +131,6 @@ public abstract class Jeu implements EcouteurDeJoueur,
      * de creatures ont ete detruites, le jeu est considere comme termine.
      */
     protected static int indiceVagueCourante = 1;
-    protected static int upgrade = 0;
 	
     /**
      * Stockage de la vagues courante
@@ -998,16 +997,6 @@ public abstract class Jeu implements EcouteurDeJoueur,
     public static int getNumVagueCourante()
     {
         return indiceVagueCourante;
-    }
-    
-    public static int getUpgrade()
-    {
-        return upgrade;
-    }
-    
-    public static void incUpgrade()
-    {
-        upgrade++;
     }
     
     public Iterator<Tour> getTourIter(){

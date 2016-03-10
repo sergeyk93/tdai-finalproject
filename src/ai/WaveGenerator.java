@@ -8,19 +8,15 @@ import models.jeu.Jeu;
 public class WaveGenerator {
 	
 	private PriceCalculator pc;
-	private Jeu jeu;
+	private Jeu gameSession;
 	
-	public WaveGenerator(Jeu jeu){
+	public WaveGenerator(Jeu gameSession){
 		pc = new PriceCalculator();
-		this.jeu = jeu;
+		this.gameSession = gameSession;
 	}
 
 	public ArrayList<Creature> generate() throws Exception{
-		if (Jeu.getNumVagueCourante() / 10 > Jeu.getUpgrade()){
-			Jeu.incUpgrade();
-			//pc.upgrade();
-		}
-		return pc.compute();
+		return pc.compute(gameSession);
 	}
 
 }

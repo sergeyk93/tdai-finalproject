@@ -19,7 +19,7 @@ public class PriceCalculator {
 	private double minPrice;
 	// Upgrade factor - probably will be changed later
 	private static final double upgradeFactor = 2;
-
+	
 	public PriceCalculator(){
 		priceList=new ArrayList<Price>();
 		priceList.add(new Price(new Mouton()));
@@ -61,12 +61,12 @@ public class PriceCalculator {
 		return bestCreature;
 	}
 
-	public ArrayList<Creature> compute(){
+	public ArrayList<Creature> compute(Jeu gameSession){
 		ArrayList<Creature> ans = new ArrayList<Creature>();
 		ArrayList<Price> prices = new ArrayList<Price>();
 		
 		int waveSize = 0;
-		double budget = Jeu.getWallet();
+		double budget = gameSession.getWallet();
 		
 		while(minPrice > 0 && waveSize <= 15){
 			Price p = getBestCreature();
@@ -90,6 +90,9 @@ public class PriceCalculator {
 		for(Price p : prices){
 			ans.add(p.getCreature());
 		}
+		
+		gameSession.setWallet(budget);
+		
 		return ans;
 	}
 }
