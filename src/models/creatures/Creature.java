@@ -169,6 +169,8 @@ public abstract class Creature extends Rectangle
     private final double LARGEUR_MOITIE;
     private final double HAUTEUR_MOITIE;
     
+    private long timeElapsed;
+    
 	/**
 	 * Constructeur de la creature.
 	 * 
@@ -454,7 +456,9 @@ public abstract class Creature extends Rectangle
            && !aDetruire && !estMorte())
         {
             aDetruire = true;
-
+            // The creature has reached the end
+            timeElapsed = System.currentTimeMillis() - timeElapsed;
+            System.out.println(timeElapsed);
             // informe les ecouteurs que la creature est arrivee 
             // a la fin du parcours
             for(EcouteurDeCreature edc : ecouteursDeCreature)
@@ -471,10 +475,14 @@ public abstract class Creature extends Rectangle
      */
     protected void avancerSurChemin(long tempsEcoule)
     {
+    	
         // si la creature a un chemin et que le chemin n'est pas terminee, 
         // elle avance...
         if(chemin != null && indiceCourantChemin < chemin.size())
         {   
+        	if(timeElapsed == 0){
+        		timeElapsed = System.currentTimeMillis();
+        	}
             // calcul de la distance a parcourir sur le chemin
             double distanceAParcourir = getVitesseReelle() * ((double) tempsEcoule / 1000.0);
             
@@ -530,7 +538,6 @@ public abstract class Creature extends Rectangle
                     distanceAParcourir = 0;
                 }
             }
-            
             // mise a jour des coordonnees entieres
             x = (int) Math.round(xReel);
             y = (int) Math.round(yReel);
@@ -559,8 +566,11 @@ public abstract class Creature extends Rectangle
 				edc.creatureBlessee(this);
 			
 			// est-elle morte ?
-			if(estMorte())
+			if(estMorte()){
+				// The creature died
+				timeElapsed = System.currentTimeMillis() - timeElapsed;
 				mourrir(joueur);
+			}
 		}
 	}
 	
@@ -786,4 +796,5 @@ public abstract class Creature extends Rectangle
 		nbPiecesDOr = (int)(Math.floor(santeMax / vitesseNormale) * factor);
 		nbPiecesDOr = nbPiecesDOr == 0 ? 1 : nbPiecesDOr;
 	}
+	
 }

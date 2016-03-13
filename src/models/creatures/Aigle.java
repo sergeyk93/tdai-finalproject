@@ -68,7 +68,7 @@ public class Aigle extends Creature
 	public Aigle(int x, int y, long santeMax, int nbPiecesDOr, double vitesse)
 	{
 		super(x, y, 16, 16, santeMax, nbPiecesDOr, vitesse, 
-		      Creature.TYPE_AERIENNE, IMAGE, "Aigle");
+		      Creature.TYPE_AERIENNE, IMAGE, Constants.AIGLE);
 	}
 
 	/**

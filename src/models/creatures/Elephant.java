@@ -70,7 +70,7 @@ public class Elephant extends Creature
 	public Elephant(int x, int y, long santeMax, int nbPiecesDOr, double vitesse)
 	{
 		super(x, y, 24, 24, santeMax, nbPiecesDOr, vitesse,
-		        Creature.TYPE_TERRIENNE, IMAGE, "Elephant");
+		        Creature.TYPE_TERRIENNE, IMAGE, Constants.ELEPHAN);
 	}
 
 	/**

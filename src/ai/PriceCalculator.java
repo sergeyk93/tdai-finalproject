@@ -1,6 +1,7 @@
 package ai;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import models.creatures.Aigle;
 import models.creatures.Araignee;
@@ -15,50 +16,49 @@ import models.jeu.Jeu;
 
 public class PriceCalculator {
 
-	private ArrayList<Price> priceList;
+	private HashMap<String, Price> priceList;
+	private ArrayList<Creature> previousWave;
 	private double minPrice;
 	// Upgrade factor - probably will be changed later
 	private static final double upgradeFactor = 2;
-	
 	public PriceCalculator(){
-		priceList=new ArrayList<Price>();
-		priceList.add(new Price(new Mouton()));
-		priceList.add(new Price(new MoutonNoir()));
-		priceList.add(new Price(new Aigle()));
-		priceList.add(new Price(new Rhinoceros()));
-		priceList.add(new Price(new Araignee()));
-		priceList.add(new Price(new Paysan()));
-		priceList.add(new Price(new Elephant()));
-		priceList.add(new Price(new Pigeon()));
+		priceList=new HashMap<String, Price>();
+		priceList.put(Constants.MOUTON, new Price(new Mouton()));
+		priceList.put(Constants.MOUTON_NOIR, new Price(new MoutonNoir()));
+		priceList.put(Constants.AIGLE, new Price(new Aigle()));
+		priceList.put(Constants.RHINOCEROS, new Price(new Rhinoceros()));
+		priceList.put(Constants.ARAIGNEE, new Price(new Araignee()));
+		priceList.put(Constants.PAYSAN, new Price(new Paysan()));
+		priceList.put(Constants.ELEPHAN, new Price(new Elephant()));
+		priceList.put(Constants.PIGEONN, new Price(new Pigeon()));
 		minPrice = Double.MAX_VALUE;
-		for(Price p : priceList){
-			if(p.getPrice() <= minPrice){
-				minPrice = p.getPrice();
+		for(String c : priceList.keySet()){
+			double currentPrice = priceList.get(c).getPrice();
+			if(currentPrice <= minPrice){
+				minPrice = currentPrice;
 			}
 		}
-	}
-	
-	private double getGrade(Creature c){
-		Grade grade = new Grade(c);
-		return grade.getGrade();
+		previousWave = new ArrayList<Creature>();
 	}
 
 	private Price getBestCreature(){
-		Price bestCreature = null;
+		Creature bestCreature = null;
 		double maxGrade = Double.MIN_VALUE;
-		for(Price p : priceList){
-			double grade = getGrade(p.getCreature());
+		for(Creature c : previousWave){
+			double grade = (new Grade(c)).getGrade();
 			if(grade > maxGrade){
 				maxGrade = grade;
-				bestCreature = p;
+				bestCreature = c;
 			}
 			else if(grade == maxGrade){
 				int rand = (int)(Math.random() + 0.5);
-				bestCreature = rand == 0 ? bestCreature : p;
+				bestCreature = rand == 0 ? bestCreature : c;
 			}
 		}
-
-		return bestCreature;
+		if(bestCreature == null){
+			return (Price) priceList.values().toArray()[(int)(Math.random()*priceList.size())];
+		}
+		return priceList.get(bestCreature.getNom());
 	}
 
 	public ArrayList<Creature> compute(Jeu gameSession){
@@ -93,7 +93,7 @@ public class PriceCalculator {
 		}
 		
 		gameSession.setWallet(budget);
-		
+		previousWave = ans;
 		return ans;
 	}
 }

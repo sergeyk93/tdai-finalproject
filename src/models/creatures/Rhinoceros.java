@@ -69,7 +69,7 @@ public class Rhinoceros extends Creature
 	public Rhinoceros(int x, int y, long santeMax, int nbPiecesDOr, double vitesse)
 	{
 		super(x, y, 24, 24, santeMax, nbPiecesDOr, vitesse, 
-		      Creature.TYPE_TERRIENNE, IMAGE, "Rhinoceros");
+		      Creature.TYPE_TERRIENNE, IMAGE, Constants.RHINOCEROS);
 	}
 
 	/**

@@ -69,7 +69,7 @@ public class Pigeon extends Creature
 	public Pigeon(int x, int y, long santeMax, int nbPiecesDOr, double vitesse)
 	{
 		super(x, y, 16, 16, santeMax, nbPiecesDOr, vitesse, 
-		      Creature.TYPE_AERIENNE, IMAGE, "Pigeon");
+		      Creature.TYPE_AERIENNE, IMAGE, Constants.PIGEONN);
 	}
 
 	/**

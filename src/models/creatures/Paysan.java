@@ -75,7 +75,7 @@ public class Paysan extends Creature
 	public Paysan(int x, int y, long santeMax, int nbPiecesDOr, double vitesse)
 	{
 		super(x, y, 20, 20, santeMax, nbPiecesDOr, vitesse,
-		        Creature.TYPE_TERRIENNE, IMAGES[0], "Paysan");
+		        Creature.TYPE_TERRIENNE, IMAGES[0], Constants.PAYSAN);
 	}
 
 	/**
