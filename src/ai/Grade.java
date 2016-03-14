@@ -5,50 +5,39 @@ import models.creatures.Creature;
 public class Grade {
 	Creature c;
 	double grade;
+	int counter;
 	double avgDistance;
-	int avgNum;
 	
 	public Grade(Creature c){
 		this.c = c;
-		grade = initGrade();
+		// First grade value is based on max HP and speed
+		grade = (c.getSanteMax() * c.getVitesseNormale()) / (new Price(c).getPrice());
+		System.out.println(c.getNom() + " grade: " + grade);
+		counter = 0;
 		avgDistance = 0;
-		avgNum = 0;
-	}
-
-	private double initGrade() {
-		return c.getSanteMax() * c.getVitesseNormale();
 	}
 	
 	public void gradeTowerType(int airTowers, int groundTowers){
 		if (airTowers >= groundTowers){
-			if (c.getType() == Creature.TYPE_AERIENNE){
-				grade++;
-			}
-			else
-				grade--;
+			grade = c.getType() == Creature.TYPE_AERIENNE ? grade + 1 : grade - 1;
 		}
 		else{
-			if (c.getType() == Creature.TYPE_TERRIENNE){
-				grade++;
-			}
-			else
-				grade--;
+			grade = c.getType() == Creature.TYPE_TERRIENNE ? grade + 1 : grade - 1;
 		}
 	}
 	
-	public void gradeDistance(double lastAvgDistance, int lastAvgNum){
-		int newNum = lastAvgNum + avgNum;
-		double newAvg = (avgNum * avgDistance) / newNum;
-		if (newAvg > avgDistance)
+	public void gradeDistance(long timeElapsed){
+		counter++;
+		double newAvg = (avgDistance + timeElapsed) / counter;
+		if(newAvg > avgDistance){
 			grade++;
-		if (newAvg < avgDistance)
+		}
+		else if(newAvg < avgDistance){
 			grade--;
-		avgDistance = newNum;
-		avgNum = newNum;
+		}
 	}
 	
 	public double getGrade(){
-		
 		return grade;
 	}
 }

@@ -1,97 +1,102 @@
 package ai;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Iterator;
 
-import models.creatures.Aigle;
-import models.creatures.Araignee;
 import models.creatures.Creature;
-import models.creatures.Elephant;
-import models.creatures.Mouton;
-import models.creatures.MoutonNoir;
-import models.creatures.Paysan;
-import models.creatures.Pigeon;
-import models.creatures.Rhinoceros;
 import models.jeu.Jeu;
 
 public class PriceCalculator {
 
-	private HashMap<String, Price> priceList;
 	private ArrayList<Creature> previousWave;
-	private double minPrice;
-	// Upgrade factor - probably will be changed later
-	private static final double upgradeFactor = 2;
+
 	public PriceCalculator(){
-		priceList=new HashMap<String, Price>();
-		priceList.put(Constants.MOUTON, new Price(new Mouton()));
-		priceList.put(Constants.MOUTON_NOIR, new Price(new MoutonNoir()));
-		priceList.put(Constants.AIGLE, new Price(new Aigle()));
-		priceList.put(Constants.RHINOCEROS, new Price(new Rhinoceros()));
-		priceList.put(Constants.ARAIGNEE, new Price(new Araignee()));
-		priceList.put(Constants.PAYSAN, new Price(new Paysan()));
-		priceList.put(Constants.ELEPHAN, new Price(new Elephant()));
-		priceList.put(Constants.PIGEONN, new Price(new Pigeon()));
-		minPrice = Double.MAX_VALUE;
-		for(String c : priceList.keySet()){
-			double currentPrice = priceList.get(c).getPrice();
-			if(currentPrice <= minPrice){
-				minPrice = currentPrice;
-			}
-		}
+		Menu.init();
+		GradeCalculator.init();
 		previousWave = new ArrayList<Creature>();
 	}
 
-	private Price getBestCreature(){
+	/**
+	 * 
+	 * @return the best creature based on the current bought creatures
+	 */
+	private Creature getBestCreature(){
 		Creature bestCreature = null;
 		double maxGrade = Double.MIN_VALUE;
-		for(Creature c : previousWave){
-			double grade = (new Grade(c)).getGrade();
+		Iterator<Creature> iter = Menu.getIter();
+
+		while(iter.hasNext()){
+			Creature c = iter.next().copier();
+			double grade = GradeCalculator.getGrade(c.getNom());
+
 			if(grade > maxGrade){
 				maxGrade = grade;
 				bestCreature = c;
 			}
+
+			// Randomizing if 2 creatures have the same grade
 			else if(grade == maxGrade){
 				int rand = (int)(Math.random() + 0.5);
 				bestCreature = rand == 0 ? bestCreature : c;
 			}
 		}
-		if(bestCreature == null){
-			return (Price) priceList.values().toArray()[(int)(Math.random()*priceList.size())];
-		}
-		return priceList.get(bestCreature.getNom());
+		return bestCreature;
 	}
 
+	/**
+	 * 
+	 * @param gameSession
+	 * @return computes the prices of the wave the ai buys and updates the wallet
+	 */
 	public ArrayList<Creature> compute(Jeu gameSession){
 		ArrayList<Creature> ans = new ArrayList<Creature>();
-		ArrayList<Price> prices = new ArrayList<Price>();
-		
+
 		int waveSize = 0;
 		double budget = gameSession.getWallet();
-		
+
+		// Updating the grades based on the time that each creature was alive
+		// in the previous wave
+		for(Creature c : previousWave){
+			GradeCalculator.updateGradeDistance(c.getNom(), c.timeAlive());
+		}
+
+		// Updating the grades based on the towers that were
+		// built in the previous wave
+		Iterator<Creature> iter = Menu.getIter();
+		System.out.println("******************************");
+		while(iter.hasNext()){
+			Creature c = iter.next();
+			GradeCalculator.updateGradeTowers(c.getNom());
+			System.out.println(c.getNom() + " grade: " + GradeCalculator.getGrade(c.getNom()));
+		}
+
+		// Takes the 15 best creatures it can(or less if it can't)
 		while(budget > 0 && waveSize <= 15){
-			Price p = getBestCreature();
-			prices.add(p);
-			budget -= p.getPrice();
+			Creature c = getBestCreature();
+			ans.add(c);
+			budget -= Menu.getPrice(c.getNom()).getPrice();
 			waveSize++;
 		}
-		
-		while(budget > minPrice * upgradeFactor){
+
+		// Upgrades the creatures deterministically - could be changed to something 
+		// more sophisticated. Stops when the price hasn't been changed for 1 iteration
+		double upgradeFactor = 1.1;
+		while(true){
 			double prevBudget = budget;
-			for(Price p : prices){
-				if(p.getUpgradePrice() < budget){
-					budget += p.getPrice() - p.getUpgradePrice();
-					p.upgrade();
+			for(Creature c : ans){
+				Price p = Menu.getPrice(c.getNom());
+				double newPrice = p.getUpgradePrice(upgradeFactor);
+				if(newPrice <= budget){
+					budget += p.getPrice() - newPrice;
+					c.upgrade();
 				}
 			}
 			if(prevBudget == budget){
 				break;
 			}
+			upgradeFactor *= 1.1;
 		}
-		
-		for(Price p : prices){
-			ans.add(p.getCreature());
-		}
-		
+
 		gameSession.setWallet(budget);
 		previousWave = ans;
 		return ans;

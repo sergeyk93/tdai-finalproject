@@ -1,6 +1,7 @@
 package ai;
 
 public class Constants {
+	
 	/**
 	 * Creature names
 	 */
@@ -12,8 +13,9 @@ public class Constants {
 	public static final String PAYSAN = "Paysan";
 	public static final String ELEPHAN = "Elephant";
 	public static final String PIGEONN = "Pigeon";
+	
 	/**
-	 * The base Constants of all the units
+	 * Constant HP of all creatures
 	 */
 	public static int SHEEP = 30;
 	public static int BLACK_SHEEP = 50;
@@ -26,7 +28,7 @@ public class Constants {
 	public static int BOSS = 640;
 	
 	/**
-	 * Constants mods for all the units
+	 * Constant speed value of all creatures
 	 */
 	public static final double SLOW = 30.0;
 	public static final double NORMAL = 50.0;

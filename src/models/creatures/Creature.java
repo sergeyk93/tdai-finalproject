@@ -458,7 +458,6 @@ public abstract class Creature extends Rectangle
             aDetruire = true;
             // The creature has reached the end
             timeElapsed = System.currentTimeMillis() - timeElapsed;
-            System.out.println(timeElapsed);
             // informe les ecouteurs que la creature est arrivee 
             // a la fin du parcours
             for(EcouteurDeCreature edc : ecouteursDeCreature)
@@ -797,4 +796,7 @@ public abstract class Creature extends Rectangle
 		nbPiecesDOr = nbPiecesDOr == 0 ? 1 : nbPiecesDOr;
 	}
 	
+	public long timeAlive(){
+		return timeElapsed;
+	}
 }
