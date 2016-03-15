@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import models.creatures.Creature;
 import models.jeu.Jeu;
+import models.tours.Tour;
 
 public class PriceCalculator {
 
@@ -59,6 +60,20 @@ public class PriceCalculator {
 		for(Creature c : previousWave){
 			GradeCalculator.updateGradeDistance(c.getNom(), c.timeAlive());
 		}
+		
+		//Calcuting the number of air towers and ground towers
+		Iterator<Tour> towerIter = gameSession.getTowersIterator();
+		int groundTowers = 0, airTowers = 0;
+		while(towerIter.hasNext()){
+			Tour t = towerIter.next();
+			if(t.getType() == Tour.TYPE_TERRESTRE){
+				groundTowers++;
+			}
+			else if(t.getType() == Tour.TYPE_AIR){
+				airTowers++;
+			}
+		}
+		System.out.println("Ground Towers: " + groundTowers + ", Air Towers: " + airTowers);
 
 		// Updating the grades based on the towers that were
 		// built in the previous wave
@@ -66,7 +81,7 @@ public class PriceCalculator {
 		System.out.println("******************************");
 		while(iter.hasNext()){
 			Creature c = iter.next();
-			GradeCalculator.updateGradeTowers(c.getNom());
+			GradeCalculator.updateGradeTowers(c.getNom(), groundTowers, airTowers);
 			System.out.println(c.getNom() + " grade: " + GradeCalculator.getGrade(c.getNom()));
 		}
 

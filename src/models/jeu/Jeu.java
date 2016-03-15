@@ -1137,4 +1137,8 @@ public abstract class Jeu implements EcouteurDeJoueur,
     {
         equipes.remove(equipe);
     }
+    
+    public Iterator<Tour> getTowersIterator(){
+    	return gestionnaireTours.getTourIter();
+    }
 }

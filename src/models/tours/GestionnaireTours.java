@@ -259,6 +259,10 @@ public class GestionnaireTours implements Runnable
       
         return null;
     }
+    
+    public Iterator<Tour> getTowersIter(){
+    	return tours.iterator();
+    }
 
     public void detruire()
     {

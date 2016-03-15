@@ -30,10 +30,10 @@ public class GradeCalculator {
 		grades.put(Constants.RHINOCEROS, new Grade(new Rhinoceros()));
 	}
 	
-	public static void updateGradeTowers(String creatureName){
+	public static void updateGradeTowers(String creatureName, int groundTowers, int airTowers){
 		if(grades.containsKey(creatureName)){
 			// WILL BE CHANGED ONCE WE FIGURE OUT HOW TO GET THE NUMBER OF EACH TOWER
-			grades.get(creatureName).gradeTowerType(0, 0);
+			grades.get(creatureName).gradeTowerType(groundTowers, airTowers);
 		}
 	}
 	
