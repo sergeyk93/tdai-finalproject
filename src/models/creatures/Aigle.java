@@ -22,7 +22,6 @@ import java.awt.Image;
 import java.awt.Toolkit;
 
 import ai.Constants;
-
 /**
  * Classe de gestion d'une creature volante.
  * 

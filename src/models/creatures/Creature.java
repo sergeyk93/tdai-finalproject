@@ -22,6 +22,8 @@ import i18n.Langue;
 
 import java.awt.*;
 import java.util.*;
+
+import ai.GradeCalculator;
 import models.joueurs.*;
 import models.tours.Tour;
 
@@ -206,6 +208,7 @@ public abstract class Creature extends Rectangle
 		this.image 			= image;
 		TYPE                = type;
 		NOM                 = nom;
+		timeElapsed			= 0;
 	}
 
 	/**
@@ -458,6 +461,7 @@ public abstract class Creature extends Rectangle
             aDetruire = true;
             // The creature has reached the end
             timeElapsed = System.currentTimeMillis() - timeElapsed;
+            GradeCalculator.updateGradeDistance(getNom(), timeElapsed);
             // informe les ecouteurs que la creature est arrivee 
             // a la fin du parcours
             for(EcouteurDeCreature edc : ecouteursDeCreature)
@@ -568,6 +572,7 @@ public abstract class Creature extends Rectangle
 			if(estMorte()){
 				// The creature died
 				timeElapsed = System.currentTimeMillis() - timeElapsed;
+				GradeCalculator.updateGradeDistance(getNom(), timeElapsed);
 				mourrir(joueur);
 			}
 		}

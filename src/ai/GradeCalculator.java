@@ -2,14 +2,7 @@ package ai;
 
 import java.util.HashMap;
 
-import models.creatures.Aigle;
-import models.creatures.Araignee;
-import models.creatures.Elephant;
-import models.creatures.Mouton;
-import models.creatures.MoutonNoir;
-import models.creatures.Paysan;
-import models.creatures.Pigeon;
-import models.creatures.Rhinoceros;
+import models.creatures.*;
 
 public class GradeCalculator {
 	
@@ -45,5 +38,9 @@ public class GradeCalculator {
 	
 	public static double getGrade(String creatureName){
 		return grades.get(creatureName).getGrade();
+	}
+	
+	public static void incQuantity(String creatureName){
+		grades.get(creatureName).incQuantity();
 	}
 }
