@@ -56,14 +56,8 @@ public class PriceCalculator {
 		int waveSize = 0;
 		double budget = gameSession.getWallet();
 		
-		// Updating the grades based on the time that each creature was alive
-		// in the previous wave
-//		for(Creature c : previousWave){
-//			GradeCalculator.updateGradeDistance(c.getNom(), c.timeAlive());
-//		}
-		
 		previousWave = new ArrayList<Creature>();
-		//Calcuting the number of air towers and ground towers
+		//Calculating the number of air towers and ground towers
 		Iterator<Tour> towerIter = gameSession.getTowersIterator();
 		int groundTowers = 0, airTowers = 0;
 		while(towerIter.hasNext()){
