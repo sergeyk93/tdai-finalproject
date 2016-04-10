@@ -14,6 +14,7 @@ public class PriceCalculator {
 	public PriceCalculator(){
 		Menu.init();
 		GradeCalculator.init();
+		DdaManager.init();
 		previousWave = new ArrayList<Creature>();
 	}
 

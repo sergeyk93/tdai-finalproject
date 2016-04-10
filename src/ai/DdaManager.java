@@ -2,15 +2,15 @@ package ai;
 
 public class DdaManager {
 
-	private int currentHP;
-	private int CurrentLastCreatureTime;
-	private int thresholdHP;
-	private int thresholdTime;
-	private Dda dda;
-	private Boolean firstWave;
-	private int chooseDda;
+	private static int currentHP;
+	private static int CurrentLastCreatureTime;
+	private static int thresholdHP;
+	private static int thresholdTime;
+	private static Dda dda;
+	private static Boolean firstWave;
+	private static int chooseDda;
 	
-	public DdaManager(){
+	public static void init() {
 		currentHP = 20;
 		CurrentLastCreatureTime = 0;
 		thresholdHP = 3;
@@ -20,7 +20,7 @@ public class DdaManager {
 		chooseDda = 0;
 	}
 	
-	public void updateDda(int newHP, int newTime){
+	public static void updateDda(int newHP, int newTime){
 		
 		if (firstWave == false){
 			if (currentHP - newHP >= thresholdHP)
@@ -53,8 +53,5 @@ public class DdaManager {
 		currentHP = newHP;
 		CurrentLastCreatureTime = newTime;
 	}
-	
-	public Dda getDda(){
-		return dda;
-	}
+
 }
