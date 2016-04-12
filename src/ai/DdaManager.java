@@ -2,13 +2,13 @@ package ai;
 
 public class DdaManager {
 
-	private static int currentHP;
-	private static int CurrentLastCreatureTime;
-	private static int thresholdHP;
-	private static int thresholdTime;
-	private static Dda dda;
-	private static Boolean firstWave;
-	private static int chooseDda;
+	public static int currentHP;
+	public static int CurrentLastCreatureTime;
+	public static int thresholdHP;
+	public static int thresholdTime;
+	public static Dda dda;
+	public static Boolean firstWave;
+	public static int chooseDda;
 	
 	public static void init() {
 		currentHP = 20;

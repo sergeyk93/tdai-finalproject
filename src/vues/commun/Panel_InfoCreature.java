@@ -192,9 +192,9 @@ public class Panel_InfoCreature extends JPanel
      * 
      * @return la sante sous la forme 5000 = 5M, 3000000 = 3G
      */
-    private String formaterSante(long sante)
+    private String formaterSante(double sante)
     { 
-        long tmp;
+    	double tmp;
         if(sante >= KILO && sante < MEGA)
         {    
             tmp = sante / KILO;

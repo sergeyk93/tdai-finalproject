@@ -47,7 +47,7 @@ public class Rhinoceros extends Creature
 	 * @param nbPiecesDOr le nombre de pieces d'or de cette creature
 	 * @param vitesse vitesse de la creature
 	 */
-	public Rhinoceros(long santeMax, int nbPiecesDOr, double vitesse)
+	public Rhinoceros(double santeMax, int nbPiecesDOr, double vitesse)
 	{
 		this(0, 0, santeMax, nbPiecesDOr,vitesse);
 	}
@@ -66,7 +66,7 @@ public class Rhinoceros extends Creature
 	 * @param nbPiecesDOr le nombre de pieces d'or de cette creature
 	 * @param vitesse vitesse de la creature
 	 */
-	public Rhinoceros(int x, int y, long santeMax, int nbPiecesDOr, double vitesse)
+	public Rhinoceros(int x, int y, double santeMax, int nbPiecesDOr, double vitesse)
 	{
 		super(x, y, 24, 24, santeMax, nbPiecesDOr, vitesse, 
 		      Creature.TYPE_TERRIENNE, IMAGE, Constants.RHINOCEROS);

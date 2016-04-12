@@ -48,7 +48,7 @@ public class Elephant extends Creature
 	 * @param nbPiecesDOr le nombre de pieces d'or de cette creature
 	 * @param vitesse vitesse de la creature
 	 */
-	public Elephant(long santeMax, int nbPiecesDOr, double vitesse)
+	public Elephant(double santeMax, int nbPiecesDOr, double vitesse)
 	{
 		this(0, 0, santeMax, nbPiecesDOr,vitesse);
 	}
@@ -67,7 +67,7 @@ public class Elephant extends Creature
 	 * @param nbPiecesDOr le nombre de pieces d'or de cette creature
 	 * @param vitesse vitesse de la creature
 	 */
-	public Elephant(int x, int y, long santeMax, int nbPiecesDOr, double vitesse)
+	public Elephant(int x, int y, double santeMax, int nbPiecesDOr, double vitesse)
 	{
 		super(x, y, 24, 24, santeMax, nbPiecesDOr, vitesse,
 		        Creature.TYPE_TERRIENNE, IMAGE, Constants.ELEPHAN);

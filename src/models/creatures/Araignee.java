@@ -71,7 +71,7 @@ public class Araignee extends Creature
 	 * @param nbPiecesDOr le nombre de pieces d'or de cette creature
 	 * @param vitesse vitesse de la creature
 	 */
-	public Araignee(int x, int y, long santeMax, int nbPiecesDOr, double vitesse)
+	public Araignee(int x, int y, double santeMax, int nbPiecesDOr, double vitesse)
 	{
 		super(x, y, 16, 16, santeMax, nbPiecesDOr, vitesse,
 		        Creature.TYPE_TERRIENNE, IMAGES[0], Constants.ARAIGNEE);

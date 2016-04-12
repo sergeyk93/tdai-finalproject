@@ -47,7 +47,7 @@ public class Pigeon extends Creature
 	 * @param nbPiecesDOr le nombre de pieces d'or de cette creature
 	 * @param vitesse vitesse de la creature
 	 */
-	public Pigeon(long santeMax, int nbPiecesDOr, double vitesse)
+	public Pigeon(double santeMax, int nbPiecesDOr, double vitesse)
 	{
 		this(0, 0, santeMax, nbPiecesDOr,vitesse);
 	}
@@ -66,7 +66,7 @@ public class Pigeon extends Creature
 	 * @param nbPiecesDOr le nombre de pieces d'or de cette creature
 	 * @param vitesse vitesse de la creature
 	 */
-	public Pigeon(int x, int y, long santeMax, int nbPiecesDOr, double vitesse)
+	public Pigeon(int x, int y, double santeMax, int nbPiecesDOr, double vitesse)
 	{
 		super(x, y, 16, 16, santeMax, nbPiecesDOr, vitesse, 
 		      Creature.TYPE_AERIENNE, IMAGE, Constants.PIGEONN);

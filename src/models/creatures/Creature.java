@@ -104,13 +104,13 @@ public abstract class Creature extends Rectangle
 	 * sante de la creature, si la sante est <= 0, la creature est morte. 
 	 * A ce moment la, elle donne au joueur ses pieces d'or
 	 */
-	private long sante;
+	private double sante;
 	
 	/**
 	 * sante maximale de la creature. Utilise pour calculer le pourcentage de 
 	 * vie restante de la creature.
 	 */
-	protected long santeMax;
+	protected double santeMax;
 	
 	/**
 	 * le nombre de pieces d'or que la creature fourni au joueur apres ca mort
@@ -188,7 +188,7 @@ public abstract class Creature extends Rectangle
 	 * @param nom nom de l'espece de creature
 	 */
 	public Creature(int x, int y, int largeur, int hauteur, 
-					long santeMax, int nbPiecesDOr, double vitesse, 
+			double santeMax, int nbPiecesDOr, double vitesse, 
 					int type, Image image, String nom)
 	{
 		super(x,y,largeur,hauteur);
@@ -276,7 +276,7 @@ public abstract class Creature extends Rectangle
 	 * 
 	 * @return la sante de la creature
 	 */
-	public long getSante()
+	public double getSante()
 	{
 		return sante;
 	}
@@ -286,7 +286,7 @@ public abstract class Creature extends Rectangle
 	 * 
 	 * @return la sante maximale de la creature
 	 */
-	public long getSanteMax()
+	public double getSanteMax()
 	{
 		return santeMax;
 	}
@@ -722,7 +722,7 @@ public abstract class Creature extends Rectangle
      * 
      * @param santeMax la nouvelle santé maximale
      */
-    public void setSanteMax(long santeMax)
+    public void setSanteMax(double santeMax)
     {
         this.santeMax = santeMax;
     }

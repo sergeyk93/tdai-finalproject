@@ -611,7 +611,7 @@ public abstract class Tour extends Rectangle
         // variables temporaires pour calcul
         Creature creatureLaPlusFaible   = null;
         
-        long santeMinMax = 0;
+        double santeMinMax = 0;
         if(plusFaible) 
             santeMinMax = Long.MAX_VALUE;
 

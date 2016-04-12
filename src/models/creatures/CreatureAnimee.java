@@ -66,7 +66,7 @@ public class CreatureAnimee extends Creature
 	 * @param nbPiecesDOr le nombre de pieces d'or de cette creature
 	 * @param vitesse vitesse de la creature
 	 */
-	public CreatureAnimee(int x, int y, long santeMax, int nbPiecesDOr, double vitesse)
+	public CreatureAnimee(int x, int y, double santeMax, int nbPiecesDOr, double vitesse)
 	{
 		super(x, y, 14, 14, santeMax,nbPiecesDOr,vitesse,
 		        Creature.TYPE_TERRIENNE ,IMAGES[0],"Rhinoceros");

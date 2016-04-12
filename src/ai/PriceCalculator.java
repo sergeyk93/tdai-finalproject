@@ -43,6 +43,8 @@ public class PriceCalculator {
 			}
 		}
 		GradeCalculator.incQuantity(bestCreature.getNom());
+		bestCreature.setSanteMax(bestCreature.getSanteMax() * DdaManager.dda.health_coef);
+		bestCreature.setVitesse(bestCreature.getVitesseNormale() * DdaManager.dda.speed_coef);
 		return bestCreature;
 	}
 
@@ -58,6 +60,19 @@ public class PriceCalculator {
 		double budget = gameSession.getWallet();
 		
 		previousWave = new ArrayList<Creature>();
+		
+		// Update of DDA
+		
+		int prevAliveCreatures = 0;
+		int timeElapsed = 0;
+		for(Creature c : previousWave){
+			if(!c.estMorte()){
+				prevAliveCreatures++;
+			}
+		}
+		
+		//DdaManager.updateDda(prevAliveCreatures, timeElapsed);
+		
 		//Calculating the number of air towers and ground towers
 		Iterator<Tour> towerIter = gameSession.getTowersIterator();
 		int groundTowers = 0, airTowers = 0;
@@ -70,12 +85,10 @@ public class PriceCalculator {
 				airTowers++;
 			}
 		}
-		System.out.println("Ground Towers: " + groundTowers + ", Air Towers: " + airTowers);
 
 		// Updating the grades based on the towers that were
 		// built in the previous wave
 		Iterator<Creature> iter = Menu.getIter();
-		System.out.println("******************************");
 		while(iter.hasNext()){
 			Creature c = iter.next();
 			GradeCalculator.updateGradeTowers(c.getNom(), groundTowers, airTowers);
