@@ -89,12 +89,17 @@ public class PriceCalculator {
 		// Updating the grades based on the towers that were
 		// built in the previous wave
 		Iterator<Creature> iter = Menu.getIter();
+		StringBuilder prevWaveLog = new StringBuilder();
+		prevWaveLog.append(System.lineSeparator());
+		prevWaveLog.append("Previous' wave creature grades: ");
+		prevWaveLog.append(System.lineSeparator());
 		while(iter.hasNext()){
 			Creature c = iter.next();
 			GradeCalculator.updateGradeTowers(c.getNom(), groundTowers, airTowers);
-			System.out.println(c.getNom() + " grade: " + GradeCalculator.getGrade(c.getNom()));
+			prevWaveLog.append(c.getNom() + " grade: " + GradeCalculator.getGrade(c.getNom()));
+			prevWaveLog.append(System.lineSeparator());
 		}
-
+		AILogger.info(prevWaveLog.toString());
 		// Takes the 15 best creatures it can(or less if it can't)
 		while(budget > 0 && waveSize <= 15){
 			Creature c = getBestCreature();
@@ -123,9 +128,16 @@ public class PriceCalculator {
 		}
 
 		gameSession.setWallet(budget);
-		
-		for (Creature c : ans)
+		StringBuilder log = new StringBuilder();
+		prevWaveLog.append(System.lineSeparator());
+		log.append("The chosen wave is: ");
+		log.append(System.lineSeparator());
+		for (Creature c : ans){
+			log.append(c.getNom());
+			log.append(System.lineSeparator());
 			previousWave.add(c);
+		}
+		AILogger.info(log.toString());
 		return ans;
 	}
 }

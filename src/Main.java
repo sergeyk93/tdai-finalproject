@@ -66,5 +66,12 @@ public class Main
       
       // creation du menu principal
       new Fenetre_MenuPrincipal();
+      
+      // A shutdown hook that closes the logger's file handler
+      Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+          public void run() {
+              ai.AILogger.closeLogger();
+          }
+      }, "Shutdown-thread"));
    }
 }

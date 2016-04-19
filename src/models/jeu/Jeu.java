@@ -21,6 +21,7 @@ package models.jeu;
 import i18n.Langue;
 
 import java.awt.Graphics2D;
+import java.io.IOException;
 import java.util.*;
 
 import ai.WaveGenerator;
@@ -200,6 +201,13 @@ public abstract class Jeu implements EcouteurDeJoueur,
         gestionnaireTours      = new GestionnaireTours(this);
         gestionnaireCreatures  = new GestionnaireCreatures(this);
         gestionnaireAnimations = new GestionnaireAnimations(this);
+        // Initialzing a logger that will track the computations of the AI
+        try {
+			ai.AILogger.initLogger();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        // Initializing a new wave generator that utilizies the AI
         wg = new WaveGenerator(this);
     }
     

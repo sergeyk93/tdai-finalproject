@@ -14,7 +14,6 @@ public class Grade {
 		this.c = c;
 		// First grade value is based on max HP and speed
 		grade = (c.getSanteMax() * c.getVitesseNormale()) / (new Price(c).getPrice());
-		System.out.println(c.getNom() + " grade: " + grade);
 		counter = 1;
 		quantity = 0;
 		avgDistance = 5000;
@@ -51,7 +50,6 @@ public class Grade {
 				grade--;
 			}
 			quantity--;
-			System.out.println("yes");
 		}
 	}
 	
