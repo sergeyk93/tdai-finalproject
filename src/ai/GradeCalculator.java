@@ -12,6 +12,9 @@ public class GradeCalculator {
 	 */
 	private static HashMap<String, Grade> grades = new HashMap<String, Grade>();
 
+	/**
+	 * Initializing a grade for each creature
+	 */
 	public static void init(){
 		grades.put(Constants.AIGLE, new Grade(new Aigle()));
 		grades.put(Constants.ARAIGNEE, new Grade(new Araignee()));
@@ -24,10 +27,8 @@ public class GradeCalculator {
 	}
 
 	public static void updateGradeTowers(String creatureName, int groundTowers, int airTowers){
-		if(grades.containsKey(creatureName)){
-			// WILL BE CHANGED ONCE WE FIGURE OUT HOW TO GET THE NUMBER OF EACH TOWER
-			grades.get(creatureName).gradeTowerType(groundTowers, airTowers);
-		}
+		grades.get(creatureName).gradeTowerType(groundTowers, airTowers);
+
 	}
 
 	public static void updateGradeDistance(String creatureName, double timeElapsed){
@@ -37,24 +38,24 @@ public class GradeCalculator {
 	public static double getGrade(String creatureName){
 		return grades.get(creatureName).getGrade();
 	}
-	
+
 	public static void incGrade(String creatureName){
-		grades.get(creatureName).addGrade();
+		grades.get(creatureName).incGrade();
 	}
-	
+
 	/**
 	 * 
-	 * @return the best creature for the wave
+	 * @return bestCreature - the best creature for the current wave
 	 */
 	public static Creature getBestCreature(){
 		Creature bestCreature = null;
 		double maxGrade = Double.MIN_VALUE;
-		
+
 		for(String name : grades.keySet()){
 			double grade = GradeCalculator.getGrade(name);
-			
+
 			// If the grade difference is less or equal than 1 then we randomly pick the creature
-			if(grade <= maxGrade - 1 || grade >= maxGrade + 1){
+			if(grade >= maxGrade - 1 || grade <= maxGrade + 1){
 				int rand = (int)(Math.random() + 0.5);
 				bestCreature = rand == 0 ? bestCreature : grades.get(name).getCreature();
 				continue;
@@ -64,8 +65,11 @@ public class GradeCalculator {
 				bestCreature = grades.get(name).getCreature();
 			}
 		}
-		
-		grades.get(bestCreature.getNom()).incQuantity();
+
 		return bestCreature;
+	}
+	
+	public static Creature getCreature(String creatureName){
+		return grades.get(creatureName).getCreature();
 	}
 }
