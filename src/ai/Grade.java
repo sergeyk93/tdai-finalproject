@@ -9,6 +9,7 @@ public class Grade {
 	private int prevAirTowers;
 	private int prevGroundTowers;
 	private boolean moreAirTowers;
+	private boolean wasChosen;
 
 	public Grade(Creature c){
 		this.c = c;
@@ -18,6 +19,7 @@ public class Grade {
 		prevAirTowers = 0;
 		prevGroundTowers = 0;
 		moreAirTowers = false;
+		wasChosen = false;
 	}
 
 	/**
@@ -61,11 +63,9 @@ public class Grade {
 	}
 
 	public double getGrade(){
+		grade = wasChosen ? grade - 1 : grade + 1;
+		wasChosen = false;
 		return grade;
-	}
-
-	public void incGrade(){
-		grade++;
 	}
 
 	public Creature getCreature(){

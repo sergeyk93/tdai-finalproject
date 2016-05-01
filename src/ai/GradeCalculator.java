@@ -39,10 +39,6 @@ public class GradeCalculator {
 		return grades.get(creatureName).getGrade();
 	}
 
-	public static void incGrade(String creatureName){
-		grades.get(creatureName).incGrade();
-	}
-
 	/**
 	 * 
 	 * @return bestCreature - the best creature for the current wave
@@ -55,21 +51,17 @@ public class GradeCalculator {
 			double grade = GradeCalculator.getGrade(name);
 
 			// If the grade difference is less or equal than 1 then we randomly pick the creature
-			if(grade >= maxGrade - 1 || grade <= maxGrade + 1){
+			/*if(grade >= maxGrade - 1){
 				int rand = (int)(Math.random() + 0.5);
 				bestCreature = rand == 0 ? bestCreature : grades.get(name).getCreature();
 				continue;
-			}
+			}*/
 			if(grade > maxGrade){
 				maxGrade = grade;
 				bestCreature = grades.get(name).getCreature();
 			}
 		}
 
-		return bestCreature;
-	}
-	
-	public static Creature getCreature(String creatureName){
-		return grades.get(creatureName).getCreature();
+		return bestCreature.copier();
 	}
 }
