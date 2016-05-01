@@ -5,8 +5,6 @@ import models.creatures.Creature;
 public class Grade {
 	Creature c;
 	double grade;
-	int counter;
-	int quantity;
 	double avgDistance;
 	boolean hasReduced;
 	
@@ -14,12 +12,16 @@ public class Grade {
 		this.c = c;
 		// First grade value is based on max HP and speed
 		grade = (c.getSanteMax() * c.getVitesseNormale()) / (new Price(c).getPrice());
-		counter = 1;
-		quantity = 0;
 		avgDistance = 5000;
 		hasReduced = false;
 	}
 	
+	/**
+	 * Updates the grade based on the towers the player bought
+	 * For example if there are many air towers we will reduce the grade of air units
+	 * @param airTowers
+	 * @param groundTowers
+	 */
 	public void gradeTowerType(int airTowers, int groundTowers){
 		double temp = grade;
 		if (airTowers >= groundTowers){
@@ -28,8 +30,8 @@ public class Grade {
 		else{
 			grade = c.getType() == Creature.TYPE_TERRIENNE ? grade + 1 : grade - 1;
 		}
-		if (temp>grade)
-			if (hasReduced == true)
+		if (temp > grade)
+			if (hasReduced)
 				grade = temp;
 			else
 				hasReduced = true;
@@ -37,27 +39,29 @@ public class Grade {
 			hasReduced = false;
 	}
 	
-	public synchronized void gradeDistance(long timeElapsed){
-		if (quantity > 1)
-			quantity--;
-		else{
-			counter++;
-			double newAvg = (avgDistance*(counter-1) + timeElapsed) / counter;
-			if(newAvg > avgDistance){
-				grade++;
-			}
-			else if(newAvg < avgDistance){
-				grade--;
-			}
-			quantity--;
+	/**
+	 * Updating the new average distance and updating the grade accordingly
+	 * @param timeElapsed
+	 */
+	public void gradeDistance(double timeElapsed){
+		if(avgDistance < timeElapsed){
+			grade++;
 		}
-	}
-	
-	public void incQuantity(){
-		quantity++;
+		else{
+			grade--;
+		}
+		avgDistance = timeElapsed;
 	}
 	
 	public double getGrade(){
 		return grade;
+	}
+	
+	public void addGrade(){
+		grade++;
+	}
+	
+	public Creature getCreature(){
+		return c;
 	}
 }

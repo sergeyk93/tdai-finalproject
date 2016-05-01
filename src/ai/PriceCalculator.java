@@ -1,7 +1,9 @@
 package ai;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import models.creatures.Creature;
 import models.jeu.Jeu;
@@ -10,42 +12,20 @@ import models.tours.Tour;
 public class PriceCalculator {
 
 	private ArrayList<Creature> previousWave;
+	private HashMap<String, LinkedList<Long>> timeAliveTable;
 
 	public PriceCalculator(){
 		Menu.init();
 		GradeCalculator.init();
 		DdaManager.init();
 		previousWave = new ArrayList<Creature>();
-	}
-
-	/**
-	 * 
-	 * @return the best creature based on the current bought creatures
-	 */
-	private Creature getBestCreature(){
-		Creature bestCreature = null;
-		double maxGrade = Double.MIN_VALUE;
+		
+		timeAliveTable = new HashMap<String, LinkedList<Long>>();
 		Iterator<Creature> iter = Menu.getIter();
-
 		while(iter.hasNext()){
-			Creature c = iter.next().copier();
-			double grade = GradeCalculator.getGrade(c.getNom());
-
-			if(grade > maxGrade){
-				maxGrade = grade;
-				bestCreature = c;
-			}
-
-			// Randomizing if 2 creatures have the same grade
-			else if(grade == maxGrade){
-				int rand = (int)(Math.random() + 0.5);
-				bestCreature = rand == 0 ? bestCreature : c;
-			}
+			Creature c = iter.next();
+			timeAliveTable.put(c.getNom(), new LinkedList<Long>());
 		}
-		GradeCalculator.incQuantity(bestCreature.getNom());
-		bestCreature.setSanteMax(bestCreature.getSanteMax() * DdaManager.dda.health_coef);
-		bestCreature.setVitesse(bestCreature.getVitesseNormale() * DdaManager.dda.speed_coef);
-		return bestCreature;
 	}
 
 	/**
@@ -59,19 +39,29 @@ public class PriceCalculator {
 		int waveSize = 0;
 		double budget = gameSession.getWallet();
 		
-		previousWave = new ArrayList<Creature>();
-		
-		// Update of DDA
-		
-		int prevAliveCreatures = 0;
-		int timeElapsed = 0;
+		// Adding the time that creature c was alive for computing the average alive time later
 		for(Creature c : previousWave){
-			if(!c.estMorte()){
-				prevAliveCreatures++;
-			}
+			timeAliveTable.get(c.getNom()).add(c.timeAlive());
 		}
 		
-		//DdaManager.updateDda(prevAliveCreatures, timeElapsed);
+		// Updating the grade of a creature by the time it was alive
+		// If the creature wasn't chosen we increase its' grade
+		Iterator<Creature> iter = Menu.getIter();
+		while(iter.hasNext()){
+			String name = iter.next().getNom();
+			if(timeAliveTable.get(name).isEmpty()){
+				GradeCalculator.incGrade(name);
+				continue;
+			}
+			LinkedList<Long> aliveTimes = timeAliveTable.get(name);
+			double avg = 0;
+			int size = aliveTimes.size();
+			while(!aliveTimes.isEmpty()){
+				avg += aliveTimes.pop();
+			}
+			avg /= size;
+			GradeCalculator.updateGradeDistance(name, avg);
+		}
 		
 		//Calculating the number of air towers and ground towers
 		Iterator<Tour> towerIter = gameSession.getTowersIterator();
@@ -88,7 +78,7 @@ public class PriceCalculator {
 
 		// Updating the grades based on the towers that were
 		// built in the previous wave
-		Iterator<Creature> iter = Menu.getIter();
+		iter = Menu.getIter();
 		StringBuilder prevWaveLog = new StringBuilder();
 		prevWaveLog.append(System.lineSeparator());
 		prevWaveLog.append("----------- Wave");
@@ -96,6 +86,9 @@ public class PriceCalculator {
 		prevWaveLog.append(Jeu.getNumVagueCourante());
 		prevWaveLog.append(" ");
 		prevWaveLog.append("creature grades: -----------");
+		prevWaveLog.append(System.lineSeparator());
+		prevWaveLog.append("Current budget: ");
+		prevWaveLog.append(budget);
 		prevWaveLog.append(System.lineSeparator());
 		prevWaveLog.append(System.lineSeparator());
 		while(iter.hasNext()){
@@ -112,15 +105,23 @@ public class PriceCalculator {
 			prevWaveLog.append("Grade: ");
 			prevWaveLog.append(GradeCalculator.getGrade(c.getNom()));
 			prevWaveLog.append(System.lineSeparator());
+			prevWaveLog.append("Price: ");
+			prevWaveLog.append(Menu.getPrice(c.getNom()).getPrice());
+			prevWaveLog.append(System.lineSeparator());
 			prevWaveLog.append(System.lineSeparator());
 		}
-		prevWaveLog.deleteCharAt(prevWaveLog.length() - 1);
 		AILogger.info(prevWaveLog.toString());
 		// Takes the 15 best creatures it can(or less if it can't)
-		while(budget > 0 && waveSize <= 15){
-			Creature c = getBestCreature();
+		while(waveSize <= 15){
+			Creature c = GradeCalculator.getBestCreature();
 			ans.add(c);
-			budget -= Menu.getPrice(c.getNom()).getPrice();
+			double price = Menu.getPrice(c.getNom()).getPrice();
+			if(price <= budget){
+				budget -= price; 
+			}
+			else{
+				break;
+			}
 			waveSize++;
 		}
 
@@ -133,7 +134,7 @@ public class PriceCalculator {
 				Price p = Menu.getPrice(c.getNom());
 				double newPrice = p.getUpgradePrice(upgradeFactor);
 				if(newPrice <= budget){
-					budget += p.getPrice() - newPrice;
+					budget = budget + p.getPrice() - newPrice;
 					c.upgrade();
 				}
 			}
@@ -148,11 +149,17 @@ public class PriceCalculator {
 		log.append(System.lineSeparator());
 		log.append("The chosen wave is: ");
 		log.append(System.lineSeparator());
+		
+		// Initializing the previous wave array and adding appending the wave to it
+		previousWave = new ArrayList<Creature>();
 		for (Creature c : ans){
 			log.append(c.getNom());
 			log.append(System.lineSeparator());
 			previousWave.add(c);
 		}
+		log.append(System.lineSeparator());
+		log.append("After budget: ");
+		log.append(budget);
 		AILogger.info(log.toString());
 		return ans;
 	}

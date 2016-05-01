@@ -461,7 +461,6 @@ public abstract class Creature extends Rectangle
             aDetruire = true;
             // The creature has reached the end
             timeElapsed = System.currentTimeMillis() - timeElapsed;
-            GradeCalculator.updateGradeDistance(getNom(), timeElapsed);
             // informe les ecouteurs que la creature est arrivee 
             // a la fin du parcours
             for(EcouteurDeCreature edc : ecouteursDeCreature)
@@ -572,7 +571,6 @@ public abstract class Creature extends Rectangle
 			if(estMorte()){
 				// The creature died
 				timeElapsed = System.currentTimeMillis() - timeElapsed;
-				GradeCalculator.updateGradeDistance(getNom(), timeElapsed);
 				mourrir(joueur);
 			}
 		}

@@ -11,7 +11,7 @@ public class Price {
 	public Price(Creature creature){
 		this.creature=creature;
 		// The price is a function of max HP and speed
-		price = creature.getSanteMax() + creature.getVitesseNormale() * 1.5;
+		price = (creature.getSanteMax() + creature.getVitesseNormale()) * 2;
 		if(creature.getType() == Creature.TYPE_AERIENNE){
 			price += AIR_ADDITION;
 		}
