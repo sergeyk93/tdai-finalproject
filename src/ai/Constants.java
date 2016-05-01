@@ -5,12 +5,12 @@ public class Constants {
 	/**
 	 * Creature names
 	 */
-	public static final String MOUTON = "Mouton";
-	public static final String MOUTON_NOIR = "Mouton_Noir"; 
-	public static final String AIGLE = "Aigle";
-	public static final String RHINOCEROS = "Rhinoceros";
-	public static final String ARAIGNEE = "Araignee";
-	public static final String PAYSAN = "Paysan";
+	public static final String MOUTON = "Sheep";
+	public static final String MOUTON_NOIR = "Black_Sheep"; 
+	public static final String AIGLE = "Eagle";
+	public static final String RHINOCEROS = "Rhino";
+	public static final String ARAIGNEE = "Spider";
+	public static final String PAYSAN = "Peasant";
 	public static final String ELEPHAN = "Elephant";
 	public static final String PIGEONN = "Pigeon";
 	

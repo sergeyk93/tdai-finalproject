@@ -91,14 +91,30 @@ public class PriceCalculator {
 		Iterator<Creature> iter = Menu.getIter();
 		StringBuilder prevWaveLog = new StringBuilder();
 		prevWaveLog.append(System.lineSeparator());
-		prevWaveLog.append("Previous' wave creature grades: ");
+		prevWaveLog.append("----------- Wave");
+		prevWaveLog.append(" #");
+		prevWaveLog.append(Jeu.getNumVagueCourante());
+		prevWaveLog.append(" ");
+		prevWaveLog.append("creature grades: -----------");
+		prevWaveLog.append(System.lineSeparator());
 		prevWaveLog.append(System.lineSeparator());
 		while(iter.hasNext()){
 			Creature c = iter.next();
 			GradeCalculator.updateGradeTowers(c.getNom(), groundTowers, airTowers);
-			prevWaveLog.append(c.getNom() + " grade: " + GradeCalculator.getGrade(c.getNom()));
+			prevWaveLog.append(c.getNom());
+			prevWaveLog.append("[");
+			prevWaveLog.append("HP: ");
+			prevWaveLog.append(c.getSanteMax());
+			prevWaveLog.append(", Speed: ");
+			prevWaveLog.append(c.getVitesseNormale());
+			prevWaveLog.append("]");
+			prevWaveLog.append(System.lineSeparator());
+			prevWaveLog.append("Grade: ");
+			prevWaveLog.append(GradeCalculator.getGrade(c.getNom()));
+			prevWaveLog.append(System.lineSeparator());
 			prevWaveLog.append(System.lineSeparator());
 		}
+		prevWaveLog.deleteCharAt(prevWaveLog.length() - 1);
 		AILogger.info(prevWaveLog.toString());
 		// Takes the 15 best creatures it can(or less if it can't)
 		while(budget > 0 && waveSize <= 15){
@@ -129,7 +145,7 @@ public class PriceCalculator {
 
 		gameSession.setWallet(budget);
 		StringBuilder log = new StringBuilder();
-		prevWaveLog.append(System.lineSeparator());
+		log.append(System.lineSeparator());
 		log.append("The chosen wave is: ");
 		log.append(System.lineSeparator());
 		for (Creature c : ans){
