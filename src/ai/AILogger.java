@@ -16,9 +16,14 @@ public class AILogger {
 	private static FileHandler fh;
 
 	public static void initLogger() throws IOException{
+		// Creating log dir
+		File logDir = new File("./log");
+		if(!logDir.exists()){
+			logDir.mkdirs();
+		}
 		logger.setLevel(Level.INFO);
 		int level = 0;
-		File levelFile = new File("./src/log/level.txt");
+		File levelFile = new File("./log/level.txt");
 		FileWriter fw = null;
 		BufferedReader br = null;
 		if(!levelFile.exists()){
@@ -49,9 +54,10 @@ public class AILogger {
 			}
 		}
 		
-		String logFileName = "./src/log/logger_iteration_" + level + ".log";
+		String logFileName = "./log/logger_iteration_" + level + ".log";
 		
 		File logFile = new File(logFileName);
+		
 		if(!logFile.exists()) {
 			try {
 				logFile.createNewFile();
