@@ -11,6 +11,8 @@ public class WaveGenerator {
 	private Jeu gameSession;
 	
 	public WaveGenerator(Jeu gameSession){
+		// Initializing the A.I components
+		DdaManager.init();
 		pc = new PriceCalculator();
 		this.gameSession = gameSession;
 	}

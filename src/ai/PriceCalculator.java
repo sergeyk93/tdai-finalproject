@@ -13,15 +13,15 @@ public class PriceCalculator {
 
 	private ArrayList<Creature> previousWave;
 	private HashMap<String, LinkedList<Long>> timeAliveTable;
+	private GradeCalculator gradeCalculator;
+	private Menu menu;
 
 	public PriceCalculator(){
-		Menu.init();
-		GradeCalculator.init();
-		DdaManager.init();
+		menu = new Menu();
+		gradeCalculator = new GradeCalculator();
 		previousWave = new ArrayList<Creature>();
-
 		timeAliveTable = new HashMap<String, LinkedList<Long>>();
-		Iterator<Creature> iter = Menu.getIter();
+		Iterator<Creature> iter = menu.getIter();
 		while(iter.hasNext()){
 			Creature c = iter.next();
 			timeAliveTable.put(c.getNom(), new LinkedList<Long>());
@@ -38,16 +38,15 @@ public class PriceCalculator {
 
 		int waveSize = 0;
 		double budget = gameSession.getWallet();
-
+		Iterator<Creature> iter = menu.getIter();
 		// Adding the time that creature c was alive for computing the average alive time later
-		for(Creature c : previousWave){
-			System.out.println(c.timeAlive());
+		/*for(Creature c : previousWave){
 			timeAliveTable.get(c.getNom()).push(c.timeAlive());
 		}
 
 		// Updating the grade of a creature by the time it was alive
 		// If the creature wasn't chosen we increase its' grade
-		Iterator<Creature> iter = Menu.getIter();
+		Iterator<Creature> iter = menu.getIter();
 		if(Jeu.getNumVagueCourante() > 1){
 			while(iter.hasNext()){
 				String name = iter.next().getNom();
@@ -58,9 +57,9 @@ public class PriceCalculator {
 					avg += aliveTimes.pop();
 				}
 				avg /= size;
-				GradeCalculator.updateGradeDistance(name, avg);
+				gradeCalculator.updateGradeDistance(name, avg);
 			}
-		}
+		}*/
 
 		//Calculating the number of air towers and ground towers
 		if(Jeu.getNumVagueCourante() > 1){
@@ -78,9 +77,9 @@ public class PriceCalculator {
 
 			// Updating the grades based on the towers that were
 			// built in the previous wave
-			iter = Menu.getIter();
+			iter = menu.getIter();
 			while(iter.hasNext()){
-				GradeCalculator.updateGradeTowers(iter.next().getNom(), groundTowers, airTowers);
+				gradeCalculator.updateGradeTowers(iter.next().getNom(), groundTowers, airTowers);
 			}
 		}
 		// Initializing wave logger
@@ -98,7 +97,7 @@ public class PriceCalculator {
 		log.append(System.lineSeparator());
 
 		// Logging the grades of the creatures
-		iter = Menu.getIter();
+		iter = menu.getIter();
 		while(iter.hasNext()){
 			Creature c = iter.next();
 			log.append(c.getNom());
@@ -110,22 +109,25 @@ public class PriceCalculator {
 			log.append("]");
 			log.append(System.lineSeparator());
 			log.append("Grade: ");
-			log.append(GradeCalculator.getGrade(c.getNom()));
+			log.append(gradeCalculator.getGrade(c.getNom()));
 			log.append(System.lineSeparator());
 			log.append("Price: ");
-			log.append(Menu.getPrice(c.getNom()).getPrice());
+			log.append(menu.getPrice(c.getNom()).getPrice());
 			log.append(System.lineSeparator());
 			log.append(System.lineSeparator());
 		}
 		AILogger.info(log.toString());
-
+		
+		ArrayList<String> names = new ArrayList<String>();
+		
 		// Takes the 15 best creatures it can(or less if it can't)
 		while(waveSize <= 15){
-			Creature c = GradeCalculator.getBestCreature();
-			double price = Menu.getPrice(c.getNom()).getPrice();
+			Creature c = gradeCalculator.getBestCreature();
+			double price = menu.getPrice(c.getNom()).getPrice();
 			if(price <= budget){
 				budget -= price; 
 				ans.add(c);
+				names.add(c.getNom());
 			}
 			else{
 				// TODO Choose a cheaper creature
@@ -133,6 +135,9 @@ public class PriceCalculator {
 			}
 			waveSize++;
 		}
+		
+		// Adding the chosen wave to the prevWave of the grade calculator
+		gradeCalculator.addCreaturesToWave(names);
 
 		// Upgrades the creatures deterministically - could be changed into something 
 		// more sophisticated. Stops when the price hasn't been changed for 1 iteration
@@ -140,7 +145,7 @@ public class PriceCalculator {
 		while(true){
 			double prevBudget = budget;
 			for(Creature c : ans){
-				Price p = Menu.getPrice(c.getNom());
+				Price p = menu.getPrice(c.getNom());
 				double newPrice = p.getUpgradePrice(upgradeFactor);
 				if(newPrice <= budget){
 					budget = budget + p.getPrice() - newPrice;
