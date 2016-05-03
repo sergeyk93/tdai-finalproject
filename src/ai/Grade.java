@@ -7,7 +7,6 @@ public class Grade {
 	private double grade;
 	private double avgDistance;
 	private boolean moreAirTowers;
-	private boolean wasChosen;
 
 	public Grade(Creature c){
 		this.c = c;
@@ -15,7 +14,6 @@ public class Grade {
 		grade = (c.getSanteMax() * c.getVitesseNormale()) / (new Price(c).getPrice());
 		avgDistance = 5000;
 		moreAirTowers = false;
-		wasChosen = false;
 	}
 
 	/**
@@ -30,13 +28,13 @@ public class Grade {
 		if (airTowers >= groundTowers){
 			if(!moreAirTowers){
 				moreAirTowers = true;
-				grade = c.getType() == Creature.TYPE_AERIENNE ? grade + 1 : grade - 1;
+				grade = c.getType() == Creature.TYPE_AERIENNE ? grade + 1 : grade;
 			}
 		}
 		else{
 			if(moreAirTowers){
 				moreAirTowers = false;
-				grade = c.getType() == Creature.TYPE_TERRIENNE ? grade + 1 : grade - 1;
+				grade = c.getType() == Creature.TYPE_TERRIENNE ? grade + 1 : grade;
 			}
 		}
 	}
@@ -56,7 +54,6 @@ public class Grade {
 	}
 
 	public double getGrade(){
-		grade = wasChosen ? grade : grade + 1;
 		return grade;
 	}
 
@@ -64,15 +61,7 @@ public class Grade {
 		return c;
 	}
 	
-	public void choose(){
-		wasChosen = true;
-	}
-	
-	public void unchoose(){
-		wasChosen = false;
-	}
-	
-	public boolean wasChosen(){
-		return wasChosen;
+	public void incGrade(){
+		grade++;
 	}
 }

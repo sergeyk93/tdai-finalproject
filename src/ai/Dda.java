@@ -4,6 +4,8 @@ public abstract class Dda {
 
 	protected double health_coef;
 	protected double speed_coef;
+	protected int prevWavesConsideration;
+	
 	//protected Path path_method;
 	
 	public Dda(){}

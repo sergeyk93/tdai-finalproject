@@ -2,6 +2,7 @@ package ai;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -11,7 +12,7 @@ import models.tours.Tour;
 
 public class PriceCalculator {
 
-	private ArrayList<Creature> previousWave;
+	private HashMap<String, Integer> chooseCounter;
 	private HashMap<String, LinkedList<Long>> timeAliveTable;
 	private GradeCalculator gradeCalculator;
 	private Menu menu;
@@ -19,12 +20,16 @@ public class PriceCalculator {
 	public PriceCalculator(){
 		menu = new Menu();
 		gradeCalculator = new GradeCalculator();
-		previousWave = new ArrayList<Creature>();
+		
+		chooseCounter = new HashMap<String, Integer>();
+		
 		timeAliveTable = new HashMap<String, LinkedList<Long>>();
+		
 		Iterator<Creature> iter = menu.getIter();
 		while(iter.hasNext()){
 			Creature c = iter.next();
 			timeAliveTable.put(c.getNom(), new LinkedList<Long>());
+			chooseCounter.put(c.getNom(), 0);
 		}
 	}
 
@@ -40,7 +45,7 @@ public class PriceCalculator {
 		double budget = gameSession.getWallet();
 		Iterator<Creature> iter = menu.getIter();
 		// Adding the time that creature c was alive for computing the average alive time later
-		/*for(Creature c : previousWave){
+		/*for(Creature c : chooseCounter){
 			timeAliveTable.get(c.getNom()).push(c.timeAlive());
 		}
 
@@ -75,13 +80,20 @@ public class PriceCalculator {
 				}
 			}
 
-			// Updating the grades based on the towers that were
-			// built in the previous wave
+			// 1. Updating the grades based on the towers that were built in the previous wave
+			// 2.
+			// 3. Increasing the grade of the creatures that weren't chosen
 			iter = menu.getIter();
 			while(iter.hasNext()){
-				gradeCalculator.updateGradeTowers(iter.next().getNom(), groundTowers, airTowers);
+				String creatureName = iter.next().getNom();
+				// TODO: Change 3 to the DDA value of the previous wave consideration
+				if(chooseCounter.get(creatureName)>=3){
+					gradeCalculator.incGrade(creatureName);
+				}
+				gradeCalculator.updateGradeTowers(creatureName, groundTowers, airTowers);
 			}
 		}
+
 		// Initializing wave logger
 		StringBuilder log = new StringBuilder();
 		log.append(System.lineSeparator());
@@ -116,10 +128,7 @@ public class PriceCalculator {
 			log.append(System.lineSeparator());
 			log.append(System.lineSeparator());
 		}
-		AILogger.info(log.toString());
-		
-		ArrayList<String> names = new ArrayList<String>();
-		
+
 		// Takes the 15 best creatures it can(or less if it can't)
 		while(waveSize <= 15){
 			Creature c = gradeCalculator.getBestCreature();
@@ -127,7 +136,6 @@ public class PriceCalculator {
 			if(price <= budget){
 				budget -= price; 
 				ans.add(c);
-				names.add(c.getNom());
 			}
 			else{
 				// TODO Choose a cheaper creature
@@ -135,9 +143,6 @@ public class PriceCalculator {
 			}
 			waveSize++;
 		}
-		
-		// Adding the chosen wave to the prevWave of the grade calculator
-		gradeCalculator.addCreaturesToWave(names);
 
 		// Upgrades the creatures deterministically - could be changed into something 
 		// more sophisticated. Stops when the price hasn't been changed for 1 iteration
@@ -160,19 +165,28 @@ public class PriceCalculator {
 
 		gameSession.setWallet(budget);
 
-		// Initializing the previous wave array and appending the wave to it
-		previousWave = new ArrayList<Creature>();
-
-		log = new StringBuilder();
-		log.append(System.lineSeparator());
 		log.append("The chosen wave is: ");
 		log.append(System.lineSeparator());
-
+		
+		HashSet<String> previousWave = new HashSet<String>();
+		
 		for (Creature c : ans){
-			log.append(c.getNom());
+			String name = c.getNom();
+			
+			log.append(name);
 			log.append(System.lineSeparator());
-
-			previousWave.add(c);
+			
+			previousWave.add(name);
+			chooseCounter.put(name, 0);
+		}
+		
+		iter = menu.getIter();
+		
+		while(iter.hasNext()){
+			String name = iter.next().getNom();
+			if(!previousWave.contains(name)){
+				chooseCounter.put(name, chooseCounter.get(name) + 1);
+			}
 		}
 
 		log.append(System.lineSeparator());
