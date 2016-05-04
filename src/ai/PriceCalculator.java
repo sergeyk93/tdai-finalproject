@@ -20,11 +20,11 @@ public class PriceCalculator {
 	public PriceCalculator(){
 		menu = new Menu();
 		gradeCalculator = new GradeCalculator();
-		
+
 		chooseCounter = new HashMap<String, Integer>();
-		
+
 		timeAliveTable = new HashMap<String, LinkedList<Long>>();
-		
+
 		Iterator<Creature> iter = menu.getIter();
 		while(iter.hasNext()){
 			Creature c = iter.next();
@@ -130,17 +130,18 @@ public class PriceCalculator {
 		}
 
 		// Takes the 15 best creatures it can(or less if it can't)
-		while(waveSize <= 15){
-			Creature c = gradeCalculator.getBestCreature();
-			double price = menu.getPrice(c.getNom()).getPrice();
-			if(price <= budget){
-				budget -= price; 
-				ans.add(c);
-			}
-			else{
-				// TODO Choose a cheaper creature
+		while(true){
+			Creature c = gradeCalculator.getBestCreature(budget, menu);
+			
+			if(c==null){
 				break;
 			}
+			
+			double price = menu.getPrice(c.getNom()).getPrice();
+			
+			budget -= price; 
+			ans.add(c);
+
 			waveSize++;
 		}
 
@@ -167,21 +168,21 @@ public class PriceCalculator {
 
 		log.append("The chosen wave is: ");
 		log.append(System.lineSeparator());
-		
+
 		HashSet<String> previousWave = new HashSet<String>();
-		
+
 		for (Creature c : ans){
 			String name = c.getNom();
-			
+
 			log.append(name);
 			log.append(System.lineSeparator());
-			
+
 			previousWave.add(name);
 			chooseCounter.put(name, 0);
 		}
-		
+
 		iter = menu.getIter();
-		
+
 		while(iter.hasNext()){
 			String name = iter.next().getNom();
 			if(!previousWave.contains(name)){

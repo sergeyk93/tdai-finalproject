@@ -49,13 +49,18 @@ public class GradeCalculator {
 
 	/**
 	 * 
-	 * @return bestCreature - the best creature for the current wave
+	 * @return bestCreature - the best creature given the budget
 	 */
-	public Creature getBestCreature(){
+	public Creature getBestCreature(double budget, Menu menu){
 		Creature bestCreature = null;
 		double maxGrade = Double.MIN_VALUE;
 
 		for(String name : grades.keySet()){
+			
+			if(menu.getPrice(name).getPrice()>budget){
+				continue;
+			}
+			
 			double grade = getGrade(name);
 			
 			/* If the grade difference is less or equal than 1/2 then 
