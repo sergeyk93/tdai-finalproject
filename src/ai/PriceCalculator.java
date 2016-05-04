@@ -2,7 +2,6 @@ package ai;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 
 import models.creatures.Creature;
@@ -12,17 +11,18 @@ import models.tours.Tour;
 public class PriceCalculator {
 	
 	private GradeCalculator gradeCalculator;
-	private Menu menu;
 	private HashMap<String, Integer> chooseCounter;
 	private ArrayList<Creature> previousWave;
 
 	public PriceCalculator(){
-		menu = new Menu();
 		gradeCalculator = new GradeCalculator();
 		chooseCounter = new HashMap<String, Integer>();
 		previousWave = new ArrayList<Creature>();
 		
-		Iterator<Creature> iter = menu.getIter();
+		Menu.init();
+        TimeAliveTable.init();
+		
+		Iterator<Creature> iter = Menu.getIter();
 		
 		while(iter.hasNext()){
 			chooseCounter.put(iter.next().getNom(), 0);
@@ -38,7 +38,7 @@ public class PriceCalculator {
 		ArrayList<Creature> ans = new ArrayList<Creature>();
 		double budget = gameSession.getWallet();
 		
-		Iterator<Creature> iter = menu.getIter();
+		Iterator<Creature> iter = Menu.getIter();
 		
 		// In the first wave we don't compute the grade and uses the first values
 		if(Jeu.getNumVagueCourante() > 1){
@@ -66,17 +66,20 @@ public class PriceCalculator {
 					gradeCalculator.incGrade(creatureName);
 				}
 				gradeCalculator.updateGradeTowers(creatureName, groundTowers, airTowers);
-			}
-			
-			for(Creature c : previousWave){
 				
 			}
 			
-		}
-		
-		// Adding the previous alive time of the chosen creatures to the average distance
-		for(Creature c : previousWave){
-			gradeCalculator.addAliveTime(c.getNom(), c.timeAlive());
+			// Updating the grade based on the last alive time
+			for(Creature c : previousWave){
+				gradeCalculator.updateGradeDistance(c.getNom(), 
+						TimeAliveTable.getAliveTIme(c.getNom()));
+			}
+			
+			// Updating the alive time average of the chosen creatures in the previous wave
+			for(Creature c : previousWave){
+				gradeCalculator.addAliveTime(c.getNom(), 
+						TimeAliveTable.getAliveTIme(c.getNom()));
+			}	
 		}
 
 		// Initializing wave logger
@@ -85,8 +88,7 @@ public class PriceCalculator {
 		log.append("----------- Wave");
 		log.append(" #");
 		log.append(Jeu.getNumVagueCourante());
-		log.append(" ");
-		log.append("creature grades: -----------");
+		log.append(" creature grades: -----------");
 		log.append(System.lineSeparator());
 		log.append("Current budget: ");
 		log.append(budget);
@@ -94,12 +96,11 @@ public class PriceCalculator {
 		log.append(System.lineSeparator());
 
 		// Logging the grades of the creatures
-		iter = menu.getIter();
+		iter = Menu.getIter();
 		while(iter.hasNext()){
 			Creature c = iter.next();
 			log.append(c.getNom());
-			log.append("[");
-			log.append("HP: ");
+			log.append("[HP: ");
 			log.append(c.getSanteMax());
 			log.append(", Speed: ");
 			log.append(c.getVitesseNormale());
@@ -109,7 +110,7 @@ public class PriceCalculator {
 			log.append(gradeCalculator.getGrade(c.getNom()));
 			log.append(System.lineSeparator());
 			log.append("Price: ");
-			log.append(menu.getPrice(c.getNom()).getPrice());
+			log.append(Menu.getPrice(c.getNom()).getPrice());
 			log.append(System.lineSeparator());
 			log.append("Previous alive time: ");
 			log.append(gradeCalculator.getLastAliveTime(c.getNom()));
@@ -122,13 +123,13 @@ public class PriceCalculator {
 		int waveSize = 0;
 		
 		while(waveSize<=15){
-			Creature c = gradeCalculator.getBestCreature(budget, menu);
+			Creature c = gradeCalculator.getBestCreature(budget);
 			
 			if(c==null){
 				break;
 			}
 			
-			double price = menu.getPrice(c.getNom()).getPrice();
+			double price = Menu.getPrice(c.getNom()).getPrice();
 			
 			budget -= price; 
 			ans.add(c);
@@ -142,7 +143,7 @@ public class PriceCalculator {
 		while(true){
 			double prevBudget = budget;
 			for(Creature c : ans){
-				Price p = menu.getPrice(c.getNom());
+				Price p = Menu.getPrice(c.getNom());
 				double newPrice = p.getUpgradePrice(upgradeFactor);
 				if(newPrice <= budget){
 					budget = budget + p.getPrice() - newPrice;
@@ -172,7 +173,7 @@ public class PriceCalculator {
 			chooseCounter.put(name, 0);
 		}
 
-		iter = menu.getIter();
+		iter = Menu.getIter();
 
 		while(iter.hasNext()){
 			String name = iter.next().getNom();

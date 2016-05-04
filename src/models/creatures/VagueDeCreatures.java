@@ -160,7 +160,6 @@ public class VagueDeCreatures
 
 
 	/**
-	 * NEW TEMPORARY WAVE GENERATOR
 	 * @param indiceVagueCourante Number of wave
 	 * @return returns the creeps that will be sent in this wave
 	 */

@@ -20,12 +20,16 @@ package models.creatures;
 
 import i18n.Langue;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Image;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.Date;
 
-import ai.GradeCalculator;
-import models.joueurs.*;
+import models.joueurs.Equipe;
+import models.joueurs.Joueur;
 import models.tours.Tour;
+import ai.TimeAliveTable;
 
 /**
  * Classe de gestion d'une creature.
@@ -460,7 +464,7 @@ public abstract class Creature extends Rectangle
         {
             aDetruire = true;
             // The creature has reached the end
-            timeElapsed = System.currentTimeMillis() - timeElapsed;
+            TimeAliveTable.updateAliveTime(getNom(), System.currentTimeMillis() - timeElapsed);
             // informe les ecouteurs que la creature est arrivee 
             // a la fin du parcours
             for(EcouteurDeCreature edc : ecouteursDeCreature)
@@ -570,7 +574,7 @@ public abstract class Creature extends Rectangle
 			// est-elle morte ?
 			if(estMorte()){
 				// The creature died
-				timeElapsed = System.currentTimeMillis() - timeElapsed;
+				TimeAliveTable.updateAliveTime(getNom(), System.currentTimeMillis() - timeElapsed);
 				mourrir(joueur);
 			}
 		}
@@ -797,9 +801,5 @@ public abstract class Creature extends Rectangle
 	public void setDropValue(double factor){
 		nbPiecesDOr = (int)(Math.floor(santeMax / vitesseNormale) * factor);
 		nbPiecesDOr = nbPiecesDOr == 0 ? 1 : nbPiecesDOr;
-	}
-	
-	public long timeAlive(){
-		return timeElapsed;
 	}
 }

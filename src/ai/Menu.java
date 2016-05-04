@@ -19,10 +19,10 @@ public class Menu {
 	/**
 	 * This class holds a list of all creatures and maps the creatures to their prices
 	 */
-	private ArrayList<Creature> creatures = new ArrayList<Creature>();
-	private HashMap<String, Price> prices = new HashMap<String, Price>();
+	private static ArrayList<Creature> creatures = new ArrayList<Creature>();
+	private static HashMap<String, Price> prices = new HashMap<String, Price>();
 
-	public Menu(){
+	public static void init(){
 		creatures.add(new Aigle());
 		creatures.add(new Araignee());
 		creatures.add(new Elephant());
@@ -36,11 +36,11 @@ public class Menu {
 		}
 	}
 
-	public Iterator<Creature> getIter(){
+	public static Iterator<Creature> getIter(){
 		return creatures.iterator();
 	}
 
-	public Price getPrice(String creatureName){
+	public static Price getPrice(String creatureName){
 		return prices.get(creatureName);
 	}
 

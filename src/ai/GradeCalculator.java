@@ -51,13 +51,13 @@ public class GradeCalculator {
 	 * 
 	 * @return bestCreature - the best creature given the budget
 	 */
-	public Creature getBestCreature(double budget, Menu menu){
+	public Creature getBestCreature(double budget){
 		Creature bestCreature = null;
 		double maxGrade = Double.MIN_VALUE;
 
 		for(String name : grades.keySet()){
 			
-			if(menu.getPrice(name).getPrice()>budget){
+			if(Menu.getPrice(name).getPrice()>budget){
 				continue;
 			}
 			
