@@ -61,8 +61,7 @@ public class PriceCalculator {
 			// 3. Increasing the grade of the creatures that weren't chosen for n waves
 			while(iter.hasNext()){
 				String creatureName = iter.next().getNom();
-				// TODO: Change 2 to the DDA value of the previous wave consideration
-				if(chooseCounter.get(creatureName)>=2){
+				if(chooseCounter.get(creatureName)>=DdaManager.prevWavesConsideration()){
 					gradeCalculator.incGrade(creatureName);
 				}
 				gradeCalculator.updateGradeTowers(creatureName, groundTowers, airTowers);
@@ -132,6 +131,10 @@ public class PriceCalculator {
 			double price = Menu.getPrice(c.getNom()).getPrice();
 			
 			budget -= price; 
+			
+			// Factoring the health and speed of the unit based on the current DDA
+			c.setSanteMax(c.getSanteMax() * DdaManager.healthCoef());
+			c.setVitesse(c.getVitesseNormale() * DdaManager.speedCoef());
 			ans.add(c);
 
 			waveSize++;
@@ -140,21 +143,19 @@ public class PriceCalculator {
 		// Upgrades the creatures deterministically - could be changed into something 
 		// more sophisticated. Stops when the price hasn't been changed for 1 iteration
 		double upgradeFactor = 1.1;
-		while(true){
-			double prevBudget = budget;
+		double prevBudget;
+		do{
+			prevBudget = budget;
 			for(Creature c : ans){
 				Price p = Menu.getPrice(c.getNom());
 				double newPrice = p.getUpgradePrice(upgradeFactor);
 				if(newPrice <= budget){
-					budget = budget + p.getPrice() - newPrice;
+					budget -= newPrice;
 					c.upgrade();
 				}
 			}
-			if(prevBudget == budget){
-				break;
-			}
 			upgradeFactor *= 1.1;
-		}
+		}while(budget!=prevBudget);
 
 		gameSession.setWallet(budget);
 

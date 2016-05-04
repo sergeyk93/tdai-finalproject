@@ -24,6 +24,7 @@ import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.*;
 
+import ai.DdaManager;
 import ai.WaveGenerator;
 import outils.myTimer;
 import exceptions.*;
@@ -207,8 +208,9 @@ public abstract class Jeu implements EcouteurDeJoueur,
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        // Initializing a new wave generator that utilizies the AI
+        // Initializing a new wave generator that utilizies the AI and the DDA
         wg = new WaveGenerator(this);
+        ai.DdaManager.init();
     }
     
     /**
@@ -451,7 +453,7 @@ public abstract class Jeu implements EcouteurDeJoueur,
 	public void lancerVagueSuivante(Joueur joueur, Equipe cible)
 	{
 	    // lancement de la vague
-		wallet += 400 * indiceVagueCourante;
+		wallet += DdaManager.budgetPerWave() * indiceVagueCourante;
 	    VagueDeCreatures vagueCourante = terrain.getVagueDeCreatures(wg);
         
 	    passerALaProchaineVague();

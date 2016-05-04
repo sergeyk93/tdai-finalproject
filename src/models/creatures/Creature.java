@@ -29,6 +29,7 @@ import java.util.Date;
 import models.joueurs.Equipe;
 import models.joueurs.Joueur;
 import models.tours.Tour;
+import ai.DdaManager;
 import ai.TimeAliveTable;
 
 /**
@@ -795,7 +796,7 @@ public abstract class Creature extends Rectangle
 	 * returns the price of the creature for the resource manager
 	 */
 	public void setDropValue(){
-		setDropValue(1);
+		setDropValue(DdaManager.dropValueCoef());
 	}
 	
 	public void setDropValue(double factor){

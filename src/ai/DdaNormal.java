@@ -5,6 +5,9 @@ public class DdaNormal extends Dda{
 	public DdaNormal(){
 			health_coef = 1;
 			speed_coef = 1;
+			prevWavesConsideration = 5;
+			dropValueCoef = 3;
+			budgetPerWave = 400;
 			//path_method = new PathNormal();
 	}
 	
