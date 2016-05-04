@@ -18,12 +18,10 @@
 
 package models.creatures;
 
+import i18n.Langue;
+
 import java.util.ArrayList;
 
-import models.jeu.Jeu;
-
-import i18n.Langue;
-import ai.Constants;
 import ai.WaveGenerator;
 
 /**
@@ -165,20 +163,12 @@ public class VagueDeCreatures
 	 */
 
 	public static VagueDeCreatures genererVagueStandard(WaveGenerator wg){
-
-		ArrayList<Creature> wave = new ArrayList<Creature>();
-		if(Jeu.getNumVagueCourante() % 10 == 0){
-			GrandeAraignee boss = new GrandeAraignee();
-			boss.setSante(Constants.BOSS);
-			wave.add(boss);
-		}
-		else{
-			try {
-				wave = wg.generate();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		ArrayList<Creature> wave =  null;
+		try {
+			wave = wg.generate();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return new VagueDeCreatures(wave.size(), wave.get(0),
 				getTempsLancement(VITESSE_CREATURE_NORMALE), wave);
@@ -319,7 +309,7 @@ public class VagueDeCreatures
 	 * 
 	 * @return la valeur de gain de la vague entiere
 	 */
-	private static long fGainVague(long santeCreature)
+	/*private static long fGainVague(long santeCreature)
 	{
 		return (long) (0.08 * santeCreature) + 30;
 	}
@@ -328,5 +318,5 @@ public class VagueDeCreatures
 	private static long fGainVague2(long noVague)
 	{
 		return (long) (2.5 * noVague) + 1;
-	}
+	}*/
 }
