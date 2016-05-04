@@ -1,5 +1,6 @@
 package ai;
 
+import java.util.ArrayList;
 import models.creatures.Creature;
 
 public class Grade {
@@ -7,13 +8,17 @@ public class Grade {
 	private double grade;
 	private double avgDistance;
 	private boolean moreAirTowers;
+	private ArrayList<Long> timeAliveValues;
 
 	public Grade(Creature c){
 		this.c = c;
 		// First grade value is based on max HP and speed
 		grade = (c.getSanteMax() * c.getVitesseNormale()) / (new Price(c).getPrice());
-		avgDistance = 5000;
+		avgDistance = 0;
 		moreAirTowers = false;
+
+		timeAliveValues = new ArrayList<Long>();
+
 	}
 
 	/**
@@ -44,6 +49,10 @@ public class Grade {
 	 * @param timeElapsed
 	 */
 	public void gradeDistance(double timeElapsed){
+		if(avgDistance==0){
+			return;
+		}
+		
 		if(avgDistance < timeElapsed){
 			grade++;
 		}
@@ -60,8 +69,33 @@ public class Grade {
 	public Creature getCreature(){
 		return c;
 	}
-	
+
 	public void incGrade(){
 		grade++;
+	}
+
+	/**
+	 * Adds the last alive time to the computation
+	 * Considers 5 last values
+	 * @param timeAlive
+	 */
+	public void addAliveTime(long timeAlive){
+		if(timeAliveValues.size()>=5){
+			timeAliveValues.remove(0);
+		}
+		timeAliveValues.add(timeAlive);
+		
+		avgDistance = 0;
+		for(long time : timeAliveValues){
+			avgDistance += time;
+		}
+		avgDistance /= timeAliveValues.size();
+	}
+	
+	public long getLastAliveTime(){
+		if(timeAliveValues.size()>0){
+			return timeAliveValues.get(timeAliveValues.size() - 1);
+		}
+		return 0;
 	}
 }

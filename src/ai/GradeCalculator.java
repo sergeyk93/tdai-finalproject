@@ -82,4 +82,12 @@ public class GradeCalculator {
 	public void incGrade(String creatureName){
 		grades.get(creatureName).incGrade();
 	}
+	
+	public void addAliveTime(String creatureName, long timeAlive){
+		grades.get(creatureName).addAliveTime(timeAlive);
+	}
+	
+	public long getLastAliveTime(String creatureName){
+		return grades.get(creatureName).getLastAliveTime();
+	}
 }
