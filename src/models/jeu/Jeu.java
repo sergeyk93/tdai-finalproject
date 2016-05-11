@@ -452,10 +452,9 @@ public abstract class Jeu implements EcouteurDeJoueur,
 	 */
 	public void lancerVagueSuivante(Joueur joueur, Equipe cible)
 	{
-	    // lancement de la vague
+		// lancement de la vague
 		wallet += DdaManager.budgetPerWave() * indiceVagueCourante;
-	    VagueDeCreatures vagueCourante = terrain.getVagueDeCreatures(wg);
-        
+	    VagueDeCreatures vagueCourante = terrain.getVagueDeCreatures(wg,indiceVagueCourante);
 	    passerALaProchaineVague();
 	    
 	    gestionnaireCreatures.lancerVague(vagueCourante, joueur, cible, this, this);

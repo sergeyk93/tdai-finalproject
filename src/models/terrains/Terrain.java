@@ -604,9 +604,9 @@ public class Terrain implements Serializable
      * 
      * @return la vague de creatures suivante
      */
-    public VagueDeCreatures getVagueDeCreatures(WaveGenerator wg)
+    public VagueDeCreatures getVagueDeCreatures(WaveGenerator wg, int waveNum)
     {
-        return VagueDeCreatures.genererVagueStandard(wg);
+        return VagueDeCreatures.genererVagueStandard(wg,waveNum);
     }
    
     /**

@@ -17,9 +17,18 @@
 */
 
 import javax.swing.UIManager;
+
+import exceptions.AucunePlaceDisponibleException;
+import i18n.Langue;
+import models.jeu.Jeu;
+import models.jeu.Jeu_Solo;
+import models.joueurs.Equipe;
+import models.joueurs.Joueur;
 import models.outils.GestionnaireSons;
-import vues.Fenetre_ChoixLangue;
+import models.terrains.ElementTD;
+import models.terrains.Terrain;
 import vues.Fenetre_MenuPrincipal;
+import vues.solo.Fenetre_JeuSolo;
 
 /**
  * Classe principale du jeu Tower Defense.
@@ -61,12 +70,15 @@ public class Main
       //Langue.creerFichiersDeLangue();
       
       GestionnaireSons.setVolumeSysteme(GestionnaireSons.VOLUME_PAR_DEFAUT);       
-           
-      new Fenetre_ChoixLangue();
+      
+      new ChooseGame();
+      
+      Langue.initaliser("lang/en_EN.json");
+      // new Fenetre_ChoixLangue();
       
       // creation du menu principal
-      new Fenetre_MenuPrincipal();
-      
+      new Game();
+	  
       // A shutdown hook that closes the logger's file handler
       Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
           public void run() {

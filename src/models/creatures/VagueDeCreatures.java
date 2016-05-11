@@ -73,6 +73,14 @@ public class VagueDeCreatures
 		DESCRIPTION = description;
 		creatures = c;
 	}
+	
+	public VagueDeCreatures(int nbCreatures, Creature creatureAEnvoyer,
+			long tempsLancerEntreCreature, String description)
+	{
+		NB_CREATURES = nbCreatures;
+		CREATURE_A_ENVOYER = creatureAEnvoyer;
+		DESCRIPTION = description;
+	}
 
 	/**
 	 * Constructeur de la vague de creatures sans description
@@ -89,6 +97,12 @@ public class VagueDeCreatures
 			long tempsLancerEntreCreature, ArrayList<Creature> c)
 	{
 		this(nbCreatures, creatureAEnvoyer, tempsLancerEntreCreature, "", c);
+	}
+	
+	public VagueDeCreatures(int nbCreatures, Creature creatureAEnvoyer,
+			long tempsLancerEntreCreature)
+	{
+		this(nbCreatures, creatureAEnvoyer, tempsLancerEntreCreature, "");
 	}
 
 	/**
@@ -108,8 +122,9 @@ public class VagueDeCreatures
 	 */
 	public Creature getNouvelleCreature()
 	{
-		// return CREATURE_A_ENVOYER.copier();
-		return creatures.remove(0).copier();
+		if (ai.Game.isSmart())
+			return creatures.remove(0).copier();
+		return CREATURE_A_ENVOYER.copier();
 	}
 
 	/**
@@ -162,16 +177,19 @@ public class VagueDeCreatures
 	 * @return returns the creeps that will be sent in this wave
 	 */
 
-	public static VagueDeCreatures genererVagueStandard(WaveGenerator wg){
-		ArrayList<Creature> wave =  null;
-		try {
-			wave = wg.generate();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public static VagueDeCreatures genererVagueStandard(WaveGenerator wg, int waveNum){
+		if (ai.Game.isSmart()){
+			ArrayList<Creature> wave =  null;
+			try {
+				wave = wg.generate();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return new VagueDeCreatures(wave.size(), wave.get(0),
+					getTempsLancement(VITESSE_CREATURE_NORMALE), wave);
 		}
-		return new VagueDeCreatures(wave.size(), wave.get(0),
-				getTempsLancement(VITESSE_CREATURE_NORMALE), wave);
+		return genererVagueStandardOld(waveNum);
 	}
 
 
@@ -187,8 +205,8 @@ public class VagueDeCreatures
 	 * 
 	 * @return la vague generee
 	 */
-	/*
-    public static VagueDeCreatures genererVagueStandard(int indiceVagueCourante)
+	
+    public static VagueDeCreatures genererVagueStandardOld(int indiceVagueCourante)
     {
         int noVague = indiceVagueCourante;
         int uniteVague = noVague % 10;
@@ -269,7 +287,7 @@ public class VagueDeCreatures
                     getTempsLancement(VITESSE_CREATURE_LENTE));
         }
     }
-	 */
+	 
 
 
 
@@ -309,7 +327,7 @@ public class VagueDeCreatures
 	 * 
 	 * @return la valeur de gain de la vague entiere
 	 */
-	/*private static long fGainVague(long santeCreature)
+	private static long fGainVague(long santeCreature)
 	{
 		return (long) (0.08 * santeCreature) + 30;
 	}
@@ -318,5 +336,5 @@ public class VagueDeCreatures
 	private static long fGainVague2(long noVague)
 	{
 		return (long) (2.5 * noVague) + 1;
-	}*/
+	}
 }
