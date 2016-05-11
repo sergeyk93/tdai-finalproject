@@ -407,7 +407,8 @@ public class Fenetre_JeuSolo extends JFrame implements ActionListener,
 
 		// quitter
 		else if(source == itemQuitter)
-			demanderQuitter();
+//			demanderQuitter();
+			quitter();
 		
 		else if(source == itemRedemarrer)
             demanderRedemarrerPartie();
@@ -459,7 +460,8 @@ public class Fenetre_JeuSolo extends JFrame implements ActionListener,
     		    bLancerVagueSuivante.setEnabled(false);
 		    }
 		    else
-		        retourAuMenuPrincipal();
+//		        retourAuMenuPrincipal();
+		    	quitter();
 		}
 		
 		else if(source == bVitesseJeu)
@@ -569,17 +571,17 @@ public class Fenetre_JeuSolo extends JFrame implements ActionListener,
 	private void demanderEnregistrementDuScore()
 	{
 	    // si le joueur a un score > 0 et que le score n'a pas été déjà sauvé
-	    if(jeu.getJoueurPrincipal().getScore() > 0 && !demandeDEnregistrementDuScoreEffectuee)
-        {
-	        demandeDEnregistrementDuScoreEffectuee = true;
-	        
-	        if(JOptionPane.showConfirmDialog(this, 
-	                Langue.getTexte(Langue.ID_TXT_DIALOG_SAUVER), 
-                    "", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION)
-            {
-	            new Fenetre_PartieTerminee(this, jeu.getJoueurPrincipal().getScore(), jeu.getTimer().getTime() / 1000, jeu.getTerrain().getBreveDescription()); 
-            }
-        }
+//	    if(jeu.getJoueurPrincipal().getScore() > 0 && !demandeDEnregistrementDuScoreEffectuee)
+//        {
+//	        demandeDEnregistrementDuScoreEffectuee = true;
+//	        
+//	        if(JOptionPane.showConfirmDialog(this, 
+//	                Langue.getTexte(Langue.ID_TXT_DIALOG_SAUVER), 
+//                    "", JOptionPane.YES_NO_OPTION) == JOptionPane.OK_OPTION)
+//            {
+//	            new Fenetre_PartieTerminee(this, jeu.getJoueurPrincipal().getScore(), jeu.getTimer().getTime() / 1000, jeu.getTerrain().getBreveDescription()); 
+//            }
+//        }
 	}
 
     /**
@@ -827,7 +829,8 @@ public class Fenetre_JeuSolo extends JFrame implements ActionListener,
     @Override
     public void windowClosing(WindowEvent e)
     {
-       demanderQuitter(); 
+//       demanderQuitter();
+    	quitter();
     }
 
     @Override
@@ -926,7 +929,7 @@ public class Fenetre_JeuSolo extends JFrame implements ActionListener,
         // le bouton lancer vague suivante devient un retour au menu
         bLancerVagueSuivante.setEnabled(true);
         vaguePeutEtreLancee = false;
-        bLancerVagueSuivante.setText(Langue.getTexte(Langue.ID_TXT_BTN_RETOUR_MENU_P));
+        bLancerVagueSuivante.setText("Quit");
         bLancerVagueSuivante.setIcon(I_RETOUR);
 
         
