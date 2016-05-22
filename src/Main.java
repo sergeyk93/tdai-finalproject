@@ -16,19 +16,11 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
+import i18n.Langue;
+
 import javax.swing.UIManager;
 
-import exceptions.AucunePlaceDisponibleException;
-import i18n.Langue;
-import models.jeu.Jeu;
-import models.jeu.Jeu_Solo;
-import models.joueurs.Equipe;
-import models.joueurs.Joueur;
 import models.outils.GestionnaireSons;
-import models.terrains.ElementTD;
-import models.terrains.Terrain;
-import vues.Fenetre_MenuPrincipal;
-import vues.solo.Fenetre_JeuSolo;
 
 /**
  * Classe principale du jeu Tower Defense.

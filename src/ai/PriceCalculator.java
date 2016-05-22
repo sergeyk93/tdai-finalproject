@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import models.creatures.Creature;
-import models.jeu.Jeu;
 import models.tours.Tour;
 
 public class PriceCalculator {
@@ -34,17 +33,17 @@ public class PriceCalculator {
 	 * @param gameSession
 	 * @return computes the prices of the wave the A.I buys and updates the wallet
 	 */
-	public ArrayList<Creature> compute(Jeu gameSession){
+	public ArrayList<Creature> compute(Iterator<Tour> towerIter, int waveNumber){
 		ArrayList<Creature> ans = new ArrayList<Creature>();
-		double budget = gameSession.getWallet();
 		
 		Iterator<Creature> iter = Menu.getIter();
 		
+		double budget = WaveGenerator.budget;
+		
 		// In the first wave we don't compute the grade and uses the first values
-		if(Jeu.getNumVagueCourante() > 1){
+		if(waveNumber > 1){
 			
 			//Calculating the number of air towers and ground towers
-			Iterator<Tour> towerIter = gameSession.getTowersIterator();
 			int groundTowers = 0, airTowers = 0;
 			while(towerIter.hasNext()){
 				Tour t = towerIter.next();
@@ -86,7 +85,7 @@ public class PriceCalculator {
 		log.append(System.lineSeparator());
 		log.append("----------- Wave");
 		log.append(" #");
-		log.append(Jeu.getNumVagueCourante());
+		log.append(waveNumber);
 		log.append(" creature grades: -----------");
 		log.append(System.lineSeparator());
 		log.append("Current budget: ");
@@ -156,8 +155,8 @@ public class PriceCalculator {
 			}
 			upgradeFactor *= 1.1;
 		}while(budget!=prevBudget);
-
-		gameSession.setWallet(budget);
+		
+		WaveGenerator.budget = budget;
 
 		log.append("The chosen wave is: ");
 		log.append(System.lineSeparator());

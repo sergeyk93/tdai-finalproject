@@ -9,12 +9,15 @@ public class WaveGenerator {
 
 	private PriceCalculator pc;
 	private Jeu gameSession;
+	// Package protected field
+	static double budget = 0;
 
 	public WaveGenerator(Jeu gameSession){
 		// Initializing the A.I components
 		DdaManager.init();
 		pc = new PriceCalculator();
 		this.gameSession = gameSession;
+		
 	}
 	/**
 	 * Generates a wave based on the price calculation algorithm
@@ -25,14 +28,17 @@ public class WaveGenerator {
 	public ArrayList<Creature> generate() throws Exception{
 		ArrayList<Creature> wave = new ArrayList<Creature>();
 		
-		if(Jeu.getNumVagueCourante() % 10 == 0){
+		int waveNumber = gameSession.getNumVagueCourante();
+		
+		if(waveNumber % 10 == 0){
 			GrandeAraignee boss = new GrandeAraignee();
 			boss.setSante(Constants.BOSS);
 			wave.add(boss);
 		}
 		
 		else{
-			wave = pc.compute(gameSession);
+			budget += DdaManager.budgetPerWave() * waveNumber;
+			wave = pc.compute(gameSession.getTowersIterator(), waveNumber);
 		}
 		
 		return wave;

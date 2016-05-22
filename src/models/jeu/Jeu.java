@@ -22,17 +22,36 @@ import i18n.Langue;
 
 import java.awt.Graphics2D;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Vector;
 
-import ai.DdaManager;
-import ai.WaveGenerator;
+import models.animations.Animation;
+import models.animations.Fumee;
+import models.animations.GestionnaireAnimations;
+import models.animations.TacheDeSang;
+import models.creatures.Creature;
+import models.creatures.EcouteurDeCreature;
+import models.creatures.EcouteurDeVague;
+import models.creatures.GestionnaireCreatures;
+import models.creatures.VagueDeCreatures;
+import models.joueurs.EcouteurDeJoueur;
+import models.joueurs.EmplacementJoueur;
+import models.joueurs.Equipe;
+import models.joueurs.Joueur;
+import models.terrains.Terrain;
+import models.tours.GestionnaireTours;
+import models.tours.Tour;
 import outils.myTimer;
-import exceptions.*;
-import models.animations.*;
-import models.creatures.*;
-import models.joueurs.*;
-import models.terrains.*;
-import models.tours.*;
+import ai.WaveGenerator;
+import exceptions.ActionNonAutoriseeException;
+import exceptions.ArgentInsuffisantException;
+import exceptions.AucunePlaceDisponibleException;
+import exceptions.CheminBloqueException;
+import exceptions.JeuEnCoursException;
+import exceptions.JoueurHorsJeu;
+import exceptions.NiveauMaxAtteintException;
+import exceptions.ZoneInaccessibleException;
 
 /**
  * C'est la classe principale du jeu (Moteur)
@@ -132,7 +151,7 @@ public abstract class Jeu implements EcouteurDeJoueur,
      * ou il veut lancer une vague de creatures. Une fois que toutes les vagues
      * de creatures ont ete detruites, le jeu est considere comme termine.
      */
-    protected static int indiceVagueCourante = 1;
+    protected int indiceVagueCourante;
 	
     /**
      * Stockage de la vagues courante
@@ -182,16 +201,6 @@ public abstract class Jeu implements EcouteurDeJoueur,
      */
     private double coeffVitesse;
     
-    private double wallet=0;
-    
-    public void setWallet(double newWallet){
-    	wallet=newWallet;
-    }
-    
-    public double getWallet(){
-    	return wallet;
-    }
-    
     private WaveGenerator wg;
 
     /**
@@ -202,6 +211,7 @@ public abstract class Jeu implements EcouteurDeJoueur,
         gestionnaireTours      = new GestionnaireTours(this);
         gestionnaireCreatures  = new GestionnaireCreatures(this);
         gestionnaireAnimations = new GestionnaireAnimations(this);
+        indiceVagueCourante = 1;
         // Initialzing a logger that will track the computations of the AI
         try {
 			ai.AILogger.initLogger();
@@ -453,7 +463,6 @@ public abstract class Jeu implements EcouteurDeJoueur,
 	public void lancerVagueSuivante(Joueur joueur, Equipe cible)
 	{
 		// lancement de la vague
-		wallet += DdaManager.budgetPerWave() * indiceVagueCourante;
 	    VagueDeCreatures vagueCourante = terrain.getVagueDeCreatures(wg,indiceVagueCourante);
 	    passerALaProchaineVague();
 	    
@@ -1003,7 +1012,7 @@ public abstract class Jeu implements EcouteurDeJoueur,
      * 
      * @return le numero de la vague courante
      */
-    public static int getNumVagueCourante()
+    public int getNumVagueCourante()
     {
         return indiceVagueCourante;
     }
