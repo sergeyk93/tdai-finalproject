@@ -17,22 +17,14 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
-import vues.*;
-
-import java.awt.*;
+import java.awt.Dimension;
 import java.io.File;
-import javax.swing.*;
 
-import exceptions.AucunePlaceDisponibleException;
-import models.jeu.Jeu;
-import models.jeu.Jeu_Solo;
-import models.joueurs.Equipe;
-import models.joueurs.Joueur;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+
 import models.outils.GestionnaireSons;
 import models.outils.Son;
-import models.terrains.ElementTD;
-import models.terrains.Terrain;
-import vues.solo.Fenetre_JeuSolo;
 
 /**
 * Fenetre du menu principal du jeu.

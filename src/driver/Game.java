@@ -17,32 +17,35 @@ package driver;
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
-import i18n.Langue;
-import vues.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
-import vues.Fenetre_MenuPrincipal;
-import vues.GestionnaireDesPolices;
-import vues.LookInterface;
-import vues.Panel_MenuPrincipal;
-import vues.commun.Fenetre_HTML;
-import vues.solo.*;
 import exceptions.AucunePlaceDisponibleException;
+import i18n.Langue;
 import models.jeu.Jeu;
 import models.jeu.Jeu_Solo;
 import models.joueurs.Equipe;
 import models.joueurs.Joueur;
-import models.outils.Astuces;
 import models.outils.GestionnaireSons;
-import models.outils.MeilleursScores;
-import models.outils.Outils;
-import models.outils.Score;
-import models.terrains.*;
+import models.terrains.Desert;
+import models.terrains.ElementTD;
+import models.terrains.Spiral;
+import models.terrains.Terrain;
+import models.terrains.WaterWorld;
+import vues.Panel_MenuPrincipal;
+import vues.commun.Fenetre_HTML;
+import vues.solo.Fenetre_JeuSolo;
+import vues.solo.Fenetre_MeilleursScores;
 
 /**
  * Fenetre du menu principal du jeu.
