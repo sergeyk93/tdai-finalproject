@@ -1,4 +1,3 @@
-package driver;
 /*
   Copyright (C) 2010 Aurelien Da Campo
   
@@ -124,12 +123,12 @@ public class ChooseGame extends JDialog implements ActionListener
         
         if(src == bFool)
         {
-            ai.Game.init(false);
+            ai.utils.Game.init(false);
             dispose();
         }
         else if(src == bSmart)
         {
-        	ai.Game.init(true);
+        	ai.utils.Game.init(true);
             dispose();
         } 
         else

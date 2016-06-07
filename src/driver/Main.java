@@ -1,4 +1,3 @@
-package driver;
 /*
   Copyright (C) 2010 Aurelien Da Campo
 
@@ -17,9 +16,10 @@ package driver;
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
+import i18n.Langue;
+
 import javax.swing.UIManager;
 
-import i18n.Langue;
 import models.outils.GestionnaireSons;
 
 /**
@@ -43,7 +43,7 @@ public class Main
     * @param args Les arguments fournis au programme principal.
     */
    public static void main(String[] args) 
-   {   
+   {
        // essaye de mettre le nouveau look and feel "Nimbus" fourni par Java
        for (UIManager.LookAndFeelInfo laf : UIManager.getInstalledLookAndFeels())
            if ("Nimbus".equals(laf.getName())) 
@@ -74,7 +74,7 @@ public class Main
       // A shutdown hook that closes the logger's file handler
       Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
           public void run() {
-              ai.AILogger.closeLogger();
+              ai.utils.AILogger.closeLogger();
           }
       }, "Shutdown-thread"));
    }
