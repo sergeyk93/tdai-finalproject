@@ -29,8 +29,8 @@ import java.util.Date;
 import models.joueurs.Equipe;
 import models.joueurs.Joueur;
 import models.tours.Tour;
-import ai.DdaManager;
-import ai.TimeAliveTable;
+import ai.budget_manager.TimeAliveTable;
+import ai.dda.DdaManager;
 
 /**
  * Classe de gestion d'une creature.

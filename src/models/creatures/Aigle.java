@@ -21,7 +21,7 @@ package models.creatures;
 import java.awt.Image;
 import java.awt.Toolkit;
 
-import ai.Constants;
+import ai.utils.Constants;
 /**
  * Classe de gestion d'une creature volante.
  * 

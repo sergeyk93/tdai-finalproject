@@ -2,6 +2,9 @@ package ai;
 
 import java.util.ArrayList;
 
+import ai.budget_manager.PriceCalculator;
+import ai.dda.DdaManager;
+import ai.utils.Constants;
 import models.creatures.*;
 import models.jeu.Jeu;
 
@@ -10,7 +13,7 @@ public class WaveGenerator {
 	private PriceCalculator pc;
 	private Jeu gameSession;
 	// Package protected field
-	static double budget = 0;
+	private static double budget = 0;
 
 	public WaveGenerator(Jeu gameSession){
 		// Initializing the A.I components
@@ -42,6 +45,14 @@ public class WaveGenerator {
 		}
 		
 		return wave;
+	}
+	
+	public static double getBudget(){
+		return budget;
+	}
+	
+	public static void setBudget(double newBudget){
+		budget = newBudget;
 	}
 
 }

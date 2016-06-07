@@ -214,13 +214,13 @@ public abstract class Jeu implements EcouteurDeJoueur,
         indiceVagueCourante = 1;
         // Initialzing a logger that will track the computations of the AI
         try {
-			ai.AILogger.initLogger();
+			ai.utils.AILogger.initLogger();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
         // Initializing a new wave generator that utilizies the AI and the DDA
         wg = new WaveGenerator(this);
-        ai.DdaManager.init();
+        ai.dda.DdaManager.init();
     }
     
     /**
