@@ -514,6 +514,7 @@ public abstract class Jeu implements EcouteurDeJoueur,
             if(edj != null)
                 edj.partieTerminee(new ResultatJeu(equipeGagnante)); // TODO check
         }
+        System.out.println("Level reached: " + indiceVagueCourante);
     }
 
     /**
