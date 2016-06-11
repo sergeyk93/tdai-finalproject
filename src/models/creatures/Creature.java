@@ -803,4 +803,11 @@ public abstract class Creature extends Rectangle
 		nbPiecesDOr = (int)(Math.floor(santeMax / vitesseNormale) * factor);
 		nbPiecesDOr = nbPiecesDOr == 0 ? 1 : nbPiecesDOr;
 	}
+	
+	public void updateData() {
+		santeMax *= DdaManager.healthCoef();
+		sante = santeMax;
+		vitesseNormale *= DdaManager.speedCoef();
+		nbPiecesDOr *= DdaManager.dropValueCoef();
+	}
 }
