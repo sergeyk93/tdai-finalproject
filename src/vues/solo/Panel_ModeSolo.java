@@ -90,21 +90,21 @@ public class Panel_ModeSolo extends JPanel implements ActionListener, Runnable
 	private JProgressBar chargementTerrain;
 	private Thread thread;
     private boolean chargementTermine;
-	private JFrame parent;
+	private JPanel parent;
 	
 	private JLabel lblInfo = new JLabel(Langue.getTexte(Langue.ID_TXT_CLIQUER_SUR_TERRAIN));
 
 	/**
 	 * Constructeur de la fenetre du menu principal
 	 */
-	public Panel_ModeSolo(JFrame parent)
+	public Panel_ModeSolo(JPanel parent)
 	{
 		//-------------------------------
 		//-- preferances de le fenetre --
 		//-------------------------------
 	    this.parent = parent;
 	    setLayout(new BorderLayout());
-		parent.setTitle(Langue.getTexte(Langue.ID_TITRE_PARTIE_SOLO)+" - ASD Tower Defense");
+		parent.setName(Langue.getTexte(Langue.ID_TITRE_PARTIE_SOLO)+" - ASD Tower Defense");
 
 		setBorder(new EmptyBorder(new Insets(MARGES_PANEL, MARGES_PANEL,
                 MARGES_PANEL, MARGES_PANEL)));
@@ -378,6 +378,7 @@ public class Panel_ModeSolo extends JPanel implements ActionListener, Runnable
 		    Jeu jeu = new Jeu_Solo();
 		    lancerJeu(jeu, new WaterWorld(jeu));
 		}
+		/*
 		else if(source == itemMSElementTD)
 		    new Fenetre_MeilleursScores(ElementTD.NOM, parent);
 		else if(source == itemMSSpiral)
@@ -388,10 +389,10 @@ public class Panel_ModeSolo extends JPanel implements ActionListener, Runnable
             new Fenetre_MeilleursScores(WaterWorld.NOM, parent);
 		else if(source == bRetour)
 		{
-		    parent.getContentPane().removeAll();
-            parent.getContentPane().add(new Panel_MenuPrincipal(parent),
+		    parent.removeAll();
+            parent.add(new Panel_MenuPrincipal(parent),
                     BorderLayout.CENTER);
-            parent.getContentPane().validate();
+            parent.validate();
 		}
 		else if(source == boutonsScore[0])
             new Fenetre_MeilleursScores("ElementTD", parent);    
@@ -401,6 +402,7 @@ public class Panel_ModeSolo extends JPanel implements ActionListener, Runnable
             new Fenetre_MeilleursScores("Desert", parent); 
         else if(source == boutonsScore[3])
             new Fenetre_MeilleursScores("WaterWorld", parent);   
+            */
 	}
 
 	/**
@@ -434,7 +436,7 @@ public class Panel_ModeSolo extends JPanel implements ActionListener, Runnable
         new Fenetre_JeuSolo(jeu);
         
         chargementTermine = true;
-        parent.dispose();
+        parent.remove(parent);
     }
 
     synchronized private void actionnerBarreDeChargement()

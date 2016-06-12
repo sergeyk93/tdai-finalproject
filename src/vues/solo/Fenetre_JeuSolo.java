@@ -18,14 +18,49 @@
 
 package vues.solo;
 
-import models.animations.*;
 import i18n.Langue;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
-import javax.swing.*;
-import javax.swing.border.*;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.KeyStroke;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+
+import models.animations.Animation;
+import models.animations.GainDePiecesOr;
+import models.animations.GainEtoile;
+import models.animations.Nuage;
+import models.animations.PerteVie;
+import models.creatures.Creature;
+import models.creatures.VagueDeCreatures;
+import models.jeu.EcouteurDeJeu;
+import models.jeu.Jeu;
+import models.jeu.ResultatJeu;
+import models.joueurs.Equipe;
+import models.joueurs.Joueur;
+import models.outils.GestionnaireSons;
+import models.tours.Tour;
 import outils.Configuration;
 import vues.Fenetre_MenuPrincipal;
 import vues.Fenetre_Options;
@@ -37,12 +72,7 @@ import vues.commun.Panel_InfoCreature;
 import vues.commun.Panel_InfoTour;
 import vues.commun.Panel_InfoVagues;
 import vues.commun.Panel_Terrain;
-import exceptions.*;
-import models.outils.GestionnaireSons;
-import models.tours.Tour;
-import models.creatures.*;
-import models.jeu.*;
-import models.joueurs.*;
+import exceptions.ActionNonAutoriseeException;
 
 /**
  * Fenetre princiale du jeu 1 joueur. 
@@ -56,7 +86,7 @@ import models.joueurs.*;
  * @see JFrame
  * @see ActionListener
  */
-public class Fenetre_JeuSolo extends JFrame implements ActionListener, 
+public class Fenetre_JeuSolo extends JPanel implements ActionListener, 
                                                     EcouteurDeJeu, 
                                                     EcouteurDePanelTerrain,
                                                     WindowListener,
@@ -65,24 +95,24 @@ public class Fenetre_JeuSolo extends JFrame implements ActionListener,
 	// constantes statiques
     private final int MARGES_PANEL = 10;
     private static final long serialVersionUID = 1L;
-    private static final ImageIcon I_REDEMARRER = new ImageIcon("img/icones/arrow_rotate_clockwise.png");
-    private static final ImageIcon I_RETOUR = new ImageIcon("img/icones/application_home.png");
-	private static final ImageIcon I_QUITTER = new ImageIcon("img/icones/door_out.png");
-	private static final ImageIcon I_AIDE = new ImageIcon("img/icones/help.png");
-	private static final ImageIcon I_REGLES = new ImageIcon("img/icones/script.png");
-	private static final ImageIcon I_ACTIF = new ImageIcon("img/icones/tick.png");
-	private static final ImageIcon I_FENETRE = new ImageIcon("img/icones/icone_pgm.png");
-	private static final ImageIcon I_SON_ACTIF = new ImageIcon("img/icones/sound.png");
-	private static final ImageIcon I_VITESSE_JEU   = new ImageIcon("img/icones/clock_play.png");
-	private static final ImageIcon I_PLEIN_ECRAN = new ImageIcon("img/icones/arrow_out.png");
-	private static final ImageIcon I_RETRECIR = new ImageIcon("img/icones/arrow_in.png");
-	private static final ImageIcon I_CENTRE = new ImageIcon("img/icones/target.png");
-	private static final ImageIcon I_ZOOM = new ImageIcon("img/icones/magnifier_zoom_in.png");
-	private static final ImageIcon I_DEZOOM = new ImageIcon("img/icones/magnifier_zoom_out.png");
-	private static final ImageIcon I_OPTIONS = new ImageIcon("img/icones/wrench.png");
-	private static final ImageIcon I_DEBUG = new ImageIcon("img/icones/bug.png");
-	private static final ImageIcon I_MAILLAGE = new ImageIcon("img/icones/mesh.png");
-	private static final ImageIcon I_RAYON = new ImageIcon("img/icones/target.png");
+    private static final ImageIcon I_REDEMARRER = new ImageIcon("../img/icones/arrow_rotate_clockwise.png");
+    private static final ImageIcon I_RETOUR = new ImageIcon("../img/icones/application_home.png");
+	private static final ImageIcon I_QUITTER = new ImageIcon("../img/icones/door_out.png");
+	private static final ImageIcon I_AIDE = new ImageIcon("../img/icones/help.png");
+	private static final ImageIcon I_REGLES = new ImageIcon("../img/icones/script.png");
+	private static final ImageIcon I_ACTIF = new ImageIcon("../img/icones/tick.png");
+	private static final ImageIcon I_FENETRE = new ImageIcon("../img/icones/icone_pgm.png");
+	private static final ImageIcon I_SON_ACTIF = new ImageIcon("../img/icones/sound.png");
+	private static final ImageIcon I_VITESSE_JEU   = new ImageIcon("../img/icones/clock_play.png");
+	private static final ImageIcon I_PLEIN_ECRAN = new ImageIcon("../img/icones/arrow_out.png");
+	private static final ImageIcon I_RETRECIR = new ImageIcon("../img/icones/arrow_in.png");
+	private static final ImageIcon I_CENTRE = new ImageIcon("../img/icones/target.png");
+	private static final ImageIcon I_ZOOM = new ImageIcon("../img/icones/magnifier_zoom_in.png");
+	private static final ImageIcon I_DEZOOM = new ImageIcon("../img/icones/magnifier_zoom_out.png");
+	private static final ImageIcon I_OPTIONS = new ImageIcon("../img/icones/wrench.png");
+	private static final ImageIcon I_DEBUG = new ImageIcon("../img/icones/bug.png");
+	private static final ImageIcon I_MAILLAGE = new ImageIcon("../img/icones/mesh.png");
+	private static final ImageIcon I_RAYON = new ImageIcon("../img/icones/target.png");
 	
 	
 	private static final String FENETRE_TITRE = "ASD - Tower Defense";
@@ -193,16 +223,19 @@ public class Fenetre_JeuSolo extends JFrame implements ActionListener,
 	public Fenetre_JeuSolo(Jeu jeu)
 	{
 	    this.jeu = jeu;
+	    
+	    setLayout(new BorderLayout());
         
 	    //-------------------------------
 		//-- preferences de le fenetre --
 		//-------------------------------
-		setTitle(FENETRE_TITRE);
-		setIconImage(I_FENETRE.getImage());
-		//setResizable(false);
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		addWindowListener(this);
-		getContentPane().setBackground(LookInterface.COULEUR_DE_FOND_PRI);
+		setName(FENETRE_TITRE);
+//		setIconImage(I_FENETRE.getImage());
+//		setResizable(false);
+//		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+//		
+//		addWindowListener(this);
+		setBackground(LookInterface.COULEUR_DE_FOND_PRI);
 		
 		pFormulaire.setOpaque(false);
 		pFormulaire.setBorder(new EmptyBorder(new Insets(MARGES_PANEL, MARGES_PANEL,
@@ -220,10 +253,10 @@ public class Fenetre_JeuSolo extends JFrame implements ActionListener,
 
 		// menu Edition
 		itemPause.setAccelerator(KeyStroke.getKeyStroke('P'));
-		menuAffichage.add(itemModeDebug);
-		menuAffichage.add(itemAfficherMaillage);
-		menuAffichage.add(itemAfficherRayonsPortee);
-		menuPrincipal.add(menuAffichage);
+//		menuAffichage.add(itemModeDebug);
+//		menuAffichage.add(itemAfficherMaillage);
+//		menuAffichage.add(itemAfficherRayonsPortee);
+//		menuPrincipal.add(menuAffichage);
 		
 		// menu Jeu
 		menuJeu.add(itemOptions);
@@ -254,7 +287,8 @@ public class Fenetre_JeuSolo extends JFrame implements ActionListener,
 		
 		
 		// ajout du menu
-		setJMenuBar(menuPrincipal); 
+		//setJMenuBar(menuPrincipal);
+		add(menuPrincipal, BorderLayout.NORTH);
 		
 		JPanel pGauche = new JPanel(new BorderLayout());
 		pGauche.setOpaque(false);
@@ -335,7 +369,7 @@ public class Fenetre_JeuSolo extends JFrame implements ActionListener,
 
         // style du champ de description de la vague suivante 
         taConsole.setFont(GestionnaireDesPolices.POLICE_CONSOLE);
-
+        
         taConsole.setEditable(false);
         JScrollPane scrollConsole = new JScrollPane(taConsole);
         scrollConsole.setPreferredSize(new Dimension(jeu.getTerrain().getLargeur(),50));
@@ -377,9 +411,11 @@ public class Fenetre_JeuSolo extends JFrame implements ActionListener,
 		//---------------------------------------
 		//-- dernieres propietes de la fenetre --
 		//---------------------------------------
-		pack(); // adapte la taille de la fenetre a son contenu
+		//pack(); // adapte la taille de la fenetre a son contenu
+        revalidate();
 		setVisible(true); // tu es toute belle, affiche toi !
-		setLocationRelativeTo(null); // centrage de la fenetre
+//		setLocationRelativeTo(null); // centrage de la fenetre
+		
 	}
 
     /**
@@ -471,6 +507,8 @@ public class Fenetre_JeuSolo extends JFrame implements ActionListener,
 		    else    
 		        jeu.augmenterCoeffVitesse();
         }
+		// Doesn't matter in applet since you can't resize
+		/*
 		else if(source == bPleinEcran)
         {
 
@@ -488,7 +526,7 @@ public class Fenetre_JeuSolo extends JFrame implements ActionListener,
 		      
 		      panelTerrain.reinitialiserVue();
         }
-		
+		*/
 		else if(source == bCentrer)
         {
 		    panelTerrain.reinitialiserVue();
@@ -521,7 +559,7 @@ public class Fenetre_JeuSolo extends JFrame implements ActionListener,
 
             new Fenetre_JeuSolo(jeu);
             
-            dispose();
+            remove(this);
         }
     }
 
@@ -591,7 +629,7 @@ public class Fenetre_JeuSolo extends JFrame implements ActionListener,
     {
 	    GestionnaireSons.arreterTousLesSons();
          
-        dispose(); // destruction de la fenetre
+        remove(this); // destruction de la fenetre
         System.gc(); // passage du remasse miette
         new Fenetre_MenuPrincipal();  
     }
@@ -999,4 +1037,6 @@ public class Fenetre_JeuSolo extends JFrame implements ActionListener,
     {
         bVitesseJeu.setText("x"+coeffVitesse);
     }
+    
+    
 }

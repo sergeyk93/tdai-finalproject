@@ -46,7 +46,7 @@ public class Fumee extends Animation
 	static
     { 
 	    for(int i=0;i<IMAGES.length;i++)
-	        IMAGES[i] = Toolkit.getDefaultToolkit().getImage("img/animations/fumee/"+i+".png");
+	        IMAGES[i] = Toolkit.getDefaultToolkit().getImage("../img/animations/fumee/"+i+".png");
     }
 	
 	/**

@@ -24,6 +24,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -56,7 +57,7 @@ import models.tours.Tour;
  * @since jdk1.6.0_16
  * @see Terrain
  */
-public class Fenetre_CreationTerrain extends    JFrame 
+public class Fenetre_CreationTerrain extends    JPanel
                                      implements EcouteurDePanelTerrain, 
                                                 EcouteurDePanelCreationTerrain, 
                                                 ActionListener
@@ -166,12 +167,14 @@ public class Fenetre_CreationTerrain extends    JFrame
      */
     public Fenetre_CreationTerrain()
     {
-        super(Langue.getTexte(Langue.ID_TITRE_EDITEUR_DE_TERRAIN));
+        super();
         
-        setIconImage(I_FENETRE.getImage());
-        getContentPane().setLayout(new BorderLayout());
-        getContentPane().setBackground(LookInterface.COULEUR_DE_FOND_PRI);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setName(Langue.getTexte(Langue.ID_TITRE_EDITEUR_DE_TERRAIN));
+        
+//        setIconImage(I_FENETRE.getImage());
+        setLayout(new BorderLayout());
+        setBackground(LookInterface.COULEUR_DE_FOND_PRI);
+//        setDefaultCloseOperation(EXIT_ON_CLOSE);
         
         // creation du jeu
         jeu = new Jeu_Solo();
@@ -220,7 +223,7 @@ public class Fenetre_CreationTerrain extends    JFrame
         menuPrincipal.add(menuAide);
         menuAide.add(itemCommentUtiliserLEditeur);
         
-        setJMenuBar(menuPrincipal);
+        this.add(menuPrincipal, BorderLayout.NORTH);
         
         // barre d'outils
         JToolBar tbPrincipale = new JToolBar();
@@ -291,8 +294,9 @@ public class Fenetre_CreationTerrain extends    JFrame
         
         //nouveauTerrain();
         
-        pack();
-        setLocationRelativeTo(null);
+//        pack();
+//        setLocationRelativeTo(null);
+        revalidate();
         setVisible(true);
     }
     
@@ -379,7 +383,7 @@ public class Fenetre_CreationTerrain extends    JFrame
         else if(src == itemMenuPrincipal)
         {
             new Fenetre_MenuPrincipal();
-            dispose();
+            remove(this);
         }
         else if(src == bMain)
         {
@@ -503,7 +507,7 @@ public class Fenetre_CreationTerrain extends    JFrame
                     {
                         GestionnaireSons.arreterTousLesSons();
                          
-                        dispose(); // destruction de la fenetre
+                        remove(this); // destruction de la fenetre
                         System.gc(); // passage du remasse miette
                     }
                     
@@ -512,7 +516,7 @@ public class Fenetre_CreationTerrain extends    JFrame
                         // FIXME fait planter l'éditeur après fermeture
                         //jeu.terminer();
                         //jeu.detruire();
-                        dispose();
+                    	remove(this);
                     } 
                 };
             }

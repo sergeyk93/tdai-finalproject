@@ -42,18 +42,18 @@ import vues.solo.Fenetre_JeuSolo;
  * @version 1.0 | 20 avril 2010
  * @since jdk1.6.0_16
  */
-public class Fenetre_MenuPrincipal extends JFrame
+public class Fenetre_MenuPrincipal extends JPanel
 {
     // constantes statiques
     private static final long serialVersionUID = 1L;
     private static final ImageIcon I_FENETRE = new ImageIcon(
-            "img/icones/icone_pgm.png");
+            "../img/icones/icone_pgm.png");
 
     public static final int LARGEUR_FENETRE = 800;
     public static final int HAUTEUR_FENETRE = 600;
     
     public static final File FICHIER_MUSIQUE_MENU 
-    = new File("snd/ambient/Jazzduphoodlum - Medieval In vestri Ass.mp3");
+    = new File("../snd/ambient/Jazzduphoodlum - Medieval In vestri Ass.mp3");
     
     /**
      * Constructeur de la fenetre du menu principal
@@ -64,9 +64,9 @@ public class Fenetre_MenuPrincipal extends JFrame
         // -- preferences de le fenetre --
         // -------------------------------
         //setSize(LARGEUR_FENETRE, HAUTEUR_FENETRE);
-        setIconImage(I_FENETRE.getImage());
-        setResizable(false);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+//        setIconImage(I_FENETRE.getImage());
+//        setResizable(false);
+//        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         // ------------------------
         // -- musique d'ambiance --
@@ -78,15 +78,16 @@ public class Fenetre_MenuPrincipal extends JFrame
         // ---------------------
         // -- panel principal --
         // ---------------------
-        getContentPane().add(new Panel_MenuPrincipal(this), BorderLayout.CENTER);
+        add(new Panel_MenuPrincipal(this), BorderLayout.CENTER);
         
 
         // --------------------------
         // -- dernieres proprietes --
         // --------------------------
-        getContentPane().setPreferredSize(new Dimension(800,600));
-        pack();
-        setLocationRelativeTo(null);
+        setPreferredSize(new Dimension(800,600));
+//        pack();
+//        setLocationRelativeTo(null);
+        revalidate();
         setVisible(true);
     }
 }

@@ -50,7 +50,7 @@ public class Panel_RejoindrePartieMulti extends JPanel implements
         ActionListener, KeyListener, MouseListener, EcouteurDeClientJeu
 {  
     private final int MARGES_PANEL = 40;
-    private JFrame parent;
+    private JPanel parent;
 
     private DefaultTableModel model = new DefaultTableModel();
     private JTable tbServeurs;
@@ -152,12 +152,12 @@ public class Panel_RejoindrePartieMulti extends JPanel implements
      * 
      * @param parent le fenetre parent
      */
-    public Panel_RejoindrePartieMulti(JFrame parent)
+    public Panel_RejoindrePartieMulti(JPanel parent)
     {
         // initialisation
         super(new BorderLayout());
         this.parent = parent;
-        parent.setTitle(Langue.getTexte(Langue.ID_TITRE_REJOINDRE_UNE_PARTIE_MULTI));
+        parent.setName(Langue.getTexte(Langue.ID_TITRE_REJOINDRE_UNE_PARTIE_MULTI));
         setBorder(new EmptyBorder(new Insets(MARGES_PANEL, MARGES_PANEL,
                 MARGES_PANEL, MARGES_PANEL)));
         setBackground(LookInterface.COULEUR_DE_FOND_PRI);
@@ -472,10 +472,10 @@ public class Panel_RejoindrePartieMulti extends JPanel implements
         }
         else if (src == bRetour)
         {
-            parent.getContentPane().removeAll();
-            parent.getContentPane().add(new Panel_MenuPrincipal(parent),
+            parent.removeAll();
+            parent.add(new Panel_MenuPrincipal(parent),
                     BorderLayout.CENTER);
-            parent.getContentPane().validate();
+            parent.validate();
             
             // fermeture du canal s'il est ouvert
             if(canalServeurEnregistrement != null)
@@ -655,10 +655,10 @@ public class Panel_RejoindrePartieMulti extends JPanel implements
         // on passe au formulaire d'attente du debut de la partie...
         
         // connexion réussie
-        parent.getContentPane().removeAll();
-        parent.getContentPane().add(new Panel_AttendreJoueurs(parent, jeu),
+        parent.removeAll();
+        parent.add(new Panel_AttendreJoueurs(parent, jeu),
                 BorderLayout.CENTER);
-        parent.getContentPane().validate();
+        parent.validate();
     }
 
     @Override

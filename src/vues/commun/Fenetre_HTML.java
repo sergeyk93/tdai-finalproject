@@ -21,12 +21,14 @@ package vues.commun;
 import i18n.Langue;
 
 import java.io.*;
+
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.*;
 import javax.swing.*;
 
 import vues.GestionnaireDesPolices;
 import vues.LookInterface;
+import vues.solo.Fenetre_JeuSolo;
 
 import java.net.*;
 import java.awt.event.*;
@@ -39,7 +41,7 @@ import java.awt.*;
  * @version 1.0 | juin 2010
  * @since jdk1.6.0_16
  */
-public class Fenetre_HTML extends JFrame implements ActionListener
+public class Fenetre_HTML extends JPanel implements ActionListener
 {
 
     private JEditorPane epHTML;
@@ -51,14 +53,15 @@ public class Fenetre_HTML extends JFrame implements ActionListener
      * 
      * @param titre le titre de la fenetre
      * @param fichier le fichier html local
-     * @param parent la fenêtre parent
+     * @param fenetre_JeuSolo la fenêtre parent
      */
-    public Fenetre_HTML(String titre, File fichier, JFrame parent)
+    public Fenetre_HTML(String titre, File fichier, JPanel fenetre_JeuSolo)
     {
 
-        super(titre);
-        setIconImage(parent.getIconImage());
-        getContentPane().setBackground(LookInterface.COULEUR_DE_FOND_PRI);
+        //super(titre);
+    	super();
+        //setIconImage(parent.getIconImage());
+        this.setBackground(LookInterface.COULEUR_DE_FOND_PRI);
 
         // contenu HTML
         epHTML = new JEditorPane();
@@ -99,7 +102,7 @@ public class Fenetre_HTML extends JFrame implements ActionListener
             }
         });
 
-        getContentPane().add(new JScrollPane(epHTML), BorderLayout.CENTER);
+        this.add(new JScrollPane(epHTML), BorderLayout.CENTER);
 
         // bouton fermer
         bFermer.addActionListener(this);
@@ -107,11 +110,12 @@ public class Fenetre_HTML extends JFrame implements ActionListener
         GestionnaireDesPolices.setStyle(bFermer);
         
         
-        getContentPane().add(bFermer, BorderLayout.SOUTH);
+        this.add(bFermer, BorderLayout.SOUTH);
 
         // dernier réglages
         setSize(550, 600);
-        setLocationRelativeTo(null);
+//        setLocationRelativeTo(null);
+        this.revalidate();
         setVisible(true);
     }
 
@@ -119,6 +123,6 @@ public class Fenetre_HTML extends JFrame implements ActionListener
     public void actionPerformed(ActionEvent e)
     {
         if (e.getSource() == bFermer)
-            this.dispose();
+            remove(this);;
     }
 }

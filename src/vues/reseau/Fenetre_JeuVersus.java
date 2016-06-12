@@ -20,11 +20,14 @@ package vues.reseau;
 
 import models.animations.*;
 import i18n.Langue;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+
 import javax.swing.*;
 import javax.swing.border.*;
+
 import exceptions.*;
 import outils.myTimer;
 import reseau.CanalException;
@@ -63,7 +66,7 @@ import models.joueurs.Joueur;
  * @see JFrame
  * @see ActionListener
  */
-public class Fenetre_JeuVersus extends JFrame implements ActionListener, 
+public class Fenetre_JeuVersus extends JPanel implements ActionListener, 
                                                     EcouteurDeJeu,
                                                     EcouteurDeLanceurDeVagues,
                                                     EcouteurDePanelTerrain,
@@ -172,13 +175,13 @@ public class Fenetre_JeuVersus extends JFrame implements ActionListener,
 	    //-------------------------------
 		//-- preferances de le fenetre --
 		//-------------------------------
-		setTitle(FENETRE_TITRE);
-		setIconImage(I_FENETRE.getImage());
+		setName(FENETRE_TITRE);
+//		setIconImage(I_FENETRE.getImage());
 		//setResizable(false);
 		//setPreferredSize(new Dimension(1024,768));
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		addWindowListener(this);
-		getContentPane().setBackground(LookInterface.COULEUR_DE_FOND_PRI);
+//		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+//		addWindowListener(this);
+		setBackground(LookInterface.COULEUR_DE_FOND_PRI);
 		
 		pFormulaire.setOpaque(false);
 		//pFormulaire.setBackground(LookInterface.COULEUR_DE_FOND_2);
@@ -220,7 +223,7 @@ public class Fenetre_JeuVersus extends JFrame implements ActionListener,
 		itemAPropos.addActionListener(this);
 		
 		// ajout du menu
-		setJMenuBar(menuPrincipal); 
+		this.add(menuPrincipal, BorderLayout.NORTH);
 		
 		//------------------------
         //-- Eléments de gauche --
@@ -374,9 +377,10 @@ public class Fenetre_JeuVersus extends JFrame implements ActionListener,
 		//---------------------------------------
 		//-- dernieres propietes de la fenetre --
 		//---------------------------------------
-		pack(); // adapte la taille de la fenetre a son contenu
+//		pack(); // adapte la taille de la fenetre a son contenu
 		setVisible(true); // tu es toute belle, affiche toi !
-		setLocationRelativeTo(null); // centrage de la fenetre
+//		setLocationRelativeTo(null); // centrage de la fenetre
+		revalidate();
 	}
 
     /**
@@ -515,7 +519,8 @@ public class Fenetre_JeuVersus extends JFrame implements ActionListener,
 	    jeu.terminer();
         jeu.detruire();
         
-        dispose(); // destruction de la fenetre
+//        dispose(); // destruction de la fenetre
+        remove(this);
         System.gc(); // passage du remasse miette
         new Fenetre_MenuPrincipal();  
     }
@@ -750,7 +755,7 @@ public class Fenetre_JeuVersus extends JFrame implements ActionListener,
         Equipe equipeGagnante = resultatJeu.getEquipeGagnante();
         
         // FIXME continuer...
-        if(equipeGagnante == null)
+        /*if(equipeGagnante == null)
             new Dialog_Message (this, "Draw!", "Nobody won !");         
         else if(equipeGagnante == jeu.getJoueurPrincipal().getEquipe())
         {
@@ -762,10 +767,11 @@ public class Fenetre_JeuVersus extends JFrame implements ActionListener,
             new Dialog_Message (this, "Results", 
                     " Team \""+equipeGagnante.getNom()+"\" " +
                     " win!");  
-            
+        
             String couleurHexa = Outils.ColorToHexa(equipeGagnante.getCouleur());
             ajouterTexteHTMLDansConsole("Team \"<b><font color='#"+couleurHexa+"'>"+equipeGagnante.getNom()+"</font></b>\" wins!<br/>"); 
         }
+        */
     }
 
     @Override
@@ -852,7 +858,7 @@ public class Fenetre_JeuVersus extends JFrame implements ActionListener,
     {
         if(equipe == jeu.getJoueurPrincipal().getEquipe())
         {
-            new Dialog_Message (this, "Lost!", "You lose :(");
+//            new Dialog_Message (this, "Lost!", "You lose :(");
             ajouterTexteHTMLDansConsole("<b>You lose!</b><br />");
         }
         else

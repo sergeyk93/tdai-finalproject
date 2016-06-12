@@ -73,7 +73,7 @@ public class Panel_PartiePersonnalisee extends JPanel implements ActionListener
     private static final ImageIcon I_EDITEUR_T = new ImageIcon("img/icones/map_edit.png");
     private static final ImageIcon I_PLAY = new ImageIcon("img/icones/controller.png");
 
-    private JFrame parent;
+    private JPanel parent;
     
     // form
     private JLabel lblTitreTerrains = new JLabel(Langue.getTexte(Langue.ID_TITRE_CHOIX_TERRAIN));
@@ -101,7 +101,7 @@ public class Panel_PartiePersonnalisee extends JPanel implements ActionListener
      * 
      * @param parent la fenetre parent
      */
-    public Panel_PartiePersonnalisee(JFrame parent)
+    public Panel_PartiePersonnalisee(JPanel parent)
     {
         // initialisation
         super(new BorderLayout());
@@ -114,7 +114,7 @@ public class Panel_PartiePersonnalisee extends JPanel implements ActionListener
         pEmplacementTerrain.basculeraffichageZonesDepartArrivee();
         
         this.parent = parent;
-        parent.setTitle(Langue.getTexte(Langue.ID_TITRE_PARTIE_PERSONNALISEES)+" - ASD Tower Defense");
+        parent.setName(Langue.getTexte(Langue.ID_TITRE_PARTIE_PERSONNALISEES)+" - ASD Tower Defense");
         setBorder(new EmptyBorder(new Insets(MARGES_PANEL, MARGES_PANEL,
                 MARGES_PANEL, MARGES_PANEL)));
 
@@ -378,7 +378,7 @@ public class Panel_PartiePersonnalisee extends JPanel implements ActionListener
                     
                     new Fenetre_JeuSolo(jeu);
                     
-                    parent.dispose();
+                    parent.remove(parent);
                 } 
                 catch (JeuEnCoursException e1)
                 {
@@ -401,7 +401,7 @@ public class Panel_PartiePersonnalisee extends JPanel implements ActionListener
             
             GestionnaireSons.arreterTousLesSons();
             
-            parent.dispose();
+            parent.remove(parent);
         }
         else if(src == bEditeurDeTerrain)
         {
@@ -409,14 +409,14 @@ public class Panel_PartiePersonnalisee extends JPanel implements ActionListener
             
             GestionnaireSons.arreterTousLesSons();
             
-            parent.dispose();
+            parent.remove(parent);
         }
         else if (src == bRetour)
         {
-            parent.getContentPane().removeAll();
-            parent.getContentPane().add(new Panel_MenuPrincipal(parent),
+            parent.removeAll();
+            parent.add(new Panel_MenuPrincipal(parent),
                     BorderLayout.CENTER);
-            parent.getContentPane().validate();
+            parent.validate();
         }
     }
 }

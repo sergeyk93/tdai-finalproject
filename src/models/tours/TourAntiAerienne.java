@@ -52,8 +52,8 @@ public class TourAntiAerienne extends Tour
 	static
 	{
 	    COULEUR = new Color(30,0,170);
-		IMAGE 	= Toolkit.getDefaultToolkit().getImage("img/tours/tourAntiAerienne.png");
-		ICONE   = Toolkit.getDefaultToolkit().getImage("img/tours/icone_tourAntiAerienne.png");
+		IMAGE 	= Toolkit.getDefaultToolkit().getImage("../img/tours/tourAntiAerienne.png");
+		ICONE   = Toolkit.getDefaultToolkit().getImage("../img/tours/icone_tourAntiAerienne.png");
 	}
 	
 	/**

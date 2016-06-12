@@ -38,7 +38,7 @@ public class Rhinoceros extends Creature
 	
 	static
 	{
-		IMAGE = Toolkit.getDefaultToolkit().getImage("img/creatures/rhinoceros.png");
+		IMAGE = Toolkit.getDefaultToolkit().getImage("../img/creatures/rhinoceros.png");
 	}
 	
 	/**

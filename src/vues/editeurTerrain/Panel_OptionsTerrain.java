@@ -47,13 +47,13 @@ public class Panel_OptionsTerrain extends JPanel implements ActionListener,
         DocumentListener, ChangeListener {
     private static final long serialVersionUID = 1L;
     private static final ImageIcon I_DEL = new ImageIcon(
-            "img/icones/delete.png");
+            "../img/icones/delete.png");
     private static final ImageIcon I_PLAY = new ImageIcon(
-            "img/icones/control_play_blue.png");
+            "../img/icones/control_play_blue.png");
     
     
     private static final Object EXTENTION_MP3 = ".mp3";
-    private static final String DOSSIER_MUSIQUES = "snd/ambient/";
+    private static final String DOSSIER_MUSIQUES = "../snd/ambient/";
 
     // ----------------------------
     // -- Elements du formulaire --

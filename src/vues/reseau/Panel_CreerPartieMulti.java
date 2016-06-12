@@ -57,7 +57,7 @@ public class Panel_CreerPartieMulti extends JPanel implements ActionListener
     private final int MARGES_PANEL = 40;
     private final Dimension DEFAULT_DIMENTION_COMP = new Dimension(120, 25);
 
-    private JFrame parent;
+    private JPanel parent;
  
     // form
     private JLabel lblNomServeur = new JLabel(Langue.getTexte(Langue.ID_TITRE_NOM_SERVEUR));
@@ -83,12 +83,12 @@ public class Panel_CreerPartieMulti extends JPanel implements ActionListener
      * 
      * @param parent la fenetre parent
      */
-    public Panel_CreerPartieMulti(JFrame parent)
+    public Panel_CreerPartieMulti(JPanel parent)
     {
         // initialisation
         super(new BorderLayout());
         this.parent = parent;
-        parent.setTitle(Langue.getTexte(Langue.ID_TITRE_CREER_PARTIE_MULTI));
+        parent.setName(Langue.getTexte(Langue.ID_TITRE_CREER_PARTIE_MULTI));
         setBorder(new EmptyBorder(new Insets(MARGES_PANEL, MARGES_PANEL,
                 MARGES_PANEL, MARGES_PANEL)));
 
@@ -419,7 +419,7 @@ public class Panel_CreerPartieMulti extends JPanel implements ActionListener
                     
                     new Fenetre_JeuSolo(jeu);
                     
-                    parent.dispose();
+                    parent.remove(parent);
                 } 
                 catch (JeuEnCoursException e1)
                 {
@@ -488,11 +488,11 @@ public class Panel_CreerPartieMulti extends JPanel implements ActionListener
                             }
                             
                             // connexion réussie
-                            parent.getContentPane().removeAll();
-                            parent.getContentPane().add(
+                            parent.removeAll();
+                            parent.add(
                                     new Panel_AttendreJoueurs(parent, jeuServeur, jeuClient),
                                     BorderLayout.CENTER);
-                            parent.getContentPane().validate();
+                            parent.validate();
                         } 
                         catch (AucunEmplacementDisponibleException e1)
                         {
@@ -520,10 +520,10 @@ public class Panel_CreerPartieMulti extends JPanel implements ActionListener
         } 
         else if (src == bRetour)
         {
-            parent.getContentPane().removeAll();
-            parent.getContentPane().add(new Panel_MenuPrincipal(parent),
+            parent.removeAll();
+            parent.add(new Panel_MenuPrincipal(parent),
                     BorderLayout.CENTER);
-            parent.getContentPane().validate();
+            parent.validate();
         }
     }
 }

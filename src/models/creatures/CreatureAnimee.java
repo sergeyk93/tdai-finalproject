@@ -38,10 +38,10 @@ public class CreatureAnimee extends Creature
 	{
 		IMAGES = new Image[]
 		{
-			Toolkit.getDefaultToolkit().getImage("img/creatures/carapaceKoopa/carapaceKoopa_0.gif"),
-			Toolkit.getDefaultToolkit().getImage("img/creatures/carapaceKoopa/carapaceKoopa_1.gif"),
-			Toolkit.getDefaultToolkit().getImage("img/creatures/carapaceKoopa/carapaceKoopa_2.gif"),
-			Toolkit.getDefaultToolkit().getImage("img/creatures/carapaceKoopa/carapaceKoopa_3.gif")
+			Toolkit.getDefaultToolkit().getImage("../img/creatures/carapaceKoopa/carapaceKoopa_0.gif"),
+			Toolkit.getDefaultToolkit().getImage("../img/creatures/carapaceKoopa/carapaceKoopa_1.gif"),
+			Toolkit.getDefaultToolkit().getImage("../img/creatures/carapaceKoopa/carapaceKoopa_2.gif"),
+			Toolkit.getDefaultToolkit().getImage("../img/creatures/carapaceKoopa/carapaceKoopa_3.gif")
 		};
 	}
 	

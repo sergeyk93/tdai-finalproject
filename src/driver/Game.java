@@ -17,6 +17,8 @@ package driver;
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
+import i18n.Langue;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,14 +26,11 @@ import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
-import exceptions.AucunePlaceDisponibleException;
-import i18n.Langue;
 import models.jeu.Jeu;
 import models.jeu.Jeu_Solo;
 import models.joueurs.Equipe;
@@ -42,10 +41,9 @@ import models.terrains.ElementTD;
 import models.terrains.Spiral;
 import models.terrains.Terrain;
 import models.terrains.WaterWorld;
-import vues.Panel_MenuPrincipal;
 import vues.commun.Fenetre_HTML;
 import vues.solo.Fenetre_JeuSolo;
-import vues.solo.Fenetre_MeilleursScores;
+import exceptions.AucunePlaceDisponibleException;
 
 /**
  * Fenetre du menu principal du jeu.
@@ -64,12 +62,12 @@ public class Game extends JPanel implements ActionListener, Runnable
 {
 	// constantes statiques
     private static final long serialVersionUID 	= 1L;
-	private static final ImageIcon I_QUITTER 	= new ImageIcon("img/icones/door_out.png");
-	private static final ImageIcon I_AIDE 		= new ImageIcon("img/icones/help.png");
-	private static final ImageIcon I_SCORE      = new ImageIcon("img/icones/star.png");
+	private static final ImageIcon I_QUITTER 	= new ImageIcon("../img/icones/door_out.png");
+	private static final ImageIcon I_AIDE 		= new ImageIcon("../img/icones/help.png");
+	private static final ImageIcon I_SCORE      = new ImageIcon("../img/icones/star.png");
 	private static final int IMAGE_MENU_LARGEUR = 120;
 	private static final int IMAGE_MENU_HAUTEUR = 120;
-	private static final ImageIcon icoCADENAS      = new ImageIcon("img/icones/lock.png");
+	private static final ImageIcon icoCADENAS      = new ImageIcon("../img/icones/lock.png");
   
 	private final int MARGES_PANEL                 = 40;
     
@@ -92,9 +90,11 @@ public class Game extends JPanel implements ActionListener, Runnable
 	private JProgressBar chargementTerrain;
 	private Thread thread;
     private boolean chargementTermine;
-	private JFrame parent;
+	private JPanel parent;
 	
 	private JLabel lblInfo = new JLabel(Langue.getTexte(Langue.ID_TXT_CLIQUER_SUR_TERRAIN));
+	
+	JPanel gamePanel;
 
 	/**
 	 * Constructeur de la fenetre du menu principal
@@ -390,9 +390,10 @@ public class Game extends JPanel implements ActionListener, Runnable
 		    Jeu jeu = new Jeu_Solo();
 		    lancerJeu(jeu, new WaterWorld(jeu));
 		}
+		/*
 		else if(source == itemMSElementTD)
 		    new Fenetre_MeilleursScores(ElementTD.NOM, parent);
-		else if(source == itemMSSpiral)
+		/*else if(source == itemMSSpiral)
             new Fenetre_MeilleursScores(Spiral.NOM, parent);
 		else if(source == itemMSDesert)
             new Fenetre_MeilleursScores(Desert.NOM, parent);
@@ -400,19 +401,19 @@ public class Game extends JPanel implements ActionListener, Runnable
             new Fenetre_MeilleursScores(WaterWorld.NOM, parent);
 		else if(source == bRetour)
 		{
-		    parent.getContentPane().removeAll();
-            parent.getContentPane().add(new Panel_MenuPrincipal(parent),
+		    parent.removeAll();
+            parent.add(new Panel_MenuPrincipal(parent),
                     BorderLayout.CENTER);
-            parent.getContentPane().validate();
+            parent.validate();
 		}
 		else if(source == boutonsScore[0])
             new Fenetre_MeilleursScores("ElementTD", parent);    
-        else if(source == boutonsScore[1])
+        /*else if(source == boutonsScore[1])
             new Fenetre_MeilleursScores("Spiral", parent); 
         else if(source == boutonsScore[2])
             new Fenetre_MeilleursScores("Desert", parent); 
         else if(source == boutonsScore[3])
-            new Fenetre_MeilleursScores("WaterWorld", parent);   
+            new Fenetre_MeilleursScores("WaterWorld", parent);   */
 	}
 
 	/**
@@ -432,7 +433,7 @@ public class Game extends JPanel implements ActionListener, Runnable
         terrain.initialiser();
         jeu.setTerrain(terrain);
         Equipe equipe = jeu.getEquipes().get(0); // les equipes sont créer par le terrain
-        Joueur joueur = new Joueur("Joueur");
+        Joueur joueur = new Joueur("Player");
         
         try{
             equipe.ajouterJoueur(joueur);
@@ -443,10 +444,14 @@ public class Game extends JPanel implements ActionListener, Runnable
         
         jeu.setJoueurPrincipal(joueur);
         jeu.initialiser();
-        new Fenetre_JeuSolo(jeu);
+        gamePanel = new Fenetre_JeuSolo(jeu);
         
         chargementTermine = true;
-//        parent.dispose();
+//        remove(parent);
+    }
+    
+    public JPanel getPanel(){
+    	return gamePanel;
     }
 
     synchronized private void actionnerBarreDeChargement()

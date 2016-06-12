@@ -28,8 +28,8 @@ public final class Medias {
 				if(new File(media).exists()) {
 					is = new FileInputStream(new File(media));
 				}
-				else if(new File("."+media).exists()) {
-					is = new FileInputStream(new File("."+media));
+				else if(new File("..\\"+media).exists()) {
+					is = new FileInputStream(new File("..\\"+media));
 				}
 				else {
 					throw new FileNotFoundException(media);

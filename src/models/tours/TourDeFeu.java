@@ -54,8 +54,8 @@ public class TourDeFeu extends Tour
     static
     {
         COULEUR = Color.ORANGE;
-        IMAGE   = Toolkit.getDefaultToolkit().getImage("img/tours/tourDeFeu.png");
-        ICONE   = Toolkit.getDefaultToolkit().getImage("img/tours/icone_tourDeFeu.png");
+        IMAGE   = Toolkit.getDefaultToolkit().getImage("../img/tours/tourDeFeu.png");
+        ICONE   = Toolkit.getDefaultToolkit().getImage("../img/tours/icone_tourDeFeu.png");
     }
     
     public TourDeFeu()

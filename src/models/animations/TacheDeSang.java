@@ -49,7 +49,7 @@ public class TacheDeSang extends Animation
     { 
 	    // chargement des images
 	    for(int i=0;i<TACHES.length;i++)
-	        TACHES[i] = Toolkit.getDefaultToolkit().getImage("img/animations/tachesDeSang/"+i+".png");
+	        TACHES[i] = Toolkit.getDefaultToolkit().getImage("../img/animations/tachesDeSang/"+i+".png");
     }
 	
 	/**

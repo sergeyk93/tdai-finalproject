@@ -43,8 +43,8 @@ public class ChooseGame extends JDialog implements ActionListener
     private static final long serialVersionUID = 1L;
     private final int MARGES_PANEL = 40;
     private final int MARGES_DRAPEAUX = 20;
-    private static final ImageIcon I_Fool     = new ImageIcon("img/game/fool.jpg");
-    private static final ImageIcon I_Smart    = new ImageIcon("img/game/smart.jpg");
+    private static final ImageIcon I_Fool     = new ImageIcon("../img/game/fool.jpg");
+    private static final ImageIcon I_Smart    = new ImageIcon("../img/game/smart.jpg");
     
     private JButton bFool = new JButton("Fool",new ImageIcon(Outils.redimentionner(I_Fool.getImage(), 100, 120)));
     private JButton bSmart = new JButton("Smart",new ImageIcon(Outils.redimentionner(I_Smart.getImage(), 100, 120)));
@@ -52,7 +52,7 @@ public class ChooseGame extends JDialog implements ActionListener
     
     private JLabel lblTitre = new JLabel("Select your game");
     private static final ImageIcon I_FENETRE = new ImageIcon(
-    "img/icones/icone_pgm.png");
+    "../img/icones/icone_pgm.png");
     
     public ChooseGame()
     {

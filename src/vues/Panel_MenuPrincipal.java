@@ -50,7 +50,7 @@ public class Panel_MenuPrincipal extends JPanel implements ActionListener
     // constantes statiques
     private final int MARGES_PANEL = 40;
     private static final long serialVersionUID = 1L;
-    private static final Image IMAGE_DE_FOND = Toolkit.getDefaultToolkit().getImage("img/interfaces/menuPrincipal.png");
+    private static final Image IMAGE_DE_FOND = Toolkit.getDefaultToolkit().getImage("../img/interfaces/menuPrincipal.png");
     
     // elements du formulaire
     private JLabel version;
@@ -67,12 +67,12 @@ public class Panel_MenuPrincipal extends JPanel implements ActionListener
     private JLabel lblReseau = new JLabel(Langue.getTexte(Langue.ID_TITRE_RESEAU)+" \"beta\"");
     
     
-    private JFrame parent;
+    private JPanel parent;
 
     /**
      * Constructeur de la fenetre du menu principal
      */
-    public Panel_MenuPrincipal(JFrame parent)
+    public Panel_MenuPrincipal(JPanel parent)
     {
         super(new BorderLayout());
         this.parent = parent;
@@ -80,7 +80,7 @@ public class Panel_MenuPrincipal extends JPanel implements ActionListener
         // -------------------------------
         // -- preferances de le fenetre --
         // -------------------------------
-        parent.setTitle(Langue.getTexte(Langue.ID_TITRE_MENU_PRINCIPAL)+" - ASD Tower Defense");
+        parent.setName(Langue.getTexte(Langue.ID_TITRE_MENU_PRINCIPAL)+" - ASD Tower Defense");
 
         setBorder(new EmptyBorder(new Insets(MARGES_PANEL, MARGES_PANEL,
                 MARGES_PANEL, MARGES_PANEL)));
@@ -187,31 +187,31 @@ public class Panel_MenuPrincipal extends JPanel implements ActionListener
 
         if (source == bPartieSolo)
         {
-            parent.getContentPane().removeAll();
-            parent.getContentPane().add(new Panel_ModeSolo(parent),
+            parent.removeAll();
+            parent.add(new Panel_ModeSolo(parent),
                     BorderLayout.CENTER);
-            parent.getContentPane().validate();
+            parent.validate();
         } 
         else if (source == bPartiePerso)
         {
-            parent.getContentPane().removeAll();
-            parent.getContentPane().add(new Panel_PartiePersonnalisee(parent),
+            parent.removeAll();
+            parent.add(new Panel_PartiePersonnalisee(parent),
                     BorderLayout.CENTER);
-            parent.getContentPane().validate();
+            parent.validate();
         }   
         else if (source == bRejoindrePartieMulti)
         {
-            parent.getContentPane().removeAll();
-            parent.getContentPane().add(new Panel_RejoindrePartieMulti(parent),
+            parent.removeAll();
+            parent.add(new Panel_RejoindrePartieMulti(parent),
                     BorderLayout.CENTER);
-            parent.getContentPane().validate();
+            parent.validate();
         } 
         else if (source == bCreerPartieMulti)
         {
-            parent.getContentPane().removeAll();
-            parent.getContentPane().add(new Panel_CreerPartieMulti(parent),
+            parent.removeAll();
+            parent.add(new Panel_CreerPartieMulti(parent),
                     BorderLayout.CENTER);
-            parent.getContentPane().validate();
+            parent.validate();
         }
         else if(source == bRegles)
             new Fenetre_HTML(Langue.getTexte(Langue.ID_TXT_BTN_REGLES), new File(Langue.getTexte(Langue.ID_ADRESSE_REGLES_DU_JEU)), parent);

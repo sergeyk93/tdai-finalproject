@@ -49,7 +49,7 @@ public class GainEtoile extends Animation
 	
 	static
     {
-        ETOILE = Toolkit.getDefaultToolkit().getImage("img/icones/star.png");
+        ETOILE = Toolkit.getDefaultToolkit().getImage("../img/icones/star.png");
     }
 	
 	/**

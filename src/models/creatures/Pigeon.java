@@ -38,7 +38,7 @@ public class Pigeon extends Creature
 	
 	static
 	{
-		IMAGE = Toolkit.getDefaultToolkit().getImage("img/creatures/pigeon.png");
+		IMAGE = Toolkit.getDefaultToolkit().getImage("../img/creatures/pigeon.png");
 	}
 	
 	/**

@@ -65,7 +65,7 @@ public class RafaleDeVent extends Attaque
     static
     {
         IMAGE_BOULE = Toolkit.getDefaultToolkit().getImage(
-                "img/animations/attaques/rafaleDeVent.png");
+                "../img/animations/attaques/rafaleDeVent.png");
     }
 
     /**

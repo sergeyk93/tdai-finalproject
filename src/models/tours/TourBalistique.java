@@ -50,8 +50,8 @@ public class TourBalistique extends Tour
 	static
 	{
 	    COULEUR = new Color(64,64,64);
-		IMAGE 	= Toolkit.getDefaultToolkit().getImage("img/tours/tourCanon.png");
-		ICONE   = Toolkit.getDefaultToolkit().getImage("img/tours/icone_tourCanon.png");
+		IMAGE 	= Toolkit.getDefaultToolkit().getImage("../img/tours/tourCanon.png");
+		ICONE   = Toolkit.getDefaultToolkit().getImage("../img/tours/icone_tourCanon.png");
 	}
 	
 	/**

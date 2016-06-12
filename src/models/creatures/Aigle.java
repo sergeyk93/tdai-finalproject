@@ -37,7 +37,7 @@ public class Aigle extends Creature
 	
 	static
 	{
-		IMAGE = Toolkit.getDefaultToolkit().getImage("img/creatures/aigle.png");
+		IMAGE = Toolkit.getDefaultToolkit().getImage("../img/creatures/aigle.png");
 	}
 	
 	/**

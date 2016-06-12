@@ -59,7 +59,7 @@ public class Panel_AttendreJoueurs extends JPanel implements
     private static final long serialVersionUID = 1L;
     private final int MARGES_PANEL = 40;
     private final boolean ADMIN;
-    private JFrame parent;
+    private JPanel parent;
     private JButton bDemarrerMaintenant = new JButton(Langue.getTexte(Langue.ID_TXT_BTN_DEMARRER));
     private JLabel lblEtat = new JLabel();
     private JButton bDeconnecter = new JButton(Langue.getTexte(Langue.ID_TXT_BTN_SE_DECONNECTER));
@@ -82,7 +82,7 @@ public class Panel_AttendreJoueurs extends JPanel implements
      * @param jeu le jeu
      * @param joueur le joueur
      */
-    public Panel_AttendreJoueurs(JFrame parent, Jeu_Serveur jeuServeur, Jeu_Client jeuClient)
+    public Panel_AttendreJoueurs(JPanel parent, Jeu_Serveur jeuServeur, Jeu_Client jeuClient)
     {
         this.parent     = parent;
         this.ADMIN      = true;
@@ -101,7 +101,7 @@ public class Panel_AttendreJoueurs extends JPanel implements
      * @param jeu le jeu du client
      * @param joueur le joueur
      */
-    public Panel_AttendreJoueurs(JFrame parent, Jeu_Client jeu)
+    public Panel_AttendreJoueurs(JPanel parent, Jeu_Client jeu)
     {
         this.parent     = parent;
         this.ADMIN      = false;
@@ -122,7 +122,7 @@ public class Panel_AttendreJoueurs extends JPanel implements
         // initialisation
         setLayout(new BorderLayout());
 
-        parent.setTitle(Langue.getTexte(Langue.ID_TITRE_ATTENTE_DE_JOUEURS));
+        parent.setName(Langue.getTexte(Langue.ID_TITRE_ATTENTE_DE_JOUEURS));
         setBorder(new EmptyBorder(new Insets(MARGES_PANEL, MARGES_PANEL,
                 MARGES_PANEL, MARGES_PANEL)));
         setBackground(LookInterface.COULEUR_DE_FOND_PRI);
@@ -352,10 +352,10 @@ public class Panel_AttendreJoueurs extends JPanel implements
             }
 
             // retour
-            parent.getContentPane().removeAll();
-            parent.getContentPane().add(new Panel_MenuPrincipal(parent),
+            parent.removeAll();
+            parent.add(new Panel_MenuPrincipal(parent),
                     BorderLayout.CENTER);
-            parent.getContentPane().validate();
+            parent.validate();
         }
         else if(src == bEnvoyerMsg)
         {
@@ -570,7 +570,7 @@ public class Panel_AttendreJoueurs extends JPanel implements
         
         GestionnaireSons.arreterTousLesSons(Fenetre_MenuPrincipal.FICHIER_MUSIQUE_MENU);
         
-        parent.dispose();
+        parent.remove(parent);
     }
 
     @Override

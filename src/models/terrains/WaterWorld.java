@@ -51,11 +51,11 @@ public class WaterWorld extends Terrain
 	
     static
     {
-        FICHIER_MUSIQUE_DE_FOND = new File("snd/ambient/Defnael - Combat.mp3");
+        FICHIER_MUSIQUE_DE_FOND = new File("../snd/ambient/Defnael - Combat.mp3");
         
         IMAGE_MENU    = Toolkit.getDefaultToolkit().getImage(
-                                              "img/cartes/menu_principal/water.png");
-    	IMAGE_DE_FOND = Toolkit.getDefaultToolkit().getImage("img/cartes/water.png");
+                                              "../img/cartes/menu_principal/water.png");
+    	IMAGE_DE_FOND = Toolkit.getDefaultToolkit().getImage("../img/cartes/water.png");
     }
 
     /**
