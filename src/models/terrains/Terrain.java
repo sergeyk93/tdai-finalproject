@@ -26,6 +26,7 @@ import java.util.*;
 import javax.swing.*;
 
 import ai.WaveGenerator;
+import ai.pathfinding.TowerNeighbour;
 import models.creatures.*;
 import models.jeu.Jeu;
 import models.jeu.ModeDeJeu;
@@ -593,6 +594,52 @@ public class Terrain implements Serializable
         }
     }
     
+    public boolean isCellBlockPath(TowerNeighbour tn)
+    {
+        // c'est une tour valide ?
+        if (tn == null)
+            return false;
+
+        // si l'on construit la tour, il existe toujours un chemin
+        desactiverZone(tn, false);
+
+        try {
+            
+            Equipe equipe = tn.getPrioprietaire().getEquipe();
+
+            // FIXME on part du principe que le joueur ne peu blocker que son chemin
+            // car il construit sur son troncon... A VOIR!
+            
+            // TODO gérer plusieurs zone de depart
+            Rectangle zoneDepart = equipe.getZoneDepartCreatures(0);
+            Rectangle zoneArrivee = equipe.getZoneArriveeCreatures();
+            
+            // calcul du chemin et attente une exception
+            // PathNotFoundException s'il y a un probleme
+            ArrayList<Point> chemin = getCheminLePlusCourt((int) zoneDepart.getCenterX(),
+                    (int) zoneDepart.getCenterY(), (int) zoneArrivee
+                            .getCenterX(), (int) zoneArrivee.getCenterY(),
+                    Creature.TYPE_TERRIENNE);
+
+            double longueur = MAILLAGE_TERRESTRE.getLongueurChemin(chemin);
+            
+            
+            // mise a jour du chemin
+            equipe.setLongueurChemin(longueur);
+            
+            
+            // il existe un chemin, donc elle ne bloque pas.
+            activerZone(tn, false); // on reactive la zone
+            return false;
+
+        } 
+        catch (PathNotFoundException e) {
+            // il n'existe pas de chemin, donc elle bloque le chemin.
+            activerZone(tn, false); // on reactive la zone
+            return true;
+        }
+    }
+    
     // ---------------------------
     // -- GESTION DES CREATURES --
     // ---------------------------
@@ -789,7 +836,7 @@ public class Terrain implements Serializable
      * 
      * @return Une collection de noeuds
      */
-    public Noeud[] getNoeuds()
+    public Noued[] getNoeuds()
     {
         return MAILLAGE_TERRESTRE.getNoeuds();
     }

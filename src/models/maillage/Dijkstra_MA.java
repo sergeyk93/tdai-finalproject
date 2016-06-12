@@ -23,13 +23,13 @@ public class Dijkstra_MA
     public static class InfoNoeud
     {
         int id;
-        Noeud noeud;
+        Noued noeud;
         int distArrivee = Integer.MAX_VALUE;
         int pred = -1;
         boolean visited = false;
         int[] voisins;
         
-        public InfoNoeud(int id,Noeud noeud)
+        public InfoNoeud(int id,Noued noeud)
         {
             this.id     = id;
             this.noeud  = noeud;

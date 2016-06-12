@@ -32,7 +32,7 @@ import models.creatures.Creature;
 import models.jeu.Jeu;
 import models.joueurs.Equipe;
 import models.joueurs.Joueur;
-import models.maillage.Noeud;
+import models.maillage.Noued;
 import models.outils.Timer;
 import models.tours.Tour;
 
@@ -545,7 +545,7 @@ public class Panel_Terrain extends JPanel implements Runnable,
         //-- affichage des animations au sol --
         //-------------------------------------
         jeu.dessinerAnimations(g2, Animation.HAUTEUR_SOL);
-		
+		jeu.paintTowerNeighbours(g2);
 		
 		//-------------------------------------------------
 		//-- Affichage de la zone de depart et d'arrivee --
@@ -679,7 +679,7 @@ public class Panel_Terrain extends JPanel implements Runnable,
 							    (int)arc.getX2(),(int)arc.getY2());
 			}
 	
-			for(Noeud n : jeu.getTerrain().getNoeuds())
+			for(Noued n : jeu.getTerrain().getNoeuds())
 			{
 			    if(n.isActif())
 			        g2.setColor(Color.GREEN);

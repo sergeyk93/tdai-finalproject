@@ -21,7 +21,10 @@ package models.tours;
 import i18n.Langue;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Enumeration;
+
+import ai.pathfinding.TowerNeighbour;
 import models.creatures.Creature;
 import models.jeu.Jeu;
 import models.joueurs.Joueur;
@@ -165,7 +168,7 @@ public abstract class Tour extends Rectangle
 	// initialisation pour que la tour puisse tirer directement
     private long tempsDepuisDernierTir;
     private long tempsDAttenteEntreTirs;
-	
+	private ArrayList<TowerNeighbour> tns;
 	/**
 	 * Constructeur de la tour.
 	 * 
@@ -208,6 +211,7 @@ public abstract class Tour extends Rectangle
 		
 		// pour que la tour tire directement après sa création
 		tempsDepuisDernierTir = tempsDAttenteEntreTirs; 
+		tns = new ArrayList<TowerNeighbour>();
 	}
 	
 	/**
@@ -450,6 +454,8 @@ public abstract class Tour extends Rectangle
 	public void arreter()
 	{
 		enJeu = false;
+		for (TowerNeighbour tn : tns)
+			tn.killTowerNeighbour();
 	}
 
 	/**
@@ -732,5 +738,16 @@ public abstract class Tour extends Rectangle
     public int getTypeCiblage()
     { 
         return typeCiblage;
+    }
+    
+    public void addNeighbour(TowerNeighbour tn){
+    	tns.add(tn);
+    }
+    
+    public void deleteNeighbours(){
+    	for (TowerNeighbour tn : tns){
+    		if (tn.isAlive())
+    			tn.killTowerNeighbour();
+    	}
     }
 }

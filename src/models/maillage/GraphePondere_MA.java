@@ -25,13 +25,13 @@ import java.util.List;
 public class GraphePondere_MA
 {
 
-    private Noeud[] noeuds;
+    private Noued[] noeuds;
     private int[][] arcs;
     private int nbArcs = 0;
 
     public GraphePondere_MA(int nbNoeuds)
     {
-        noeuds = new Noeud[nbNoeuds];
+        noeuds = new Noued[nbNoeuds];
 
         System.out.println((long) nbNoeuds * nbNoeuds * 32 / 8 / 1024 / 1024
                 + " Méga de RAM !");
@@ -40,14 +40,14 @@ public class GraphePondere_MA
 
         for (int i = 0; i < nbNoeuds; i++)
         {
-            noeuds[i] = new Noeud(0, 0, 1);
+            noeuds[i] = new Noued(0, 0, 1);
 
             for (int j = 0; j < nbNoeuds; j++)
                 arcs[i][j] = Integer.MAX_VALUE;
         }
     }
 
-    public void setNoeud(int i, Noeud n)
+    public void setNoeud(int i, Noued n)
     {
         noeuds[i] = n;
     }
@@ -73,7 +73,7 @@ public class GraphePondere_MA
         return nbArcs;
     }
 
-    public Noeud[] getNoeuds()
+    public Noued[] getNoeuds()
     {
         return noeuds.clone();
     }
@@ -110,7 +110,7 @@ public class GraphePondere_MA
         return convertIntegers(voisins);
     }
 
-    public Noeud getNoeud(int i)
+    public Noued getNoeud(int i)
     {
         return noeuds[i];
     }

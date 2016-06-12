@@ -16,25 +16,11 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
-package models.maillage;
+package ai.pathfinding;
 
 import org.jgrapht.*;
 
-/**
- * Fichier : GenerateurDArcs.java
- * 
- * <p>
- * But : Permet de générer les arcs du graphique à partir de deux noeuds.
- * <p>
- * Remarques : Nécessaire au fonctionnement relatif à JGrapht, voir
- * {@link EdgeFactory}.
- * 
- * @author Pierre-Dominique Putallaz
- * @author Lazhar Farjallah
- * @version 5 déc. 2009
- * @since jdk1.6.0_16
- */
-public class GenerateurDArcs implements EdgeFactory<Noued, Arc>
+public class GenerateEdges implements EdgeFactory<Node, Edge>
 {
 	/*
 	 * (non-Javadoc)
@@ -43,8 +29,8 @@ public class GenerateurDArcs implements EdgeFactory<Noued, Arc>
 	 * java.lang.Object)
 	 */
 	@Override
-	public Arc createEdge(Noued sourceVertex, Noued targetVertex)
+	public Edge createEdge(Node sourceVertex, Node targetVertex)
 	{
-		return new Arc(sourceVertex, targetVertex);
+		return new Edge(sourceVertex, targetVertex);
 	}
 }

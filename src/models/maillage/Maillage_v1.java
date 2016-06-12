@@ -85,12 +85,12 @@ public class Maillage_v1 implements Maillage
 	/**
 	 * Le graphe
 	 */
-	private SimpleWeightedGraph<Noeud, Arc> graphe = new SimpleWeightedGraph<Noeud, Arc>(
+	private SimpleWeightedGraph<Noued, Arc> graphe = new SimpleWeightedGraph<Noued, Arc>(
 			new GenerateurDArcs());
 	/**
 	 * Le tableau des noeuds : Noeud[x][y]
 	 */
-	private Noeud[][] noeuds;
+	private Noued[][] noeuds;
 	/**
 	 * Le decalage de base.
 	 */
@@ -149,7 +149,7 @@ public class Maillage_v1 implements Maillage
 		this.yOffset = yOffset;
 
 		// Initialisation du champs de noeuds
-		noeuds = new Noeud[NOMBRE_NOEUDS_X][NOMBRE_NOEUDS_Y];
+		noeuds = new Noued[NOMBRE_NOEUDS_X][NOMBRE_NOEUDS_Y];
 
 		// Construction du graphe
 		construireGraphe();
@@ -192,10 +192,10 @@ public class Maillage_v1 implements Maillage
 		/*
 		 * Calcul par Dijkstra du chemin le plus cours d'un point à un autre.
 		 */
-		GraphPath<Noeud, Arc> dijkstraChemin;
+		GraphPath<Noued, Arc> dijkstraChemin;
 		try
 		{
-			dijkstraChemin = (new DijkstraShortestPath<Noeud, Arc>(
+			dijkstraChemin = (new DijkstraShortestPath<Noued, Arc>(
 					graphe,
 					noeudContenantLePoint(xDepart - xOffset, yDepart - yOffset),
 					noeudContenantLePoint(xArrivee - xOffset, yArrivee
@@ -268,14 +268,14 @@ public class Maillage_v1 implements Maillage
 	/* (non-Javadoc)
      * @see models.maillage.MaillageI#getNoeuds()
      */
-	public Noeud[] getNoeuds()
+	public Noued[] getNoeuds()
 	{
-	    Noeud[] tabNoeuds = new Noeud[NB_NOEUDS];
+	    Noued[] tabNoeuds = new Noued[NB_NOEUDS];
 	    
 	    int iNoeud = 0;
-		for (Noeud[] ligne : noeuds)
-			for (Noeud noeud : ligne)
-			    tabNoeuds[iNoeud++] = new Noeud(noeud);
+		for (Noued[] ligne : noeuds)
+			for (Noued noeud : ligne)
+			    tabNoeuds[iNoeud++] = new Noued(noeud);
 		
 		return tabNoeuds;
 	}
@@ -313,8 +313,8 @@ public class Maillage_v1 implements Maillage
 		/*
 		 * Pour chaque noeuds on vérifie s'il intersect avec la zone concernée.
 		 */
-		for (Noeud[] ligne : noeuds)
-			for (Noeud noeud : ligne)
+		for (Noued[] ligne : noeuds)
+			for (Noued noeud : ligne)
 			{
 				if (rectangle.intersects(new Rectangle(noeud.x - DEMI_NOEUD,
 						noeud.y - DEMI_NOEUD, LARGEUR_NOEUD, LARGEUR_NOEUD)))
@@ -334,7 +334,7 @@ public class Maillage_v1 implements Maillage
 	 * @throws IllegalArgumentException
 	 *             Levé si le noeud est null ou s'il est déjà actif.
 	 */
-	private void activer(Noeud noeud) throws IllegalArgumentException
+	private void activer(Noued noeud) throws IllegalArgumentException
 	{
 		// Vérifie si le noeud n'est pas null
 		if (noeud == null)
@@ -352,9 +352,9 @@ public class Maillage_v1 implements Maillage
 		/*
 		 * Ajouter les arcs manquants
 		 */
-		int[] xy = Noeud.coordonnee(noeud, xOffset, yOffset);
+		int[] xy = Noued.coordonnee(noeud, xOffset, yOffset);
 		int x, y;
-		Noeud cible;
+		Noued cible;
 		Arc arc;
 		for (int i = -1; i <= 1; i++)
 		{
@@ -401,7 +401,7 @@ public class Maillage_v1 implements Maillage
 	 * @throws IllegalArgumentException
 	 *             Levé si le noeud est null ou s'il est déjà inactif.
 	 */
-	private void desactiver(Noeud noeud) throws IllegalArgumentException
+	private void desactiver(Noued noeud) throws IllegalArgumentException
 	{
 		// Vérifie si le noeud n'est pas null
 		if (noeud == null)
@@ -424,14 +424,14 @@ public class Maillage_v1 implements Maillage
 		 */
 		for (int x = 0; x < NOMBRE_NOEUDS_X; x++)
 			for (int y = 0; y < NOMBRE_NOEUDS_Y; y++)
-				noeuds[x][y] = new Noeud((x * LARGEUR_NOEUD) + xOffset,
+				noeuds[x][y] = new Noued((x * LARGEUR_NOEUD) + xOffset,
 						(y * LARGEUR_NOEUD) + yOffset, LARGEUR_NOEUD);
 
 		/*
 		 * Active tout les noeuds (et calcul les vertex)
 		 */
-		for (Noeud[] ligne : noeuds)
-			for (Noeud noeud : ligne)
+		for (Noued[] ligne : noeuds)
+			for (Noued noeud : ligne)
 				activer(noeud);
 	}
 
@@ -446,11 +446,11 @@ public class Maillage_v1 implements Maillage
 	 * @throws IllegalArgumentException
 	 *             Levé si le noeud demandé est hors champs.
 	 */
-	private Noeud noeudContenantLePoint(int x, int y)
+	private Noued noeudContenantLePoint(int x, int y)
 	{
 		// Calcul des coordonnées.
-		int x_nodale = Noeud.pixelANodale(x, LARGEUR_NOEUD);
-		int y_nodale = Noeud.pixelANodale(y, LARGEUR_NOEUD);
+		int x_nodale = Noued.pixelANodale(x, LARGEUR_NOEUD);
+		int y_nodale = Noued.pixelANodale(y, LARGEUR_NOEUD);
 		// Vérification de la plausibilité des coordonnées.
 		if (x_nodale < 0 || x_nodale > noeuds.length)
 			throw new IllegalArgumentException(

@@ -16,7 +16,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
-package models.maillage;
+package ai.pathfinding;
 
 import java.awt.geom.*;
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -35,7 +35,7 @@ import org.jgrapht.graph.DefaultWeightedEdge;
  * @version 4 déc. 2009
  * @since jdk1.6.0_16
  */
-public class Arc extends DefaultWeightedEdge
+public class Edge extends DefaultWeightedEdge
 {
 	/**
 	 * ID de serialisation.
@@ -43,9 +43,9 @@ public class Arc extends DefaultWeightedEdge
 	private static final long serialVersionUID = -3342545915708624018L;
 	
 	/**
-	 * Les deux noeuds de départ et d'arrivée.
+	 * The nodes of depart and arrive.
 	 */
-	private Noued depart, arrivee;
+	private Node depart, arrive;
 
 	/**
 	 * Construit un arc pondéré non orienté avec les noeuds de départs et
@@ -56,10 +56,10 @@ public class Arc extends DefaultWeightedEdge
 	 * @param arrivee
 	 *            Le noeud d'arrivée
 	 */
-	public Arc(Noued depart, Noued arrivee)
+	public Edge(Node depart, Node arrivee)
 	{
 		this.depart = depart;
-		this.arrivee = arrivee;
+		this.arrive = arrivee;
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class Arc extends DefaultWeightedEdge
 			@Override
 			public void setLine(double x1, double y1, double x2, double y2)
 			{
-				throw new IllegalArgumentException("Méthode non implémentée");
+				throw new IllegalArgumentException("Methode not implemented");
 
 			}
 
@@ -157,7 +157,7 @@ public class Arc extends DefaultWeightedEdge
 			@Override
 			public Rectangle2D getBounds2D()
 			{
-				throw new IllegalArgumentException("Méthode non implémentée");
+				throw new IllegalArgumentException("Methode not implemented");
 			}
 		};
 	}
@@ -167,7 +167,7 @@ public class Arc extends DefaultWeightedEdge
 	 * 
 	 * @return le noeud de départ.
 	 */
-	public Noued getDepart()
+	public Node getDepart()
 	{
 		return depart;
 	}
@@ -177,8 +177,8 @@ public class Arc extends DefaultWeightedEdge
 	 * 
 	 * @return le noeud d'arrivée.
 	 */
-	public Noued getArrivee()
+	public Node getArrivee()
 	{
-		return arrivee;
+		return arrive;
 	}
 }

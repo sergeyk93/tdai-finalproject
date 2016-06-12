@@ -90,7 +90,7 @@ public interface Maillage
      * 
      * @return Les noeuds du maillage.
      */
-    public abstract Noeud[] getNoeuds();
+    public abstract Noued[] getNoeuds();
 
     /**
      * Retourne la liste complète des arcs du maillage.

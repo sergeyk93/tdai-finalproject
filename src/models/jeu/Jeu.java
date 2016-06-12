@@ -19,7 +19,9 @@ gameSession  Copyright (C) 2010 Aurelien Da Campo
 package models.jeu;
 
 import i18n.Langue;
+import javafx.geometry.Point2D;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,6 +46,9 @@ import models.tours.GestionnaireTours;
 import models.tours.Tour;
 import outils.myTimer;
 import ai.WaveGenerator;
+import ai.pathfinding.Blocker;
+import ai.pathfinding.BlockerNew;
+import ai.pathfinding.TowerNeighbour;
 import exceptions.ActionNonAutoriseeException;
 import exceptions.ArgentInsuffisantException;
 import exceptions.AucunePlaceDisponibleException;
@@ -202,6 +207,8 @@ public abstract class Jeu implements EcouteurDeJoueur,
     private double coeffVitesse;
     
     private WaveGenerator wg;
+    private ArrayList<TowerNeighbour> tns;
+    private static ArrayList<Point2D> points;
 
     /**
      * Constructeur
@@ -221,6 +228,7 @@ public abstract class Jeu implements EcouteurDeJoueur,
         // Initializing a new wave generator that utilizies the AI and the DDA
         wg = new WaveGenerator(this);
         ai.dda.DdaManager.init();
+        tns = new ArrayList<TowerNeighbour>();
     }
     
     /**
@@ -376,6 +384,8 @@ public abstract class Jeu implements EcouteurDeJoueur,
         // desactive la zone dans le maillage qui correspond a la tour
         terrain.desactiverZone(tour, true);
 
+        checkRadiusNodes(tour, false);
+        
         // ajout de la tour
         gestionnaireTours.ajouterTour(tour);
         
@@ -396,8 +406,65 @@ public abstract class Jeu implements EcouteurDeJoueur,
             edj.tourPosee(tour);
     }
     
+    public static void initPoints(){
+    	points = new ArrayList<Point2D>();
+    }
     
-    /**
+    public static void addPoint(Point2D p){
+    	points.add(p);
+    }
+    
+    public static boolean isPointExist(Point2D p){
+    	for (Point2D pp : points)
+    		if (pp.equals(p)){
+    			return true;
+    		}
+    	return false;
+    }
+    
+    
+    private void checkRadiusNodes(Tour tour, boolean upgrade) {
+		
+    	int length = (int)(tour.getRayonPortee() - tour.getWidth()/2);
+    	int tWidth = (int)tour.getWidth();
+    	int tHeight = (int)tour.getHeight();
+    	int tX = tour.getXi();
+        int tY = tour.getYi();
+        Point2D p = new Point2D(tX,tY);
+		Jeu.initPoints();
+		Jeu.addPoint(p);
+        checkNeighbour(new BlockerNew(length, tWidth, p, new Point2D(0, 0), tWidth, tHeight, tour, false),tour, true, upgrade);
+    }
+
+	private void checkNeighbour(BlockerNew blocker, Tour tour, boolean isTower, boolean upgrade) {
+		for (BlockerNew bl : blocker.getNeighbourBlockers())
+				checkNeighbourNew(bl, tour, upgrade);
+	}
+	
+	private void checkNeighbourNew(BlockerNew blocker, Tour tour, boolean upgrade) {
+		if (blocker.hasLength()){
+			TowerNeighbour tn = blocker.getTN();
+	    	if (!terrain.isCellBlockPath(tn)){
+	    		terrain.desactiverZone(tn, true);
+	    		tns.add(tn);
+	    		tour.addNeighbour(tn);
+	    	}
+//	    	if (upgrade || !blocker.isDiagonal())
+	    		checkNeighbourNew(blocker.getNeighbourBlocker(), tour, upgrade);
+		}
+	}
+
+	public void paintTowerNeighbours(Graphics2D g){
+//		g.setColor(Color.white);
+//    	for (TowerNeighbour tn : tns){
+//    		if (tn.isAlive())
+//    			g.fill(tn);
+//    	}
+    }
+
+	
+
+	/**
      * Permet de vendre une tour.
      * 
      * @param tour la tour a vendre
@@ -445,6 +512,7 @@ public abstract class Jeu implements EcouteurDeJoueur,
         
         if(edj != null)
             edj.tourAmelioree(tour);
+        checkRadiusNodes(tour, true);
     }
     
     /**

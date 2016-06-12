@@ -23,13 +23,13 @@ public class Dijkstra
     class InfoNoeud
     {
         int id;
-        Noeud noeud;
+        Noued noeud;
         double distArrivee = Integer.MAX_VALUE;
         int pred = -1;
         boolean visited = false;
         int[] voisins;
         
-        public InfoNoeud(int id,Noeud noeud)
+        public InfoNoeud(int id,Noued noeud)
         {
             this.id     = id;
             this.noeud  = noeud;
@@ -37,12 +37,12 @@ public class Dijkstra
     }
     
     // Dijkstra's algorithm to find shortest path from s to all other nodes
-    public static int[] dijkstra(GraphePondere graphe, Noeud arrive) throws IllegalAccessException
+    public static int[] dijkstra(GraphePondere graphe, Noued arrive) throws IllegalAccessException
     {  
         int nbNoeuds = graphe.getNbNoeuds();
         
         final InfoNoeud[] infoNoeuds = new InfoNoeud[nbNoeuds];
-        final Noeud[] noeuds = graphe.getNoeuds(); // Noeuds
+        final Noued[] noeuds = graphe.getNoeuds(); // Noeuds
         
         // creation des noeuds d'information
         //for(int i=0;i<nbNoeuds;i++)
@@ -51,10 +51,10 @@ public class Dijkstra
         // Mise a jour des voisins
         for(int i=0;i<nbNoeuds;i++)
         {
-            Noeud n = noeuds[i];
+            Noued n = noeuds[i];
             
             // initialisation des voisins
-            Noeud[] voisins = graphe.getVoisins(n);
+            Noued[] voisins = graphe.getVoisins(n);
             for(int j=0;j<voisins.length;i++)
             {
                 //ArrayList<Voisins>

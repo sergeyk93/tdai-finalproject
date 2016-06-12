@@ -77,7 +77,7 @@ public class Maillage_v2 implements Maillage
      * <br>
      * Note : l'indice du tableau spécifie le numéro du noeud
      */
-    private Noeud[] noeuds;
+    private Noued[] noeuds;
 	
 	/**
 	 * Tableau du nombre de voisins d'un noeuds
@@ -179,7 +179,7 @@ public class Maillage_v2 implements Maillage
         if(noeuds.length == 0)
             throw new IllegalArgumentException("Pas de noeud");
         
-        Noeud n;
+        Noued n;
         int iNoeudLePlusProche = -1;
         double distance;
         double distMax = Integer.MAX_VALUE;
@@ -204,7 +204,7 @@ public class Maillage_v2 implements Maillage
     synchronized private void construireGraphe()
     {
 	    // allocation mémoire
-	    noeuds     = new Noeud[NB_NOEUDS];   
+	    noeuds     = new Noued[NB_NOEUDS];   
 	    nbVoisins  = new int[NB_NOEUDS];
         voisins    = new int[NB_NOEUDS][NB_VOISINS_MAX_PAR_NOEUD];
         poids      = new int[NB_NOEUDS][NB_VOISINS_MAX_PAR_NOEUD];
@@ -227,11 +227,11 @@ public class Maillage_v2 implements Maillage
         }
  
         // noeud de sortie
-        noeuds[0] = new Noeud(0,0,1);
+        noeuds[0] = new Noued(0,0,1);
         noeuds[0].setActif(true);
         
         // construction du graphe
-        Noeud n;
+        Noued n;
         int iNoeud = 1; // on saute le noeud de sortie
         for(int i=0;i<NB_NOEUDS_LARGEUR;i++)
         {
@@ -240,7 +240,7 @@ public class Maillage_v2 implements Maillage
                 //--------------------------
                 //-- mise a jour du noeud --
                 //--------------------------
-                n = new Noeud(i*LARGEUR_NOEUD+xOffset,j*LARGEUR_NOEUD+yOffset,LARGEUR_NOEUD);
+                n = new Noued(i*LARGEUR_NOEUD+xOffset,j*LARGEUR_NOEUD+yOffset,LARGEUR_NOEUD);
                 n.setActif(true);
                 noeuds[iNoeud] = n;
                 
@@ -337,7 +337,7 @@ public class Maillage_v2 implements Maillage
 	synchronized public void activerZone(Rectangle rectangle, boolean miseAJour)
 			throws IllegalArgumentException
 	{
-	    Noeud n;
+	    Noued n;
         // on touche pas au noeud de sorti
         for(int i=1;i<NB_NOEUDS;i++)
         {
@@ -372,7 +372,7 @@ public class Maillage_v2 implements Maillage
 	synchronized public void desactiverZone(Rectangle rectangle, boolean miseAJour)
 			throws IllegalArgumentException
 	{ 
-	    Noeud n;
+	    Noued n;
 	    int min = Integer.MAX_VALUE;
 	    // on touche pas au noeud de sorti
 	    for(int i=1;i<NB_NOEUDS;i++)
@@ -424,7 +424,7 @@ public class Maillage_v2 implements Maillage
 	}
 
 	@Override
-	synchronized public Noeud[] getNoeuds()
+	synchronized public Noued[] getNoeuds()
 	{
 		return noeuds;
 	}
@@ -650,12 +650,12 @@ public class Maillage_v2 implements Maillage
     public static class InfoNoeud
     {
         int id;
-        Noeud noeud;
+        Noued noeud;
         int distArrivee = Integer.MAX_VALUE;
         int pred = -1;
         boolean visite = false;
         
-        public InfoNoeud(int id,Noeud noeud)
+        public InfoNoeud(int id,Noued noeud)
         {
             this.id     = id;
             this.noeud  = noeud;

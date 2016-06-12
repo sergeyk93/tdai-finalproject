@@ -23,6 +23,7 @@ import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import javax.swing.*;
 
+import ai.pathfinding.TowerNeighbour;
 import models.outils.Outils;
 
 @SuppressWarnings("serial")
@@ -68,7 +69,7 @@ public class Fenetre_RepresentationMaillage extends JFrame
             
             // affichage des noeuds
             g2.setColor(Color.RED);
-            for(Noeud noeud : m.getNoeuds())
+            for(Noued noeud : m.getNoeuds())
                 g2.fillOval(noeud.x - 1, noeud.y - 1, 2, 2);
             
             g2.setColor(Color.GREEN);

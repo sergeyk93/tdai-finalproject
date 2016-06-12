@@ -23,17 +23,17 @@ import java.util.ArrayList;
 public class GraphePondere {
 
     // TODO ajouté
-    private ArrayList<Noeud> noeuds; 
+    private ArrayList<Noued> noeuds; 
     private ArrayList<Arc> arcs; 
     
     public GraphePondere () 
     { 
-        noeuds = new ArrayList<Noeud>();
+        noeuds = new ArrayList<Noued>();
         arcs   = new ArrayList<Arc>();
     }
 
     // TODO ajouté
-    public void ajouterNoeud(Noeud n)
+    public void ajouterNoeud(Noued n)
     {
         noeuds.add(n);
     }
@@ -57,9 +57,9 @@ public class GraphePondere {
     }
     
     // TODO ajouté
-    public Noeud[] getNoeuds()
+    public Noued[] getNoeuds()
     { 
-        Noeud noeudArray[] = new Noeud[noeuds.size()];
+        Noued noeudArray[] = new Noued[noeuds.size()];
         return noeuds.toArray(noeudArray);
     }
     
@@ -71,15 +71,15 @@ public class GraphePondere {
     }
 
     // TODO ajouté
-    public Noeud[] getVoisins(Noeud n) 
+    public Noued[] getVoisins(Noued n) 
     {
-        ArrayList<Noeud> voisins = new ArrayList<Noeud>();
+        ArrayList<Noued> voisins = new ArrayList<Noued>();
         
         for(Arc a : arcs)
             if(a.getDepart() == n)
                 voisins.add(a.getArrivee());
         
-        Noeud noeudArray[] = new Noeud[voisins.size()];
+        Noued noeudArray[] = new Noued[voisins.size()];
         return voisins.toArray(noeudArray);
     }
 
@@ -88,7 +88,7 @@ public class GraphePondere {
             System.out.println(a); 
     }
 
-    public Noeud getNoeud(int i)
+    public Noued getNoeud(int i)
     {
         return noeuds.get(i);
     }
