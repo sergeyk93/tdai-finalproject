@@ -16,7 +16,7 @@ public class Applet extends JApplet{
 	private static final long serialVersionUID = 1L;
 	
 	private static final int WIDTH = 813;
-	private static final int HEIGHT = 652;
+	private static final int HEIGHT = 625;
 	
 	private Container container;
 	

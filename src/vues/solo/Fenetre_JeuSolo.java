@@ -296,7 +296,7 @@ KeyListener
 
 		// ajout du menu
 		//setJMenuBar(menuPrincipal);
-		add(menuPrincipal, BorderLayout.NORTH);
+//		add(menuPrincipal, BorderLayout.NORTH);
 
 		JPanel pGauche = new JPanel(new BorderLayout());
 		pGauche.setOpaque(false);
