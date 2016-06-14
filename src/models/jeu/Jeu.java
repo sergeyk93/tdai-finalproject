@@ -266,7 +266,7 @@ EcouteurDeVague
 			for(Joueur j : equipe.getJoueurs())
 			{
 				j.setScore(0);
-				j.setNbPiecesDOr(terrain.getNbPiecesOrInitiales());
+				j.setNbPiecesDOr(terrain.getNbPiecesOrInitiales());			
 			}
 		}  
 

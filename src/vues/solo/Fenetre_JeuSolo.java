@@ -18,8 +18,6 @@
 
 package vues.solo;
 
-import i18n.Langue;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -47,6 +45,9 @@ import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import applet.Applet;
+import exceptions.ActionNonAutoriseeException;
+import i18n.Langue;
 import models.animations.Animation;
 import models.animations.GainDePiecesOr;
 import models.animations.GainEtoile;
@@ -72,7 +73,6 @@ import vues.commun.Panel_InfoCreature;
 import vues.commun.Panel_InfoTour;
 import vues.commun.Panel_InfoVagues;
 import vues.commun.Panel_Terrain;
-import exceptions.ActionNonAutoriseeException;
 
 /**
  * Fenetre princiale du jeu 1 joueur. 
@@ -214,6 +214,7 @@ KeyListener
 	private JButton bCentrer = new JButton(I_CENTRE);
 	private JButton bZoomAvant = new JButton(I_ZOOM);
 	private JButton bZoomArriere = new JButton(I_DEZOOM);
+	private Applet applet;
 
 	private static boolean firstWriteToConsole = true;
 
@@ -222,6 +223,11 @@ KeyListener
 	 * 
 	 * @param jeu le jeu a gerer
 	 */
+	public Fenetre_JeuSolo(Jeu jeu, Applet applet){
+		this(jeu);
+		this.applet = applet;
+
+	}
 	public Fenetre_JeuSolo(Jeu jeu)
 	{
 		this.jeu = jeu;
@@ -497,9 +503,10 @@ KeyListener
 				lancerVagueSuivante();
 				bLancerVagueSuivante.setEnabled(false);
 			}
-			else
+			else{
 				//		        retourAuMenuPrincipal();
 				quitter();
+			}
 		}
 
 		else if(source == bVitesseJeu)
@@ -548,21 +555,21 @@ KeyListener
 
 	private void demanderRedemarrerPartie()
 	{
-		if(JOptionPane.showConfirmDialog(this,
-				Langue.getTexte(Langue.ID_TXT_DIALOG_ARRETER_PARTIE), 
-				"", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
-		{
-			demanderEnregistrementDuScore();
+		//		if(JOptionPane.showConfirmDialog(this,
+		//				Langue.getTexte(Langue.ID_TXT_DIALOG_ARRETER_PARTIE), 
+		//				"", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
+		//		{
+		//			demanderEnregistrementDuScore();
 
-			//jeu.terminer();
-			//jeu.detruire();
+		//			jeu.terminer();
+		//			jeu.detruire();
 
-			jeu.reinitialiser();
+		jeu.reinitialiser();
 
-			new Fenetre_JeuSolo(jeu);
+		new Fenetre_JeuSolo(jeu);
 
-			remove(this);
-		}
+		remove(this);
+		//		}
 	}
 
 	/**
@@ -584,6 +591,8 @@ KeyListener
 
 		jeu.terminer();
 		jeu.detruire();
+		applet.stop();
+		applet.destroy();
 		System.exit(0); // Fermeture correcte du logiciel
 	}
 
@@ -610,6 +619,7 @@ KeyListener
 	 */
 	private void demanderEnregistrementDuScore()
 	{
+
 		// si le joueur a un score > 0 et que le score n'a pas été déjà sauvé
 		//	    if(jeu.getJoueurPrincipal().getScore() > 0 && !demandeDEnregistrementDuScoreEffectuee)
 		//        {
@@ -980,8 +990,8 @@ KeyListener
 		bLancerVagueSuivante.setText("Quit");
 		bLancerVagueSuivante.setIcon(I_RETOUR);
 
-
-		demanderEnregistrementDuScore();
+		//		demanderEnregistrementDuScore();
+		//		demanderRedemarrerPartie();
 		/*
         // si le joueur a un score > 0 et que le score n'a pas été déjà sauvé
         if(jeu.getJoueurPrincipal().getScore() > 0 && !demandeDEnregistrementDuScoreEffectuee)

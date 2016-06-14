@@ -31,6 +31,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
+import applet.Applet;
 import models.jeu.Jeu;
 import models.jeu.Jeu_Solo;
 import models.joueurs.Equipe;
@@ -94,16 +95,18 @@ public class Game extends JPanel implements ActionListener, Runnable
 	
 	private JLabel lblInfo = new JLabel(Langue.getTexte(Langue.ID_TXT_CLIQUER_SUR_TERRAIN));
 	
-	JPanel gamePanel;
+	private JPanel gamePanel;
+	
+	private Applet applet;
 
 	/**
 	 * Constructeur de la fenetre du menu principal
 	 */
-	public Game(){
+	public Game(Applet applet){
 		//-------------------------------
 		//-- preferances de le fenetre --
 		//-------------------------------
-		
+		this.applet = applet;
 		Jeu jeu = new Jeu_Solo();
 	    lancerJeu(jeu, new ElementTD(jeu));
 	}
@@ -444,7 +447,7 @@ public class Game extends JPanel implements ActionListener, Runnable
         
         jeu.setJoueurPrincipal(joueur);
         jeu.initialiser();
-        gamePanel = new Fenetre_JeuSolo(jeu);
+        gamePanel = new Fenetre_JeuSolo(jeu, applet);
         
         chargementTermine = true;
 //        remove(parent);

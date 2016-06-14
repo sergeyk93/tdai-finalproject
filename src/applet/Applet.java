@@ -62,7 +62,7 @@ public class Applet extends JApplet{
 		container.setLayout(new BorderLayout());
 
 		// creation du menu principal
-		container.add(new Game().getPanel());
+		container.add(new Game(this).getPanel());
 	}
 
 	public void start() {
