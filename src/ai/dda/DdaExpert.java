@@ -10,17 +10,18 @@ public class DdaExpert extends Dda{
 		budgetPerWave = 800;
 		thresholdTime = 3;
 		thresholdHP = 1;
+		turnsT = 15;
 		//path_method = new PathExpert();
 	}
 
 	@Override
 	public Dda previousDda() {
-		return new DdaHard();
+		return new DdaNormal();
 	}
 	
 	@Override
 	public Dda nextDda() {
-		health_coef++;
+		health_coef += 0.8;
 		speed_coef += 0.1;
 		return this;
 	}

@@ -1151,7 +1151,7 @@ public class Panel_Terrain extends JPanel
 			} else // double click
 			{
 				// remise à l'échelle initiale et recentrage
-				reinitialiserVue();
+//				reinitialiserVue();
 			}
 		} else // clique droit ou autre
 		{

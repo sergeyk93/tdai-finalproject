@@ -10,6 +10,7 @@ public class DdaEasy extends Dda{
 		budgetPerWave = 300;
 		thresholdTime = 1;
 		thresholdHP = 2;
+		turnsT = 5;
 		//path_method = new PathEasy();
 	}
 

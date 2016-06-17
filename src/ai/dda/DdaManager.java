@@ -33,6 +33,8 @@ public class DdaManager {
 		if (!firstWave){
 			if (currentHP - newHP >= dda.thresholdHP)
 				chooseDda--;
+			if (currentHP - newHP >= 3 + dda.thresholdHP)
+				chooseDda--;
 			if (chooseDda == 0 && (CurrentLastCreatureTime - newTime) / 1000 >= dda.thresholdTime){
 				chooseDda++;
 			}
@@ -53,6 +55,8 @@ public class DdaManager {
 
 		if (chooseDda < 0){
 			dda = dda.previousDda();
+			if (chooseDda == -2)
+				dda = dda.previousDda();
 			next = dda.toString();
 			turns = 0;
 		}
@@ -62,7 +66,7 @@ public class DdaManager {
 		currentHP = newHP;
 		CurrentLastCreatureTime = newTime;
 		
-		if (chooseDda == 0 && turns == 5){
+		if (chooseDda == 0 && turns == dda.turnsT){
 			turns = 0;
 			dda = dda.nextDda();
 		}

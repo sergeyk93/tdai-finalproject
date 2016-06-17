@@ -10,6 +10,7 @@ public class DdaHard extends Dda{
 		budgetPerWave = 600;
 		thresholdTime = 4;
 		thresholdHP = 2;
+		turnsT = 10;
 		//path_method = new PathHard();
 	}
 	

@@ -10,6 +10,7 @@ public abstract class Dda {
 	protected int thresholdHP;
 	protected int thresholdTime;
 	//protected Path path_method;
+	protected int turnsT;
 	
 	public Dda(){}
 	
