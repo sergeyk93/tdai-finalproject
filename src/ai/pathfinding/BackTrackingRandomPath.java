@@ -1,10 +1,10 @@
 package ai.pathfinding;
 
-import org.jgrapht.Graph;
-import org.jgrapht.GraphPath;
-
 import models.maillage.Arc;
 import models.maillage.Noued;
+
+import org.jgrapht.Graph;
+import org.jgrapht.GraphPath;
 
 public class BackTrackingRandomPath<T1, T2> {
 

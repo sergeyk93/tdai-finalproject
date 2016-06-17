@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import models.creatures.Creature;
+import models.tours.Tour;
 import ai.WaveGenerator;
 import ai.dda.DdaManager;
 import ai.utils.AILogger;
-import models.creatures.Creature;
-import models.jeu.Jeu;
-import models.joueurs.Equipe;
-import models.tours.Tour;
 
 public class PriceCalculator {
 	
@@ -189,6 +187,7 @@ public class PriceCalculator {
 		log.append(System.lineSeparator());
 		log.append("After budget: ");
 		log.append(budget);
+		log.append(System.lineSeparator());
 		AILogger.info(log.toString());
 		return ans;
 	}

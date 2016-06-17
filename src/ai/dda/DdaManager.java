@@ -1,6 +1,7 @@
 package ai.dda;
 
 import models.jeu.Jeu;
+import ai.utils.AILogger;
 
 public class DdaManager {
 
@@ -25,11 +26,18 @@ public class DdaManager {
 		String curr = dda.toString();
 		String next = "";
 		int chooseDda = 0;
-		System.out.println("+++++++++++++++++++++++++++++++++++++++++");
-		System.out.println("DDA Current: HP = " + currentHP + ", Time = " + CurrentLastCreatureTime);
-		System.out.println("DDA Update: HP = " + newHP + ", Time = " + newTime);
-		System.out.println("DDA Difficulty: " + dda.toString());
-		System.out.println("+++++++++++++++++++++++++++++++++++++++++");
+		StringBuilder sb = new StringBuilder();
+		sb.append("----------- DDA Update -----------");
+		sb.append(System.lineSeparator());
+		sb.append("DDA Current: HP = " + currentHP + ", Time = " + CurrentLastCreatureTime);
+		sb.append(System.lineSeparator());
+		sb.append("DDA Update: HP = " + newHP + ", Time = " + newTime);
+		sb.append(System.lineSeparator());
+		sb.append("DDA Difficulty: " + dda.toString());
+		sb.append(System.lineSeparator());
+		sb.append("----------- DDA Update -----------");
+		sb.append(System.lineSeparator());
+		AILogger.info(sb.toString());
 		if (!firstWave){
 			if (currentHP - newHP >= dda.thresholdHP)
 				chooseDda--;
@@ -73,7 +81,13 @@ public class DdaManager {
 	}
 
 	public static void print(String curr, String next){
-		System.out.println("DDA has changed the difficulty from " + curr + " to: " + next);
+		StringBuilder sb = new StringBuilder();
+		sb.append("DDA has changed the difficulty from ");
+		sb.append(curr);
+		sb.append(" to: ");
+		sb.append(next);
+		sb.append(System.lineSeparator());
+		AILogger.info(sb.toString());
 	}
 	
 	public static double healthCoef(){
@@ -93,8 +107,8 @@ public class DdaManager {
 	}
 
 	public static int budgetPerWave(){
-		if (firstWave)
-			return 700;
+		if (firstWave) return 700;
+		
 		return dda.budgetPerWave;
 	}
 

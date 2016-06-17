@@ -1,6 +1,5 @@
 package ai.pathfinding;
 
-import java.util.Set;
 import java.awt.Point;
 
 /**

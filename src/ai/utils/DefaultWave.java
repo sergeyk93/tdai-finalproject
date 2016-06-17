@@ -3,9 +3,6 @@ package ai.utils;
 import java.util.ArrayList;
 import java.util.Random;
 
-import com.sun.xml.internal.ws.message.PayloadElementSniffer;
-
-import javafx.scene.input.MouseDragEvent;
 import models.creatures.Aigle;
 import models.creatures.Araignee;
 import models.creatures.Creature;

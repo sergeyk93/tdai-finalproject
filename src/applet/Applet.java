@@ -15,8 +15,9 @@ import driver.Game;
 public class Applet extends JApplet{
 	private static final long serialVersionUID = 1L;
 	
-	private static final int WIDTH = 813;
-	private static final int HEIGHT = 625;
+	// Window size
+//	private static final int WIDTH = 1043;
+//	private static final int HEIGHT = 873;
 	
 	private Container container;
 	
@@ -56,8 +57,6 @@ public class Applet extends JApplet{
 		// new Fenetre_ChoixLangue();
 		
 		container = getContentPane();
-		
-		container.setSize(WIDTH, HEIGHT);
 		
 		container.setLayout(new BorderLayout());
 

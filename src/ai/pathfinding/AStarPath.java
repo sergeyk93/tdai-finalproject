@@ -1,19 +1,12 @@
 package ai.pathfinding;
 
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Set;
+
+import models.maillage.PathNotFoundException;
 
 import org.jgrapht.Graph;
 import org.jgrapht.GraphPath;
 import org.jgrapht.graph.SimpleWeightedGraph;
-
-import models.maillage.PathNotFoundException;
 
 public class AStarPath<Node, Arc> implements GraphPath<Node, Arc>{
 
