@@ -233,7 +233,8 @@ public class Panel_ModeSolo extends JPanel implements ActionListener, Runnable
 		    
 		    if(score.getValeur() > 0)
 		    {
-		        String txt = score.getNomJoueur()+" - "+score.getValeur()+"";
+		        
+		    	String txt = score.getNomJoueur()+" - "+score.getValeur()+"";
 		    
 		        JButton bScore = new JButton(txt);
 		    

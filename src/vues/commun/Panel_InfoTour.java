@@ -123,6 +123,7 @@ public class Panel_InfoTour extends JPanel implements ActionListener
         //taDescrition.setBorder(new EmptyBorder(1, 1, 1, 1));
         taDescrition.setFocusable(false);
         taDescrition.setFont(GestionnaireDesPolices.POLICE_VALEUR_CHAMP);
+        taDescrition.setFont(new Font("Arial", Font.PLAIN, 16));
         taDescrition.setForeground(LookInterface.COULEUR_TEXTE_PRI);
 
         spDescription = new JScrollPane(taDescrition);

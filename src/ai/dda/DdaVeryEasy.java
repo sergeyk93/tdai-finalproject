@@ -3,11 +3,13 @@ package ai.dda;
 public class DdaVeryEasy extends Dda{
 	
 	public DdaVeryEasy(){
-		health_coef = 0.5;
-		speed_coef = 0.5;
+		health_coef = 0.7;
+		speed_coef = 0.7;
 		prevWavesConsideration = 10;
-		dropValueCoef = 5;
+		dropValueCoef = 0.8;
 		budgetPerWave = 200;
+		thresholdTime = 1;
+		thresholdHP = 3;
 		//path_method = new PathVeryEasy();
 	}
 
@@ -18,7 +20,17 @@ public class DdaVeryEasy extends Dda{
 	
 	@Override
 	public Dda nextDda() {
-		return new DdaEasy();
+		return this;
+	}
+
+	@Override
+	public String toString() {
+		return "Very Easy";
+	}
+
+	@Override
+	public DdaEnum getEnum() {
+		 return DdaEnum.DDA_VERY_EASY;
 	}
 
 }

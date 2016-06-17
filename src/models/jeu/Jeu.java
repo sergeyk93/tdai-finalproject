@@ -20,6 +20,7 @@ package models.jeu;
 
 import i18n.Langue;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,10 +45,15 @@ import models.terrains.Terrain;
 import models.tours.GestionnaireTours;
 import models.tours.Tour;
 import outils.myTimer;
+import vues.commun.Panel_Terrain;
 import vues.solo.Fenetre_JeuSolo;
 import ai.WaveGenerator;
-import ai.pathfinding.BlockerNew;
+import ai.budget_manager.GradeCalculator;
+import ai.dda.DdaEnum;
+import ai.dda.DdaManager;
+import ai.pathfinding.Blocker;
 import ai.pathfinding.TowerNeighbour;
+import ai.utils.Game;
 import exceptions.ActionNonAutoriseeException;
 import exceptions.ArgentInsuffisantException;
 import exceptions.AucunePlaceDisponibleException;
@@ -207,6 +213,8 @@ EcouteurDeVague
 
 	private WaveGenerator wg;
 	private ArrayList<TowerNeighbour> tns;
+
+	private GradeCalculator gradeCalculator;
 	private static ArrayList<Point2D> points;
 
 	/**
@@ -225,8 +233,10 @@ EcouteurDeVague
 			e.printStackTrace();
 		}
 		// Initializing a new wave generator that utilizies the AI and the DDA
-		wg = new WaveGenerator(this);
-		ai.dda.DdaManager.init();
+		Game.init(true);
+		DdaManager.init(this);
+		gradeCalculator = new GradeCalculator();
+		wg = new WaveGenerator(this, gradeCalculator);
 		tns = new ArrayList<TowerNeighbour>();
 	}
 
@@ -254,7 +264,9 @@ EcouteurDeVague
 		estTermine          = false;
 		estDetruit          = false;
 		vagueCourante       = null;
-		coeffVitesse        = 1.0;
+		//TODO: change back coeff
+		//coeffVitesse        = 1.0;
+		coeffVitesse        = 2.0;
 
 		// initialisation des valeurs par defaut
 		for(Equipe equipe : equipes)
@@ -382,8 +394,9 @@ EcouteurDeVague
 
 		// desactive la zone dans le maillage qui correspond a la tour
 		terrain.desactiverZone(tour, true);
-
-		checkRadiusNodes(tour, false);
+		if (DdaManager.getDifficuly() == DdaEnum.DDA_HARD ||
+				DdaManager.getDifficuly() == DdaEnum.DDA_EXPERT)
+			checkRadiusNodes(tour);
 
 		// ajout de la tour
 		gestionnaireTours.ajouterTour(tour);
@@ -422,7 +435,7 @@ EcouteurDeVague
 	}
 
 
-	private void checkRadiusNodes(Tour tour, boolean upgrade) {
+	private void checkRadiusNodes(Tour tour) {
 
 		int length = (int)(tour.getRayonPortee() - tour.getWidth()/2);
 		int tWidth = (int)tour.getWidth();
@@ -432,15 +445,15 @@ EcouteurDeVague
 		Point2D p = new Point2D(tX,tY);
 		Jeu.initPoints();
 		Jeu.addPoint(p);
-		checkNeighbour(new BlockerNew(length, tWidth, p, new Point2D(0, 0), tWidth, tHeight, tour, false),tour, true, upgrade);
+		checkNeighbour(new Blocker(length, tWidth, p, new Point2D(0, 0), tWidth, tHeight, tour),tour);
 	}
 
-	private void checkNeighbour(BlockerNew blocker, Tour tour, boolean isTower, boolean upgrade) {
-		for (BlockerNew bl : blocker.getNeighbourBlockers())
-			checkNeighbourNew(bl, tour, upgrade);
+	private void checkNeighbour(Blocker blocker, Tour tour) {
+		for (Blocker bl : blocker.getNeighbourBlockers())
+			checkNeighbourNew(bl, tour);
 	}
 
-	private void checkNeighbourNew(BlockerNew blocker, Tour tour, boolean upgrade) {
+	private void checkNeighbourNew(Blocker blocker, Tour tour) {
 		if (blocker.hasLength()){
 			TowerNeighbour tn = blocker.getTN();
 			if (!terrain.isCellBlockPath(tn)){
@@ -448,21 +461,10 @@ EcouteurDeVague
 				tns.add(tn);
 				tour.addNeighbour(tn);
 			}
-			//	    	if (upgrade || !blocker.isDiagonal())
-				checkNeighbourNew(blocker.getNeighbourBlocker(), tour, upgrade);
+			checkNeighbourNew(blocker.getNeighbourBlocker(), tour);
 		}
 	}
-
-	public void paintTowerNeighbours(Graphics2D g){
-		//		g.setColor(Color.white);
-		//    	for (TowerNeighbour tn : tns){
-		//    		if (tn.isAlive())
-		//    			g.fill(tn);
-		//    	}
-	}
-
-
-
+	
 	/**
 	 * Permet de vendre une tour.
 	 * 
@@ -511,7 +513,9 @@ EcouteurDeVague
 
 		if(edj != null)
 			edj.tourAmelioree(tour);
-		checkRadiusNodes(tour, true);
+		if (DdaManager.getDifficuly() == DdaEnum.DDA_HARD ||
+				DdaManager.getDifficuly() == DdaEnum.DDA_EXPERT)
+			checkRadiusNodes(tour);
 	}
 
 	/**
@@ -803,9 +807,9 @@ EcouteurDeVague
 		tueur.setScore(tueur.getScore() + creature.getNbPiecesDOr());
 
 		// nouvelle étoile ?
-		if(nbEtoilesAvantAjoutScore < tueur.getNbEtoiles())
-			if(edj != null)  
-				edj.etoileGagnee();
+//		if(nbEtoilesAvantAjoutScore < tueur.getNbEtoiles())
+//			if(edj != null)  
+//				edj.etoileGagnee();
 
 		// notification de la mort de la créature
 		if(edj != null)
@@ -912,9 +916,9 @@ EcouteurDeVague
 	 */
 	public Vector<Creature> getCreaturesQuiIntersectent(int centerX, int centreY,
 			int rayon)
-			{
+	{
 		return gestionnaireCreatures.getCreaturesQuiIntersectent(centerX, centreY, rayon);
-			}
+	}
 
 	/**
 	 * Permet de nofifier le jeu qu'un créature à été ajoutée
@@ -1245,4 +1249,31 @@ EcouteurDeVague
 	public Iterator<Tour> getTowersIterator(){
 		return gestionnaireTours.getTourIter();
 	}
+
+	public void killNeighbours(Tour tour) {
+		System.out.println("HEY");
+		for (TowerNeighbour tn : tour.getTowerNeighbours())
+			terrain.activerZone(tn, true);
+
+	}
+	
+	public void updateTowers(){
+		if (Game.isSmart() && DdaManager.getDifficuly() == DdaEnum.DDA_HARD ||
+			DdaManager.getDifficuly() == DdaEnum.DDA_EXPERT)
+			for (Tour tour : gestionnaireTours.getTours())
+				checkRadiusNodes(tour);
+		if (Game.isSmart() && DdaManager.getDifficuly() == DdaEnum.DDA_NORMAL){
+			for (Tour tour : gestionnaireTours.getTours()){
+				killNeighbours(tour);
+				tour.deleteNeighbours();
+			}
+			points = new ArrayList<Point2D>();
+		}
+		
+	}
+
+	public GradeCalculator getGradeCalculator() {
+		return gradeCalculator;
+	}
+
 }

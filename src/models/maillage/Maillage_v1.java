@@ -29,6 +29,10 @@ import org.jgrapht.Graphs;
 import org.jgrapht.alg.DijkstraShortestPath;
 import org.jgrapht.graph.SimpleWeightedGraph;
 
+import ai.dda.DdaEnum;
+import ai.dda.DdaManager;
+import ai.pathfinding.BackTrackingRandomPath;
+
 /**
  * Fichier : Maillage.java
  * <p>
@@ -192,10 +196,17 @@ public class Maillage_v1 implements Maillage
 		/*
 		 * Calcul par Dijkstra du chemin le plus cours d'un point à un autre.
 		 */
-		GraphPath<Noued, Arc> dijkstraChemin;
+		GraphPath<Noued, Arc> path = null;
 		try
 		{
-			dijkstraChemin = (new DijkstraShortestPath<Noued, Arc>(
+//			if (Game.isSmart() && DdaManager.getDifficuly() == DdaEnum.DDA_VERY_EASY ||
+//					DdaManager.getDifficuly() == DdaEnum.DDA_EASY)
+//				path = (new BackTrackingRandomPath<Noued, Arc>(graphe,
+//						noeudContenantLePoint(xDepart - xOffset, yDepart - yOffset),
+//						noeudContenantLePoint(xArrivee - xOffset, yArrivee
+//								- yOffset))).getPath();
+//			else
+				path = (new DijkstraShortestPath<Noued, Arc>(
 					graphe,
 					noeudContenantLePoint(xDepart - xOffset, yDepart - yOffset),
 					noeudContenantLePoint(xArrivee - xOffset, yArrivee
@@ -208,11 +219,11 @@ public class Maillage_v1 implements Maillage
 		/*
 		 * S'il n'y a pas de chemin
 		 */
-		if (dijkstraChemin == null)
+		if (path == null)
 			throw new PathNotFoundException("Le chemin n'existe pas!");
 
 		// Retourne l'ArrayList des points.
-		return new ArrayList<Point>(Graphs.getPathVertexList(dijkstraChemin));
+		return new ArrayList<Point>(Graphs.getPathVertexList(path));
 	}
 
 	/* (non-Javadoc)

@@ -1,59 +1,77 @@
 package ai.dda;
 
+import models.jeu.Jeu;
+
 public class DdaManager {
 
 	private static int currentHP;
-	private static int CurrentLastCreatureTime;
-	private static int thresholdHP;
-	private static int thresholdTime;
+	private static long CurrentLastCreatureTime;
 	private static Dda dda;
 	private static Boolean firstWave;
-	private static int chooseDda;
+	private static Jeu jeu;
+	private static int turns;
 
-	public static void init() {
+	public static void init(Jeu other) {
 		currentHP = 20;
 		CurrentLastCreatureTime = 0;
-		thresholdHP = 3;
-		thresholdTime = 2000;
 		dda = new DdaNormal();
 		firstWave = true;
-		chooseDda = 0;
+		jeu = other;
+		turns = 0;
 	}
 
-	public static void updateDda(int newHP, int newTime){
-
+	public static void updateDda(int newHP, long newTime){
+		turns++;
+		String curr = dda.toString();
+		String next = "";
+		int chooseDda = 0;
+		System.out.println("+++++++++++++++++++++++++++++++++++++++++");
+		System.out.println("DDA Current: HP = " + currentHP + ", Time = " + CurrentLastCreatureTime);
+		System.out.println("DDA Update: HP = " + newHP + ", Time = " + newTime);
+		System.out.println("DDA Difficulty: " + dda.toString());
+		System.out.println("+++++++++++++++++++++++++++++++++++++++++");
 		if (!firstWave){
-			if (currentHP - newHP >= thresholdHP)
+			if (currentHP - newHP >= dda.thresholdHP)
 				chooseDda--;
-			if (newTime - CurrentLastCreatureTime >= thresholdTime)
+			if (chooseDda == 0 && (CurrentLastCreatureTime - newTime) / 1000 >= dda.thresholdTime){
 				chooseDda++;
-			if (CurrentLastCreatureTime - newTime >= thresholdTime)
-				chooseDda--;
+			}
+			
 		}
 
 		else{
-			firstWave = true;
-			if (currentHP - newHP >= thresholdHP)
+			firstWave = false;
+			if (currentHP - newHP >= dda.thresholdHP)
 				chooseDda--;
 		}
 
 		if (chooseDda > 0){
 			dda = dda.nextDda();
-			thresholdHP = thresholdHP == 4 ? thresholdHP : thresholdHP++;
-			thresholdTime = thresholdTime == 4000 ? thresholdTime : thresholdTime + 1000;
+			next = dda.toString();
+			turns = 0;
 		}
 
 		if (chooseDda < 0){
 			dda = dda.previousDda();
-			thresholdHP = thresholdHP == 1 ? thresholdHP : thresholdHP--;
-			thresholdTime = thresholdTime == 1000 ? thresholdTime : thresholdTime - 1000;
+			next = dda.toString();
+			turns = 0;
 		}
 
-		chooseDda = 0;
+		if (next != "")
+			print(curr, next);
 		currentHP = newHP;
 		CurrentLastCreatureTime = newTime;
+		
+		if (chooseDda == 0 && turns == 5){
+			turns = 0;
+			dda = dda.nextDda();
+		}
 	}
 
+	public static void print(String curr, String next){
+		System.out.println("DDA has changed the difficulty from " + curr + " to: " + next);
+	}
+	
 	public static double healthCoef(){
 		return dda.health_coef;
 	}
@@ -66,12 +84,22 @@ public class DdaManager {
 		return dda.prevWavesConsideration;
 	}
 
-	public static int dropValueCoef(){
+	public static double dropValueCoef(){
 		return dda.dropValueCoef;
 	}
 
 	public static int budgetPerWave(){
+		if (firstWave)
+			return 700;
 		return dda.budgetPerWave;
+	}
+
+	public static DdaEnum getDifficuly() {
+		return dda.getEnum();
+	}
+	
+	public static void updateTowers(){
+		jeu.updateTowers();
 	}
 
 }

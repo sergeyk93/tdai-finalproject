@@ -40,7 +40,9 @@ public class GradeCalculator {
 
 	}
 
-	public void updateGradeDistance(String creatureName, double timeElapsed){
+	public void updateGradeDistance(String creatureName, long timeElapsed){
+		if (creatureName.equals("Grande Araignee"))
+			return;
 		grades.get(creatureName).gradeDistance(timeElapsed);
 	}
 
@@ -77,6 +79,8 @@ public class GradeCalculator {
 				bestCreature = grades.get(name).getCreature();
 			}
 		}
+		if (bestCreature != null)
+			bestCreature.updateData();
 		return bestCreature;
 	}
 	

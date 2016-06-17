@@ -23,6 +23,8 @@ import i18n.Langue;
 import java.util.ArrayList;
 
 import ai.WaveGenerator;
+import ai.utils.DefaultWave;
+import ai.utils.Game;
 
 /**
  * Structure permettant de stoquer des informations et lancer une vague de
@@ -53,6 +55,8 @@ public class VagueDeCreatures
 	private final String DESCRIPTION;
 	private ArrayList<Creature> creatures;
 
+	private static DefaultWave defaultWave;
+
 	/**
 	 * Constructeur de la vague de creatures
 	 * 
@@ -72,6 +76,7 @@ public class VagueDeCreatures
 		CREATURE_A_ENVOYER = creatureAEnvoyer;
 		DESCRIPTION = description;
 		creatures = c;
+		defaultWave = new DefaultWave();
 	}
 	
 	public VagueDeCreatures(int nbCreatures, Creature creatureAEnvoyer,
@@ -178,7 +183,7 @@ public class VagueDeCreatures
 	 */
 
 	public static VagueDeCreatures genererVagueStandard(WaveGenerator wg, int waveNum){
-		if (ai.utils.Game.isSmart()){
+		if (Game.isSmart()){
 			ArrayList<Creature> wave =  null;
 			try {
 				wave = wg.generate();
@@ -186,12 +191,14 @@ public class VagueDeCreatures
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			if (wave == null || wave.size() == 0){
+				wave = defaultWave.getDefaultWave();;
+			}
 			return new VagueDeCreatures(wave.size(), wave.get(0),
 					getTempsLancement(VITESSE_CREATURE_NORMALE), wave);
 		}
 		return genererVagueStandardOld(waveNum);
 	}
-
 
 
 	/* OLD WAVE GENERATOR ************************************/

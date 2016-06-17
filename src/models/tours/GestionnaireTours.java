@@ -83,6 +83,7 @@ public class GestionnaireTours implements Runnable
         
         // reactive la zone dans le maillage qui correspond a la tour
         jeu.getTerrain().activerZone(tour, true);
+        jeu.killNeighbours(tour);
     }
     
     /**
@@ -110,7 +111,9 @@ public class GestionnaireTours implements Runnable
   
                 // anime l'animation
                 if(tour.estEnJeu())
-                    tour.action((long)(TEMPS_ATTENTE*jeu.getCoeffVitesse())); 
+                    tour.action((long)(TEMPS_ATTENTE*jeu.getCoeffVitesse()));
+                else
+                	jeu.killNeighbours(tour);
             }
           
             // gestion de la pause

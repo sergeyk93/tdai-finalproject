@@ -22,6 +22,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -316,8 +317,8 @@ KeyListener
 		GestionnaireDesPolices.setStyle(bZoomArriere);
 		//bZoomAvant.setPreferredSize(dimBouton);
 		//bZoomArriere.setPreferredSize(dimBouton);
-		boutonsHaut.add(bZoomAvant);
-		boutonsHaut.add(bZoomArriere);
+//		boutonsHaut.add(bZoomAvant);
+//		boutonsHaut.add(bZoomArriere);
 		bZoomAvant.addActionListener(this);
 		bZoomArriere.addActionListener(this);
 
@@ -325,14 +326,14 @@ KeyListener
 		bCentrer.setToolTipText(Langue.getTexte(Langue.ID_TXT_CENTRER_ET_RACCOURCI));
 		GestionnaireDesPolices.setStyle(bCentrer);
 		//bCentrer.setPreferredSize(dimBouton);
-		boutonsHaut.add(bCentrer);
+//		boutonsHaut.add(bCentrer);
 		bCentrer.addActionListener(this);
 
 		// maximisation / minimisation
 		bPleinEcran.setToolTipText(Langue.getTexte(Langue.ID_TXT_MAXI_MINI_FENETRE));
 		GestionnaireDesPolices.setStyle(bPleinEcran);
 		//bPleinEcran.setPreferredSize(dimBouton);
-		boutonsHaut.add(bPleinEcran);
+//		boutonsHaut.add(bPleinEcran);
 		bPleinEcran.addActionListener(this);
 
 
@@ -401,7 +402,7 @@ KeyListener
 		bLancerVagueSuivante.addActionListener(this);
 		panelMenuInteraction.add(bLancerVagueSuivante,BorderLayout.SOUTH);
 		bLancerVagueSuivante.setPreferredSize(new Dimension(300,50));
-
+		bLancerVagueSuivante.setFont(new Font("Arial", Font.PLAIN,20));
 		pFormulaire.add(panelMenuInteraction,BorderLayout.EAST);
 
 		add(pFormulaire,BorderLayout.CENTER);
@@ -887,7 +888,7 @@ KeyListener
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-		//       demanderQuitter();
+//		       demanderQuitter();
 		quitter();
 	}
 

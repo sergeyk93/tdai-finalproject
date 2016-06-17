@@ -745,9 +745,10 @@ public abstract class Tour extends Rectangle
     }
     
     public void deleteNeighbours(){
-    	for (TowerNeighbour tn : tns){
-    		if (tn.isAlive())
-    			tn.killTowerNeighbour();
-    	}
+    	tns = new ArrayList<TowerNeighbour>();
     }
+
+	public ArrayList<TowerNeighbour> getTowerNeighbours() {
+		return tns;
+	}
 }

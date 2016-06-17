@@ -8,6 +8,8 @@ import ai.WaveGenerator;
 import ai.dda.DdaManager;
 import ai.utils.AILogger;
 import models.creatures.Creature;
+import models.jeu.Jeu;
+import models.joueurs.Equipe;
 import models.tours.Tour;
 
 public class PriceCalculator {
@@ -15,15 +17,13 @@ public class PriceCalculator {
 	private GradeCalculator gradeCalculator;
 	private HashMap<String, Integer> chooseCounter;
 	private ArrayList<Creature> previousWave;
-
-	public PriceCalculator(){
-		gradeCalculator = new GradeCalculator();
+	
+	public PriceCalculator(GradeCalculator gg){
+		gradeCalculator = gg;
 		chooseCounter = new HashMap<String, Integer>();
 		previousWave = new ArrayList<Creature>();
-		
 		Menu.init();
         TimeAliveTable.init();
-		
 		Iterator<Creature> iter = Menu.getIter();
 		
 		while(iter.hasNext()){
@@ -78,9 +78,10 @@ public class PriceCalculator {
 			
 			// Updating the alive time average of the chosen creatures in the previous wave
 			for(Creature c : previousWave){
+				long timeAlive = TimeAliveTable.getAliveTIme(c.getNom());
 				gradeCalculator.addAliveTime(c.getNom(), 
-						TimeAliveTable.getAliveTIme(c.getNom()));
-			}	
+						timeAlive);
+			}
 		}
 
 		// Initializing wave logger
@@ -123,7 +124,7 @@ public class PriceCalculator {
 		
 		int waveSize = 0;
 		
-		while(waveSize<=15){
+		while(waveSize <= 12){
 			Creature c = gradeCalculator.getBestCreature(budget);
 			
 			if(c==null){
@@ -135,8 +136,8 @@ public class PriceCalculator {
 			budget -= price; 
 			
 			// Factoring the health and speed of the unit based on the current DDA
-			c.setSanteMax(c.getSanteMax() * DdaManager.healthCoef());
-			c.setVitesse(c.getVitesseNormale() * DdaManager.speedCoef());
+//			c.setSanteMax(c.getSanteMax() * DdaManager.healthCoef());
+//			c.setVitesse(c.getVitesseNormale() * DdaManager.speedCoef());
 			ans.add(c);
 
 			waveSize++;
@@ -153,7 +154,7 @@ public class PriceCalculator {
 				double newPrice = p.getUpgradePrice(upgradeFactor);
 				if(newPrice <= budget){
 					budget -= newPrice;
-					c.upgrade();
+//					c.upgrade();
 				}
 			}
 			upgradeFactor *= 1.1;

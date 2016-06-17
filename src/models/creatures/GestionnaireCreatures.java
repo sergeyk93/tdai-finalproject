@@ -23,8 +23,10 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.Vector;
 
+import ai.dda.DdaManager;
 import models.jeu.Jeu;
 import models.joueurs.Equipe;
 import models.joueurs.GestionnaireDeRevenu;
@@ -102,6 +104,7 @@ public class GestionnaireCreatures implements Runnable
         
         ArrayList<Creature> creaturesASupprimer = new ArrayList<Creature>();
         Creature creature;
+        Random rand=new Random();
         
         while(gestionEnCours)
         { 
@@ -116,9 +119,22 @@ public class GestionnaireCreatures implements Runnable
                     creature.effacerSiPasMisAJour();
                     
                     // efface les creatures mortes
-                    if(creature.aDetruire())
-                        // ajout dans la liste des créatures à supprimer
+                    if(creature.aDetruire()){
+                    	if (rand.nextInt(4) == 1){
+                    		long time = creature.getTempsAppel();
+                    		int HPLeft = 0;
+                    		for (Equipe e : jeu.getEquipes()){
+                    			if (!e.aPerdu())
+                    				HPLeft = e.getNbViesRestantes();
+                    			if (HPLeft > 0)
+                    				break;
+                    		}
+                    		DdaManager.updateDda(HPLeft, time);
+                    		jeu.getGradeCalculator().updateGradeDistance(creature.getNom(),time);
+                    	}
+                    	// ajout dans la liste des créatures à supprimer
                         creaturesASupprimer.add(creature);
+                    }
                     else
                         // anime la creature
                         creature.action((long)(TEMPS_ATTENTE*jeu.getCoeffVitesse()));
@@ -130,10 +146,11 @@ public class GestionnaireCreatures implements Runnable
             }
             
             // suppression des créatures
-            for(Creature creatureASupprimer : creaturesASupprimer)
-                creatures.remove(creatureASupprimer);
+            for(Creature creatureASupprimer : creaturesASupprimer){
+            	creatures.remove(creatureASupprimer);
+            }
             creaturesASupprimer.clear();
-            
+			
             // gestion de la pause
             try
             {

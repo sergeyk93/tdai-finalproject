@@ -2,11 +2,12 @@ package ai;
 
 import java.util.ArrayList;
 
+import ai.budget_manager.GradeCalculator;
 import ai.budget_manager.PriceCalculator;
 import ai.dda.DdaManager;
 import ai.utils.Constants;
 import models.creatures.*;
-import models.jeu.Jeu;
+import models.jeu.*;
 
 public class WaveGenerator {
 
@@ -15,10 +16,9 @@ public class WaveGenerator {
 	// Package protected field
 	private static double budget = 0;
 
-	public WaveGenerator(Jeu gameSession){
+	public WaveGenerator(Jeu gameSession, GradeCalculator gradeCalculator){
 		// Initializing the A.I components
-		DdaManager.init();
-		pc = new PriceCalculator();
+		pc = new PriceCalculator(gradeCalculator);
 		this.gameSession = gameSession;
 		
 	}
@@ -35,7 +35,7 @@ public class WaveGenerator {
 		
 		if(waveNumber % 10 == 0){
 			GrandeAraignee boss = new GrandeAraignee();
-			boss.setSante(Constants.BOSS);
+			boss.setSante(Constants.BOSS * waveNumber / 10);
 			wave.add(boss);
 		}
 		

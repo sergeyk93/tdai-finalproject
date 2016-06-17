@@ -697,6 +697,12 @@ public class Terrain implements Serializable
             try
             {
                 MAILLAGE_TERRESTRE.activerZone(zone, true);
+             // activation des murs for(Rectangle mur : murs)
+                for(Rectangle mur : murs)
+                {
+                    MAILLAGE_TERRESTRE.desactiverZone(mur,false);
+                    MAILLAGE_AERIEN.desactiverZone(mur,false);
+                }
             }
             catch(IllegalArgumentException e)
             {}

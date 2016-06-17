@@ -57,6 +57,10 @@ public abstract class Creature extends Rectangle
      */
     private int id;
     private static int idCourant = 0;
+	private double originalHealth;
+	private double originalSpeed;
+	private int originalGoldDrop;
+	private long tempsDernierAppel;
 	
 	/**
 	 * Permet de stocker sous la forme reelle la position de la creature pour rendre 
@@ -214,6 +218,10 @@ public abstract class Creature extends Rectangle
 		TYPE                = type;
 		NOM                 = nom;
 		timeElapsed			= 0;
+		originalHealth 		= santeMax;
+		originalSpeed 		= vitesse;
+		originalGoldDrop	= this.nbPiecesDOr;
+		getTempsAppel();
 	}
 
 	/**
@@ -613,13 +621,14 @@ public abstract class Creature extends Rectangle
 		ecouteursDeCreature.add(edc);
 	}
 	
+
 	/**
      * Permet de recuperer le temps ecouler depuis le dernier appel de cette meme 
      * fonction
      * @return le temps en milliseconde entre chaque appel de cette fonction
      *         si c'est le premier appel, retourne 0.
      */
-    protected long getTempsAppel()
+    public long getTempsAppel()
     {
         // initialisation du temps actuel
         long maintenant = System.currentTimeMillis(); 
@@ -637,7 +646,6 @@ public abstract class Creature extends Rectangle
         tempsDernierAppel = maintenant;
         return tempsEcoule;
     }
-    private long tempsDernierAppel;
 
     /**
      * Permet d'informer un instance superieure qu'il faut detruire la creature
@@ -802,12 +810,13 @@ public abstract class Creature extends Rectangle
 	public void setDropValue(double factor){
 		nbPiecesDOr = (int)(Math.floor(santeMax / vitesseNormale) * factor);
 		nbPiecesDOr = nbPiecesDOr == 0 ? 1 : nbPiecesDOr;
+		originalGoldDrop = nbPiecesDOr;
 	}
 	
 	public void updateData() {
-		santeMax *= DdaManager.healthCoef();
+		santeMax = originalHealth * DdaManager.healthCoef();
 		sante = santeMax;
-		vitesseNormale *= DdaManager.speedCoef();
-		nbPiecesDOr *= DdaManager.dropValueCoef();
+		vitesseNormale = originalSpeed * DdaManager.speedCoef();
+		nbPiecesDOr = (int)(originalGoldDrop * DdaManager.dropValueCoef());
 	}
 }

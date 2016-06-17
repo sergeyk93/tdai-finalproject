@@ -33,7 +33,7 @@ public class Grade {
 		if (airTowers >= groundTowers){
 			if(!moreAirTowers){
 				moreAirTowers = true;
-				grade = c.getType() == Creature.TYPE_AERIENNE ? grade + 1 : grade;
+				grade = c.getType() == Creature.TYPE_AERIENNE ? grade + 2 : grade;
 			}
 		}
 		else{
@@ -48,7 +48,7 @@ public class Grade {
 	 * Updating the new average distance and updating the grade accordingly
 	 * @param timeElapsed
 	 */
-	public void gradeDistance(double timeElapsed){
+	public void gradeDistance(long timeElapsed){
 		if(avgDistance==0){
 			return;
 		}
