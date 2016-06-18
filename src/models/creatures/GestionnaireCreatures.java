@@ -130,7 +130,7 @@ public class GestionnaireCreatures implements Runnable
                     				break;
                     		}
                     		DdaManager.updateDda(HPLeft, time);
-                    		jeu.getGradeCalculator().updateGradeDistance(creature.getNom(),time);
+                    		jeu.getWaveGenerator().getGradeCalculator().updateGradeDistance(creature.getNom(),time);
                     	}
                     	// ajout dans la liste des créatures à supprimer
                         creaturesASupprimer.add(creature);

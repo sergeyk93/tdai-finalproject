@@ -6,7 +6,7 @@ public class DdaExpert extends Dda{
 		health_coef = 3;
 		speed_coef = 1.5;
 		prevWavesConsideration = 3;
-		dropValueCoef = 3;
+		dropValueCoef = 1;
 		budgetPerWave = 800;
 		thresholdTime = 3;
 		thresholdHP = 1;

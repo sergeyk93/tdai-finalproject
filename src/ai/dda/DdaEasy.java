@@ -6,7 +6,7 @@ public class DdaEasy extends Dda{
 		health_coef = 0.8;
 		speed_coef = 0.8;
 		prevWavesConsideration = 8;
-		dropValueCoef = 1;
+		dropValueCoef = 1.75;
 		budgetPerWave = 300;
 		thresholdTime = 1;
 		thresholdHP = 2;

@@ -49,8 +49,8 @@ public class Menu {
 		return creatures.iterator();
 	}
 
-	public static Price getPrice(String creatureName){
-		return prices.get(creatureName);
+	public static double getPrice(String creatureName){
+		return prices.get(creatureName).getPrice();
 	}
 	
 	public static double getMinPrice(){

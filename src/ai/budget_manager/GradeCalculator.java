@@ -11,25 +11,19 @@ public class GradeCalculator {
 	 * This class maps between creatures and their current grades
 	 * It also allows us to update the grades after each iteration
 	 */
-	private HashMap<String, Grade> grades = new HashMap<String, Grade>();
+	private HashMap<String, Grade> grades;;
 
 	/**
 	 * Initializing a grade for each creature
 	 */
 	public GradeCalculator(){
+		grades = new HashMap<String, Grade>();
+		
 		Iterator<Creature> iter = Menu.getIter();
 		while(iter.hasNext()){
 			Creature c = iter.next();
 			grades.put(c.getNom(), new Grade(c));
 		}
-//		grades.put(Constants.AIGLE, new Grade(new Aigle()));
-//		grades.put(Constants.ARAIGNEE, new Grade(new Araignee()));
-//		grades.put(Constants.ELEPHAN, new Grade(new Elephant()));
-//		grades.put(Constants.MOUTON, new Grade(new Mouton()));
-//		grades.put(Constants.MOUTON_NOIR, new Grade(new MoutonNoir()));
-//		grades.put(Constants.PAYSAN, new Grade(new Paysan()));
-//		grades.put(Constants.PIGEONN, new Grade(new Pigeon()));
-//		grades.put(Constants.RHINOCEROS, new Grade(new Rhinoceros()));
 	}
 
 	public void updateGradeTowers(String creatureName, int groundTowers, int airTowers){
@@ -52,11 +46,11 @@ public class GradeCalculator {
 	 */
 	public Creature getBestCreature(double budget){
 		Creature bestCreature = null;
-		double maxGrade = Double.MIN_VALUE;
+		double maxGrade = -1000;
 
 		for(String name : grades.keySet()){
 			
-			if(Menu.getPrice(name).getPrice()>budget){
+			if(Menu.getPrice(name) > budget){
 				continue;
 			}
 			
@@ -68,9 +62,7 @@ public class GradeCalculator {
 				int rand = (int)(Math.random() + 0.5);
 				bestCreature = rand == 0 ? bestCreature : grades.get(name).getCreature();
 				continue;
-			}
-			
-			else if(grade > maxGrade){
+			} else if(grade > maxGrade){
 				maxGrade = grade;
 				bestCreature = grades.get(name).getCreature();
 			}

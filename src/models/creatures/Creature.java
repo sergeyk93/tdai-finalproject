@@ -817,6 +817,6 @@ public abstract class Creature extends Rectangle
 		santeMax = originalHealth * DdaManager.healthCoef();
 		sante = santeMax;
 		vitesseNormale = originalSpeed * DdaManager.speedCoef();
-		nbPiecesDOr = (int)(originalGoldDrop * DdaManager.dropValueCoef());
+		nbPiecesDOr = (int) Math.ceil(originalGoldDrop * DdaManager.dropValueCoef());
 	}
 }

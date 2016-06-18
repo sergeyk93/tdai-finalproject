@@ -787,12 +787,12 @@ public class Panel_Terrain extends JPanel
 			g2.setFont(policeTmp);
 		}
 
-		if (afficherFps) {
-			g2.setColor(Color.BLACK);
-			g2.drawString("fps : " + fps, 0, 12);
-			g2.setColor(Color.WHITE);
-			g2.drawString("fps : " + fps, 1, 12 + 1);
-		}
+//		if (afficherFps) {
+//			g2.setColor(Color.BLACK);
+//			g2.drawString("fps : " + fps, 0, 12);
+//			g2.setColor(Color.WHITE);
+//			g2.drawString("fps : " + fps, 1, 12 + 1);
+//		}
 
 	}
 

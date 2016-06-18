@@ -13,7 +13,7 @@ public class Grade {
 	public Grade(Creature c){
 		this.c = c;
 		// First grade value is based on max HP and speed
-		grade = (c.getSanteMax() * c.getVitesseNormale()) / (new Price(c).getPrice());
+		grade = (c.getSanteMax() * c.getVitesseNormale()) / Menu.getPrice(c.getNom());
 		avgDistance = 0;
 		moreAirTowers = false;
 

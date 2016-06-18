@@ -33,9 +33,7 @@ public class PriceCalculator {
 	 */
 	public ArrayList<Creature> compute(int groundTowers, int airTowers, int waveNumber){
 		ArrayList<Creature> ans = new ArrayList<Creature>();
-		
 		Iterator<Creature> iter = Menu.getIter();
-		
 		double budget = WaveGenerator.getBudget();
 		
 		// In the first wave we don't compute the grade and uses the first values
@@ -94,7 +92,7 @@ public class PriceCalculator {
 			log.append(gradeCalculator.getGrade(c.getNom()));
 			log.append(System.lineSeparator());
 			log.append("Price: ");
-			log.append(Menu.getPrice(c.getNom()).getPrice());
+			log.append(Menu.getPrice(c.getNom()));
 			log.append(System.lineSeparator());
 			log.append("Previous alive time: ");
 			log.append(gradeCalculator.getLastAliveTime(c.getNom()));
@@ -107,12 +105,11 @@ public class PriceCalculator {
 		
 		while(waveSize <= 15){
 			Creature c = gradeCalculator.getBestCreature(budget);
-			
-			if(c==null && budget < Menu.getMinPrice()){
+			if(c==null){
 				break;
 			}
 			
-			double price = Menu.getPrice(c.getNom()).getPrice();
+			double price = Menu.getPrice(c.getNom());
 			budget -= price; 
 			ans.add(c);
 			waveSize++;
@@ -120,20 +117,20 @@ public class PriceCalculator {
 
 		// Upgrades the creatures deterministically - could be changed into something 
 		// more sophisticated. Stops when the price hasn't been changed for 1 iteration
-		double upgradeFactor = 1.1;
-		double prevBudget;
-		do{
-			prevBudget = budget;
-			for(Creature c : ans){
-				Price p = Menu.getPrice(c.getNom());
-				double newPrice = p.getUpgradePrice(upgradeFactor);
-				if(newPrice <= budget){
-					budget -= newPrice;
-//					c.upgrade();
-				}
-			}
-			upgradeFactor *= 1.1;
-		} while(budget!=prevBudget);
+//		double upgradeFactor = 1.1;
+//		double prevBudget;
+//		do{
+//			prevBudget = budget;
+//			for(Creature c : ans){
+//				Price p = Menu.getPrice(c.getNom());
+//				double newPrice = p.getUpgradePrice(upgradeFactor);
+//				if(newPrice <= budget){
+//					budget -= newPrice;
+////					c.upgrade();
+//				}
+//			}
+//			upgradeFactor *= 1.1;
+//		} while(budget!=prevBudget);
 		
 		WaveGenerator.setBudget(budget);
 

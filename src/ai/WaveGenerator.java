@@ -3,16 +3,16 @@ package ai;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import models.creatures.Creature;
-import models.creatures.GrandeAraignee;
-import models.jeu.Jeu;
-import models.tours.Tour;
 import ai.budget_manager.GradeCalculator;
 import ai.budget_manager.Menu;
 import ai.budget_manager.PriceCalculator;
 import ai.budget_manager.TimeAliveTable;
 import ai.dda.DdaManager;
 import ai.utils.Constants;
+import models.creatures.Creature;
+import models.creatures.GrandeAraignee;
+import models.jeu.Jeu;
+import models.tours.Tour;
 
 public class WaveGenerator {
 
@@ -57,7 +57,8 @@ public class WaveGenerator {
 
 		if(waveNumber % 10 == 0){
 			GrandeAraignee boss = new GrandeAraignee();
-			boss.setSante(Constants.BOSS * waveNumber / 10);
+			boss.setSanteMax(Constants.BOSS);
+			boss.updateData();
 			wave.add(boss);
 		}
 
@@ -75,6 +76,10 @@ public class WaveGenerator {
 
 	public static void setBudget(double newBudget){
 		budget = newBudget;
+	}
+	
+	public GradeCalculator getGradeCalculator(){
+		return gradeCalculator;
 	}
 
 }

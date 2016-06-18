@@ -6,7 +6,7 @@ public class DdaHard extends Dda{
 		health_coef = 1.5;
 		speed_coef = 1.2;
 		prevWavesConsideration = 5;
-		dropValueCoef = 2;
+		dropValueCoef = 1.25;
 		budgetPerWave = 600;
 		thresholdTime = 4;
 		thresholdHP = 2;

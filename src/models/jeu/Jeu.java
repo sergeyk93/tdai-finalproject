@@ -211,8 +211,6 @@ EcouteurDeVague
 
 	private WaveGenerator wg;
 	private ArrayList<TowerNeighbour> tns;
-
-	private GradeCalculator gradeCalculator;
 	private static ArrayList<Point2D> points;
 
 	/**
@@ -1254,22 +1252,20 @@ EcouteurDeVague
 	}
 	
 	public void updateTowers(){
-		if (Game.isSmart() && DdaManager.getDifficuly() == DdaEnum.DDA_HARD ||
-			DdaManager.getDifficuly() == DdaEnum.DDA_EXPERT)
-			for (Tour tour : gestionnaireTours.getTours())
-				checkRadiusNodes(tour);
-		if (Game.isSmart() && DdaManager.getDifficuly() == DdaEnum.DDA_NORMAL){
-			for (Tour tour : gestionnaireTours.getTours()){
-				killNeighbours(tour);
-				tour.deleteNeighbours();
-			}
-			points = new ArrayList<Point2D>();
-		}
-		
+//		if (Game.isSmart() && DdaManager.getDifficuly() == DdaEnum.DDA_HARD ||
+//			DdaManager.getDifficuly() == DdaEnum.DDA_EXPERT)
+//			for (Tour tour : gestionnaireTours.getTours())
+//				checkRadiusNodes(tour);
+//		if (Game.isSmart() && DdaManager.getDifficuly() == DdaEnum.DDA_NORMAL){
+//			for (Tour tour : gestionnaireTours.getTours()){
+//				killNeighbours(tour);
+//				tour.deleteNeighbours();
+//			}
+//			points = new ArrayList<Point2D>();
+//		}
 	}
-
-	public GradeCalculator getGradeCalculator() {
-		return gradeCalculator;
+	
+	public WaveGenerator getWaveGenerator(){
+		return wg;
 	}
-
 }
