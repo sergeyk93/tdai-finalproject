@@ -1,17 +1,9 @@
 package ai.budget_manager;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
-import ai.utils.Constants;
-import models.creatures.Aigle;
-import models.creatures.Araignee;
 import models.creatures.Creature;
-import models.creatures.Elephant;
-import models.creatures.Mouton;
-import models.creatures.MoutonNoir;
-import models.creatures.Paysan;
-import models.creatures.Pigeon;
-import models.creatures.Rhinoceros;
 
 public class GradeCalculator {
 
@@ -25,14 +17,19 @@ public class GradeCalculator {
 	 * Initializing a grade for each creature
 	 */
 	public GradeCalculator(){
-		grades.put(Constants.AIGLE, new Grade(new Aigle()));
-		grades.put(Constants.ARAIGNEE, new Grade(new Araignee()));
-		grades.put(Constants.ELEPHAN, new Grade(new Elephant()));
-		grades.put(Constants.MOUTON, new Grade(new Mouton()));
-		grades.put(Constants.MOUTON_NOIR, new Grade(new MoutonNoir()));
-		grades.put(Constants.PAYSAN, new Grade(new Paysan()));
-		grades.put(Constants.PIGEONN, new Grade(new Pigeon()));
-		grades.put(Constants.RHINOCEROS, new Grade(new Rhinoceros()));
+		Iterator<Creature> iter = Menu.getIter();
+		while(iter.hasNext()){
+			Creature c = iter.next();
+			grades.put(c.getNom(), new Grade(c));
+		}
+//		grades.put(Constants.AIGLE, new Grade(new Aigle()));
+//		grades.put(Constants.ARAIGNEE, new Grade(new Araignee()));
+//		grades.put(Constants.ELEPHAN, new Grade(new Elephant()));
+//		grades.put(Constants.MOUTON, new Grade(new Mouton()));
+//		grades.put(Constants.MOUTON_NOIR, new Grade(new MoutonNoir()));
+//		grades.put(Constants.PAYSAN, new Grade(new Paysan()));
+//		grades.put(Constants.PIGEONN, new Grade(new Pigeon()));
+//		grades.put(Constants.RHINOCEROS, new Grade(new Rhinoceros()));
 	}
 
 	public void updateGradeTowers(String creatureName, int groundTowers, int airTowers){
@@ -41,8 +38,7 @@ public class GradeCalculator {
 	}
 
 	public void updateGradeDistance(String creatureName, long timeElapsed){
-		if (creatureName.equals("Grande Araignee"))
-			return;
+		if (creatureName.equals("Grande Araignee")) return;
 		grades.get(creatureName).gradeDistance(timeElapsed);
 	}
 
@@ -74,14 +70,17 @@ public class GradeCalculator {
 				continue;
 			}
 			
-			if(grade > maxGrade){
+			else if(grade > maxGrade){
 				maxGrade = grade;
 				bestCreature = grades.get(name).getCreature();
 			}
 		}
-		if (bestCreature != null)
+		if (bestCreature != null){
 			bestCreature.updateData();
-		return bestCreature;
+			return bestCreature.copier();
+		}
+		
+		return null;
 	}
 	
 	public void incGrade(String creatureName){

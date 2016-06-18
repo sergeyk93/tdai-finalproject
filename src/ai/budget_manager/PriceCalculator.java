@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import models.creatures.Creature;
-import models.tours.Tour;
 import ai.WaveGenerator;
 import ai.dda.DdaManager;
 import ai.utils.AILogger;
@@ -20,8 +19,6 @@ public class PriceCalculator {
 		gradeCalculator = gg;
 		chooseCounter = new HashMap<String, Integer>();
 		previousWave = new ArrayList<Creature>();
-		Menu.init();
-        TimeAliveTable.init();
 		Iterator<Creature> iter = Menu.getIter();
 		
 		while(iter.hasNext()){
@@ -34,7 +31,7 @@ public class PriceCalculator {
 	 * @param gameSession
 	 * @return computes the prices of the wave the A.I buys and updates the wallet
 	 */
-	public ArrayList<Creature> compute(Iterator<Tour> towerIter, int waveNumber){
+	public ArrayList<Creature> compute(int groundTowers, int airTowers, int waveNumber){
 		ArrayList<Creature> ans = new ArrayList<Creature>();
 		
 		Iterator<Creature> iter = Menu.getIter();
@@ -43,19 +40,6 @@ public class PriceCalculator {
 		
 		// In the first wave we don't compute the grade and uses the first values
 		if(waveNumber > 1){
-			
-			//Calculating the number of air towers and ground towers
-			int groundTowers = 0, airTowers = 0;
-			while(towerIter.hasNext()){
-				Tour t = towerIter.next();
-				if(t.getType() == Tour.TYPE_TERRESTRE){
-					groundTowers++;
-				}
-				if(t.getType() == Tour.TYPE_AIR){
-					airTowers++;
-				}
-			}
-
 			// 1. Updating the grades based on the towers that were built in the previous wave
 			// 2. Updating the grades based on the time that the creature was alive
 			// 3. Increasing the grade of the creatures that weren't chosen for n waves
@@ -119,25 +103,18 @@ public class PriceCalculator {
 		}
 
 		// Takes the 15 best creatures it can(or less if it can't)
-		
 		int waveSize = 0;
 		
-		while(waveSize <= 12){
+		while(waveSize <= 15){
 			Creature c = gradeCalculator.getBestCreature(budget);
 			
-			if(c==null){
+			if(c==null && budget < Menu.getMinPrice()){
 				break;
 			}
 			
 			double price = Menu.getPrice(c.getNom()).getPrice();
-			
 			budget -= price; 
-			
-			// Factoring the health and speed of the unit based on the current DDA
-//			c.setSanteMax(c.getSanteMax() * DdaManager.healthCoef());
-//			c.setVitesse(c.getVitesseNormale() * DdaManager.speedCoef());
 			ans.add(c);
-
 			waveSize++;
 		}
 
@@ -156,7 +133,7 @@ public class PriceCalculator {
 				}
 			}
 			upgradeFactor *= 1.1;
-		}while(budget!=prevBudget);
+		} while(budget!=prevBudget);
 		
 		WaveGenerator.setBudget(budget);
 

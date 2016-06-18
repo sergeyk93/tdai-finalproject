@@ -9,6 +9,7 @@ import java.awt.Frame;
 import javax.swing.JApplet;
 import javax.swing.UIManager;
 
+import ai.utils.AILogger;
 import models.outils.GestionnaireSons;
 import driver.Game;
 
@@ -71,6 +72,7 @@ public class Applet extends JApplet{
 		System.out.println("Applet stopping");
 	}
 	public void destroy() {
+		AILogger.closeLogger();
 		System.out.println("Applet destroyed");
 	}
 

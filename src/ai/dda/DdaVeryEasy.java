@@ -1,7 +1,7 @@
 package ai.dda;
 
 public class DdaVeryEasy extends Dda{
-	
+
 	public DdaVeryEasy(){
 		health_coef = 0.7;
 		speed_coef = 0.7;
@@ -18,7 +18,7 @@ public class DdaVeryEasy extends Dda{
 	public Dda previousDda() {
 		return new DdaVeryEasy();
 	}
-	
+
 	@Override
 	public Dda nextDda() {
 		return this;
@@ -31,7 +31,7 @@ public class DdaVeryEasy extends Dda{
 
 	@Override
 	public DdaEnum getEnum() {
-		 return DdaEnum.DDA_VERY_EASY;
+		return DdaEnum.DDA_VERY_EASY;
 	}
 
 }

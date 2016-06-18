@@ -20,7 +20,6 @@ package models.jeu;
 
 import i18n.Langue;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,7 +44,6 @@ import models.terrains.Terrain;
 import models.tours.GestionnaireTours;
 import models.tours.Tour;
 import outils.myTimer;
-import vues.commun.Panel_Terrain;
 import vues.solo.Fenetre_JeuSolo;
 import ai.WaveGenerator;
 import ai.budget_manager.GradeCalculator;
@@ -234,9 +232,7 @@ EcouteurDeVague
 		}
 		// Initializing a new wave generator that utilizies the AI and the DDA
 		Game.init(true);
-		DdaManager.init(this);
-		gradeCalculator = new GradeCalculator();
-		wg = new WaveGenerator(this, gradeCalculator);
+		wg = new WaveGenerator(this);
 		tns = new ArrayList<TowerNeighbour>();
 	}
 

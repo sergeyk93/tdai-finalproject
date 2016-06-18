@@ -13,12 +13,12 @@ public class DdaHard extends Dda{
 		turnsT = 10;
 		//path_method = new PathHard();
 	}
-	
+
 	@Override
 	public Dda previousDda() {
 		return new DdaNormal();
 	}
-	
+
 	@Override
 	public Dda nextDda() {
 		return new DdaExpert();
