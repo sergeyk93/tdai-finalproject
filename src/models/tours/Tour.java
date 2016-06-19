@@ -169,6 +169,8 @@ public abstract class Tour extends Rectangle
     private long tempsDepuisDernierTir;
     private long tempsDAttenteEntreTirs;
 	private ArrayList<TowerNeighbour> tns;
+	private boolean bIsupgrade;
+
 	/**
 	 * Constructeur de la tour.
 	 * 
@@ -212,6 +214,7 @@ public abstract class Tour extends Rectangle
 		// pour que la tour tire directement après sa création
 		tempsDepuisDernierTir = tempsDAttenteEntreTirs; 
 		tns = new ArrayList<TowerNeighbour>();
+		bIsupgrade = false;
 	}
 	
 	/**
@@ -750,5 +753,14 @@ public abstract class Tour extends Rectangle
 
 	public ArrayList<TowerNeighbour> getTowerNeighbours() {
 		return tns;
+	}
+
+	public void setIsUpgrade(boolean b) {
+		
+		bIsupgrade = b;
+	}
+	
+	public boolean isUpgrade(){
+		return bIsupgrade;
 	}
 }

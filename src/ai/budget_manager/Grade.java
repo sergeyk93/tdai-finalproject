@@ -98,4 +98,11 @@ public class Grade {
 		}
 		return 0;
 	}
+
+	public void gradeHP(int currHp, int newHp) {
+		if (currHp < newHp)
+			grade += 3;
+		else
+			grade -= 2;
+	}
 }

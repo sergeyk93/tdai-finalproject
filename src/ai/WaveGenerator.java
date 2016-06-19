@@ -54,16 +54,16 @@ public class WaveGenerator {
 			}
 		}
 
-
+		DdaManager.updateTowers();
+		
 		if(waveNumber % 10 == 0){
 			GrandeAraignee boss = new GrandeAraignee();
-			boss.setSanteMax(Constants.BOSS);
-			boss.updateData();
+			boss.setSanteMax(Constants.BOSS * waveNumber / 10);
 			wave.add(boss);
 		}
 
 		else{
-			budget += DdaManager.budgetPerWave() * (waveNumber / 2.0);
+			budget += DdaManager.budgetPerWave() * (waveNumber / 1.5);
 			wave = pc.compute(groundTowers, airTowers, waveNumber);
 		}
 

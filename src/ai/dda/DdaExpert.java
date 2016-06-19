@@ -3,14 +3,14 @@ package ai.dda;
 public class DdaExpert extends Dda{
 	
 	public DdaExpert(){
-		health_coef = 3;
+		health_coef = 2;
 		speed_coef = 1.5;
 		prevWavesConsideration = 3;
-		dropValueCoef = 1;
+		dropValueCoef = 2;
 		budgetPerWave = 800;
-		thresholdTime = 3;
+		thresholdTime = 4;
 		thresholdHP = 1;
-		turnsT = 15;
+		turnsT = 12;
 		//path_method = new PathExpert();
 	}
 
@@ -21,7 +21,7 @@ public class DdaExpert extends Dda{
 	
 	@Override
 	public Dda nextDda() {
-		health_coef += 0.8;
+		health_coef += 0.4;
 		speed_coef += 0.1;
 		return this;
 	}

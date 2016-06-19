@@ -35,6 +35,11 @@ public class GradeCalculator {
 		if (creatureName.equals("Grande Araignee")) return;
 		grades.get(creatureName).gradeDistance(timeElapsed);
 	}
+	
+	public void updateGradeHP(String creatureName, int currHp, int newHp) {
+		if (creatureName.equals("Grande Araignee")) return;
+		grades.get(creatureName).gradeHP(currHp, newHp);
+	}
 
 	public double getGrade(String creatureName){
 		return grades.get(creatureName).getGrade();
@@ -86,4 +91,5 @@ public class GradeCalculator {
 	public long getLastAliveTime(String creatureName){
 		return grades.get(creatureName).getLastAliveTime();
 	}
+
 }

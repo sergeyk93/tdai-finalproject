@@ -27,6 +27,7 @@ import java.util.Random;
 import java.util.Vector;
 
 import ai.dda.DdaManager;
+import ai.utils.Constants;
 import models.jeu.Jeu;
 import models.joueurs.Equipe;
 import models.joueurs.GestionnaireDeRevenu;
@@ -120,7 +121,7 @@ public class GestionnaireCreatures implements Runnable
                     
                     // efface les creatures mortes
                     if(creature.aDetruire()){
-                    	if (rand.nextInt(4) == 1){
+                    	if (rand.nextInt(3) == 1){
                     		long time = creature.getTempsAppel();
                     		int HPLeft = 0;
                     		for (Equipe e : jeu.getEquipes()){
@@ -130,8 +131,12 @@ public class GestionnaireCreatures implements Runnable
                     				break;
                     		}
                     		DdaManager.updateDda(HPLeft, time);
+
                     		jeu.getWaveGenerator().getGradeCalculator().updateGradeDistance(creature.getNom(),time);
+                    		jeu.getWaveGenerator().getGradeCalculator().updateGradeHP(creature.getNom(),DdaManager.getHP(), HPLeft);
                     	}
+
+                    	
                     	// ajout dans la liste des créatures à supprimer
                         creaturesASupprimer.add(creature);
                     }

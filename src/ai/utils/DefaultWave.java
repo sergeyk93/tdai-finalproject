@@ -63,12 +63,12 @@ public class DefaultWave {
 			
 			while (c == null){
 				int index = r.nextInt(8);
-				if (index >=0 && index < 8)
+				if (index >= 0 && index < 8)
 					c = creatures.get(index);
 			}
 			int q = 0;
 			while (q == 0)
-				r.nextInt(5);
+				q = r.nextInt(5);
 			
 			for (; q>0; q++, size--)
 				wave.add(c);

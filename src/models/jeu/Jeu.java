@@ -258,9 +258,7 @@ EcouteurDeVague
 		estTermine          = false;
 		estDetruit          = false;
 		vagueCourante       = null;
-		//TODO: change back coeff
-		//coeffVitesse        = 1.0;
-		coeffVitesse        = 2.0;
+		coeffVitesse        = 1.0;
 
 		// initialisation des valeurs par defaut
 		for(Equipe equipe : equipes)
@@ -388,9 +386,9 @@ EcouteurDeVague
 
 		// desactive la zone dans le maillage qui correspond a la tour
 		terrain.desactiverZone(tour, true);
-		if (DdaManager.getDifficuly() == DdaEnum.DDA_HARD ||
-				DdaManager.getDifficuly() == DdaEnum.DDA_EXPERT)
-			checkRadiusNodes(tour);
+//		if (Game.isSmart() && (DdaManager.getDifficuly() == DdaEnum.DDA_HARD ||
+//				DdaManager.getDifficuly() == DdaEnum.DDA_EXPERT))
+//			checkRadiusNodes(tour);
 
 		// ajout de la tour
 		gestionnaireTours.ajouterTour(tour);
@@ -470,6 +468,10 @@ EcouteurDeVague
 		// supprime la tour
 		gestionnaireTours.supprimerTour(tour);
 
+		if (tour.getTowerNeighbours().size() > 0){
+			killNeighbours(tour);
+			tour.deleteNeighbours();
+		}
 		// debit des pieces d'or
 		tour.getPrioprietaire().setNbPiecesDOr(
 				tour.getPrioprietaire().getNbPiecesDOr() + tour.getPrixDeVente());
@@ -507,9 +509,11 @@ EcouteurDeVague
 
 		if(edj != null)
 			edj.tourAmelioree(tour);
-		if (DdaManager.getDifficuly() == DdaEnum.DDA_HARD ||
-				DdaManager.getDifficuly() == DdaEnum.DDA_EXPERT)
-			checkRadiusNodes(tour);
+//		if (Game.isSmart() && (DdaManager.getDifficuly() == DdaEnum.DDA_HARD ||
+//				DdaManager.getDifficuly() == DdaEnum.DDA_EXPERT))
+//			checkRadiusNodes(tour);
+		
+		tour.setIsUpgrade(true);
 	}
 
 	/**
@@ -1245,24 +1249,32 @@ EcouteurDeVague
 	}
 
 	public void killNeighbours(Tour tour) {
-		System.out.println("HEY");
 		for (TowerNeighbour tn : tour.getTowerNeighbours())
 			terrain.activerZone(tn, true);
 
 	}
 	
 	public void updateTowers(){
-//		if (Game.isSmart() && DdaManager.getDifficuly() == DdaEnum.DDA_HARD ||
-//			DdaManager.getDifficuly() == DdaEnum.DDA_EXPERT)
-//			for (Tour tour : gestionnaireTours.getTours())
-//				checkRadiusNodes(tour);
-//		if (Game.isSmart() && DdaManager.getDifficuly() == DdaEnum.DDA_NORMAL){
-//			for (Tour tour : gestionnaireTours.getTours()){
-//				killNeighbours(tour);
-//				tour.deleteNeighbours();
-//			}
-//			points = new ArrayList<Point2D>();
-//		}
+		 
+		if (DdaManager.getDifficuly() == DdaEnum.DDA_EXPERT)
+			return;
+		
+		if (DdaManager.getDifficuly() == DdaEnum.DDA_HARD){
+			for (Tour tour : gestionnaireTours.getTours())
+				if (tour.getTowerNeighbours().size() == 0 || tour.isUpgrade()){
+					checkRadiusNodes(tour);
+					tour.setIsUpgrade(false);
+				}
+		}
+		else{
+			for (Tour tour : gestionnaireTours.getTours()){
+				if (tour.getTowerNeighbours().size() > 0){
+					killNeighbours(tour);
+					tour.deleteNeighbours();
+				}
+			}
+			points = new ArrayList<Point2D>();
+		}
 	}
 	
 	public WaveGenerator getWaveGenerator(){

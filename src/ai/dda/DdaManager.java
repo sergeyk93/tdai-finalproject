@@ -69,22 +69,26 @@ public class DdaManager {
 			turns = 0;
 		}
 
-		if (next != "")
-			print(curr, next);
-		currentHP = newHP;
-		CurrentLastCreatureTime = newTime;
-		
 		if (chooseDda == 0 && turns == dda.turnsT){
 			turns = 0;
 			dda = dda.nextDda();
+			next = dda.toString();
 		}
+		
+		if (next != ""){
+			print(curr, next);
+		}
+		
+		currentHP = newHP;
+		CurrentLastCreatureTime = newTime;
+		
 	}
 
 	public static void print(String curr, String next){
 		StringBuilder sb = new StringBuilder();
 		sb.append("DDA has changed the difficulty from ");
 		sb.append(curr);
-		sb.append(" to: ");
+		sb.append(" to ");
 		sb.append(next);
 		sb.append(System.lineSeparator());
 		AILogger.info(sb.toString());
@@ -107,7 +111,7 @@ public class DdaManager {
 	}
 
 	public static int budgetPerWave(){
-		if (firstWave) return 700;
+		if (firstWave) return 1000;
 		
 		return dda.budgetPerWave;
 	}
@@ -118,6 +122,10 @@ public class DdaManager {
 	
 	public static void updateTowers(){
 		jeu.updateTowers();
+	}
+
+	public static int getHP() {
+		return currentHP;
 	}
 
 }

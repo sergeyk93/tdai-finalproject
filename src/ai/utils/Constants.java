@@ -13,6 +13,7 @@ public class Constants {
 	public static final String PAYSAN = "Peasant";
 	public static final String ELEPHAN = "Elephant";
 	public static final String PIGEONN = "Pigeon";
+	public static final String BOSS_NAME = "Grande Araignee";
 	
 	/**
 	 * Constant HP of all creatures
@@ -33,4 +34,6 @@ public class Constants {
 	public static final double SLOW = 30.0;
 	public static final double NORMAL = 50.0;
 	public static final double FAST = 60.0;
+	
+	public static final double COEF_SANTE_BOSS = 8.0;
 }

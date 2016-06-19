@@ -103,7 +103,7 @@ public class PriceCalculator {
 		// Takes the 15 best creatures it can(or less if it can't)
 		int waveSize = 0;
 		
-		while(waveSize <= 15){
+		while(waveSize <= 12){
 			Creature c = gradeCalculator.getBestCreature(budget);
 			if(c==null){
 				break;

@@ -6,11 +6,11 @@ public class DdaNormal extends Dda{
 		health_coef = 1;
 		speed_coef = 1;
 		prevWavesConsideration = 5;
-		dropValueCoef = 1.5;
+		dropValueCoef = 1.6;
 		budgetPerWave = 400;
-		thresholdTime = 3;
+		thresholdTime = 2;
 		thresholdHP = 2;
-		turnsT = 8;
+		turnsT = 5;
 		//path_method = new PathNormal();
 	}
 

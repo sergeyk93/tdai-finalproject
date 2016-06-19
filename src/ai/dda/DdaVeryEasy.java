@@ -6,11 +6,11 @@ public class DdaVeryEasy extends Dda{
 		health_coef = 0.7;
 		speed_coef = 0.7;
 		prevWavesConsideration = 10;
-		dropValueCoef = 2;
+		dropValueCoef = 1;
 		budgetPerWave = 200;
 		thresholdTime = 1;
 		thresholdHP = 3;
-		turnsT = 15;
+		turnsT = 2;
 		//path_method = new PathVeryEasy();
 	}
 

@@ -297,7 +297,7 @@ KeyListener
 
 		// ajout du menu
 		//setJMenuBar(menuPrincipal);
-//		add(menuPrincipal, BorderLayout.NORTH);
+		//		add(menuPrincipal, BorderLayout.NORTH);
 
 		JPanel pGauche = new JPanel(new BorderLayout());
 		pGauche.setOpaque(false);
@@ -317,8 +317,8 @@ KeyListener
 		GestionnaireDesPolices.setStyle(bZoomArriere);
 		//bZoomAvant.setPreferredSize(dimBouton);
 		//bZoomArriere.setPreferredSize(dimBouton);
-//		boutonsHaut.add(bZoomAvant);
-//		boutonsHaut.add(bZoomArriere);
+		//		boutonsHaut.add(bZoomAvant);
+		//		boutonsHaut.add(bZoomArriere);
 		bZoomAvant.addActionListener(this);
 		bZoomArriere.addActionListener(this);
 
@@ -326,14 +326,14 @@ KeyListener
 		bCentrer.setToolTipText(Langue.getTexte(Langue.ID_TXT_CENTRER_ET_RACCOURCI));
 		GestionnaireDesPolices.setStyle(bCentrer);
 		//bCentrer.setPreferredSize(dimBouton);
-//		boutonsHaut.add(bCentrer);
+		//		boutonsHaut.add(bCentrer);
 		bCentrer.addActionListener(this);
 
 		// maximisation / minimisation
 		bPleinEcran.setToolTipText(Langue.getTexte(Langue.ID_TXT_MAXI_MINI_FENETRE));
 		GestionnaireDesPolices.setStyle(bPleinEcran);
 		//bPleinEcran.setPreferredSize(dimBouton);
-//		boutonsHaut.add(bPleinEcran);
+		//		boutonsHaut.add(bPleinEcran);
 		bPleinEcran.addActionListener(this);
 
 
@@ -556,21 +556,18 @@ KeyListener
 
 	private void demanderRedemarrerPartie()
 	{
-		//		if(JOptionPane.showConfirmDialog(this,
-		//				Langue.getTexte(Langue.ID_TXT_DIALOG_ARRETER_PARTIE), 
-		//				"", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
-		//		{
-		//			demanderEnregistrementDuScore();
+		JOptionPane.showMessageDialog(this, "Game Over");
+//			demanderEnregistrementDuScore();
 
-		//			jeu.terminer();
-		//			jeu.detruire();
+			jeu.terminer();
+//			jeu.detruire();
 
-		jeu.reinitialiser();
-
-		new Fenetre_JeuSolo(jeu);
-
-		remove(this);
-		//		}
+			//		jeu.reinitialiser();
+			//
+			//		new Fenetre_JeuSolo(jeu);
+			quitter();
+//			remove(this);
+		
 	}
 
 	/**
@@ -888,7 +885,7 @@ KeyListener
 	@Override
 	public void windowClosing(WindowEvent e)
 	{
-//		       demanderQuitter();
+		//		       demanderQuitter();
 		quitter();
 	}
 
@@ -986,13 +983,13 @@ KeyListener
 		panelMenuInteraction.partieTerminee();
 
 		// le bouton lancer vague suivante devient un retour au menu
-		bLancerVagueSuivante.setEnabled(true);
+		bLancerVagueSuivante.setEnabled(false);
 		vaguePeutEtreLancee = false;
-		bLancerVagueSuivante.setText("Quit");
-		bLancerVagueSuivante.setIcon(I_RETOUR);
+//		bLancerVagueSuivante.setText("Quit");
+//		bLancerVagueSuivante.setIcon(I_QUITTER);
 
 		//		demanderEnregistrementDuScore();
-		//		demanderRedemarrerPartie();
+		demanderRedemarrerPartie();
 		/*
         // si le joueur a un score > 0 et que le score n'a pas été déjà sauvé
         if(jeu.getJoueurPrincipal().getScore() > 0 && !demandeDEnregistrementDuScoreEffectuee)
