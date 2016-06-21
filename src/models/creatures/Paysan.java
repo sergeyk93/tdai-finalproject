@@ -41,8 +41,8 @@ public class Paysan extends Creature
 	{
 		IMAGES = new Image[]
 		{        
-		        Toolkit.getDefaultToolkit().getImage("../img/creatures/paysan/paysan_0_32.png"),
-		        Toolkit.getDefaultToolkit().getImage("../img/creatures/paysan/paysan_1_32.png")
+		        Toolkit.getDefaultToolkit().getImage("img/creatures/paysan/paysan_0_32.png"),
+		        Toolkit.getDefaultToolkit().getImage("img/creatures/paysan/paysan_1_32.png")
 		};
 	}
 	

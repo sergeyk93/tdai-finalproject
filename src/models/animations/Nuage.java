@@ -48,7 +48,7 @@ public class Nuage extends Animation
 	static
     { 
 	    for(int i=0;i<IMAGES.length;i++)
-            IMAGES[i] = Toolkit.getDefaultToolkit().getImage("../img/animations/nuages/"+i+".png");
+            IMAGES[i] = Toolkit.getDefaultToolkit().getImage("img/animations/nuages/"+i+".png");
     }
 	
 	/**

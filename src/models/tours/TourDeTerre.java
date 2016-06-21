@@ -54,8 +54,8 @@ public class TourDeTerre extends Tour
     static
     {
         COULEUR = new Color(128,64,32);
-        IMAGE   = Toolkit.getDefaultToolkit().getImage("../img/tours/tourDeTerre.png");
-        ICONE   = Toolkit.getDefaultToolkit().getImage("../img/tours/icone_tourDeTerre.png");
+        IMAGE   = Toolkit.getDefaultToolkit().getImage("img/tours/tourDeTerre.png");
+        ICONE   = Toolkit.getDefaultToolkit().getImage("img/tours/icone_tourDeTerre.png");
     }
     
     public TourDeTerre()

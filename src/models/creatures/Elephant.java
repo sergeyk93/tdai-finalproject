@@ -38,7 +38,7 @@ public class Elephant extends Creature
 	
 	static
 	{
-		IMAGE = Toolkit.getDefaultToolkit().getImage("../img/creatures/elephant.png");
+		IMAGE = Toolkit.getDefaultToolkit().getImage("img/creatures/elephant.png");
 	}
 	
 	/**

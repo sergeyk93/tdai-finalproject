@@ -40,8 +40,8 @@ public class Araignee extends Creature
 	{
 	   IMAGES = new Image[]
        {        
-               Toolkit.getDefaultToolkit().getImage("../img/creatures/araignee/araignee_0_32.png"),
-               Toolkit.getDefaultToolkit().getImage("../img/creatures/araignee/araignee_1_32.png")
+               Toolkit.getDefaultToolkit().getImage("img/creatures/araignee/araignee_0_32.png"),
+               Toolkit.getDefaultToolkit().getImage("img/creatures/araignee/araignee_1_32.png")
        };
 	}
 	

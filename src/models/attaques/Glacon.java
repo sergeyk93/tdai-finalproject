@@ -43,7 +43,7 @@ public class Glacon extends Attaque
     
     static
     {
-        IMAGE = Toolkit.getDefaultToolkit().getImage("../img/animations/attaques/glacon.png");
+        IMAGE = Toolkit.getDefaultToolkit().getImage("img/animations/attaques/glacon.png");
     }
     
 	/**

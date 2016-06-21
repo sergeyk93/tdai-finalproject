@@ -18,24 +18,37 @@
 
 package vues.editeurTerrain;
 
-import i18n.Langue;
-
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Event;
+import java.awt.Insets;
+import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JToolBar;
+import javax.swing.KeyStroke;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
 
-import vues.Fenetre_MenuPrincipal;
-import vues.LookInterface;
-import vues.commun.EcouteurDePanelTerrain;
-import vues.commun.Fenetre_HTML;
-import vues.solo.Fenetre_JeuSolo;
-import exceptions.*;
+import exceptions.AucunePlaceDisponibleException;
+import exceptions.JeuEnCoursException;
+import i18n.Langue;
 import models.creatures.Creature;
 import models.jeu.Jeu;
 import models.jeu.Jeu_Solo;
@@ -45,6 +58,11 @@ import models.joueurs.Joueur;
 import models.outils.GestionnaireSons;
 import models.terrains.Terrain;
 import models.tours.Tour;
+import vues.Fenetre_MenuPrincipal;
+import vues.LookInterface;
+import vues.commun.EcouteurDePanelTerrain;
+import vues.commun.Fenetre_HTML;
+import vues.solo.Fenetre_JeuSolo;
 
 /**
  * Fenetre de creation et d'edition de terrain de jeu.
@@ -57,7 +75,7 @@ import models.tours.Tour;
  * @since jdk1.6.0_16
  * @see Terrain
  */
-public class Fenetre_CreationTerrain extends    JPanel
+public class Fenetre_CreationTerrain extends    JFrame
                                      implements EcouteurDePanelTerrain, 
                                                 EcouteurDePanelCreationTerrain, 
                                                 ActionListener

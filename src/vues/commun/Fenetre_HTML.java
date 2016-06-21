@@ -55,7 +55,7 @@ public class Fenetre_HTML extends JPanel implements ActionListener
      * @param fichier le fichier html local
      * @param fenetre_JeuSolo la fenêtre parent
      */
-    public Fenetre_HTML(String titre, File fichier, JPanel fenetre_JeuSolo)
+    public Fenetre_HTML(String titre, File fichier, JFrame fenetre_JeuSolo)
     {
 
         //super(titre);

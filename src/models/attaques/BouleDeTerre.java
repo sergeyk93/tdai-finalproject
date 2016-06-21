@@ -63,7 +63,7 @@ public class BouleDeTerre extends Attaque
     static
     {
         IMAGE_BOULE = Toolkit.getDefaultToolkit().getImage(
-                "../img/animations/attaques/bouleDeTerre.png");
+                "img/animations/attaques/bouleDeTerre.png");
     }
 
     /**

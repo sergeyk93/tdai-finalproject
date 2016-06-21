@@ -26,7 +26,7 @@ package outils;
  */
 public class Configuration
 {
-    private static final String CFG = "../cfg/config.cfg";
+    private static final String CFG = "cfg/config.cfg";
     private static fichierDeConfiguration config = new fichierDeConfiguration(CFG);
     
     // COMMANDES

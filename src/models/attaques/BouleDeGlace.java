@@ -58,7 +58,7 @@ public class BouleDeGlace extends Attaque
     
     static
     {
-        IMAGE_BOULE   = Toolkit.getDefaultToolkit().getImage("../img/animations/attaques/bouleDeGlace.png");
+        IMAGE_BOULE   = Toolkit.getDefaultToolkit().getImage("img/animations/attaques/bouleDeGlace.png");
     }
     
     

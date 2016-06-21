@@ -52,8 +52,8 @@ public class TourElectrique extends Tour
     static
     {
         COULEUR = new Color(211,135,225);
-        IMAGE   = Toolkit.getDefaultToolkit().getImage("../img/tours/tourElectrique.png");
-        ICONE   = Toolkit.getDefaultToolkit().getImage("../img/tours/icone_tourElectrique.png");
+        IMAGE   = Toolkit.getDefaultToolkit().getImage("img/tours/tourElectrique.png");
+        ICONE   = Toolkit.getDefaultToolkit().getImage("img/tours/icone_tourElectrique.png");
     }
     
     public TourElectrique()

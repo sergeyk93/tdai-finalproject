@@ -38,7 +38,7 @@ public class Mouton extends Creature
 	
 	static
 	{
-		IMAGE = Toolkit.getDefaultToolkit().getImage("../img/creatures/mouton.png");
+		IMAGE = Toolkit.getDefaultToolkit().getImage("img/creatures/mouton.png");
 	}
 	
 	/**

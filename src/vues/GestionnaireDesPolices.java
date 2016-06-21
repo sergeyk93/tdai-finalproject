@@ -47,7 +47,7 @@ public class GestionnaireDesPolices
     {
         try
         {
-            File fichier = new File ("../fonts/titre.ttf");
+            File fichier = new File ("fonts/titre.ttf");
             FileInputStream in = new FileInputStream (fichier);
             Font dynamicFont = Font.createFont (Font.TRUETYPE_FONT, in);
             POLICE_TITRE = dynamicFont.deriveFont (24f);

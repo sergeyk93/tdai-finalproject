@@ -43,8 +43,8 @@ public class Fenetre_ChoixLangue extends JDialog implements ActionListener
     private static final long serialVersionUID = 1L;
     private final int MARGES_PANEL = 40;
     private final int MARGES_DRAPEAUX = 20;
-    private static final ImageIcon I_FR     = new ImageIcon("../lang/fr_FR.jpg");
-    private static final ImageIcon I_EN    = new ImageIcon("../lang/en_EN.png");
+    private static final ImageIcon I_FR     = new ImageIcon("lang/fr_FR.jpg");
+    private static final ImageIcon I_EN    = new ImageIcon("lang/en_EN.png");
     
     private JButton bFR = new JButton("Français",new ImageIcon(Outils.redimentionner(I_FR.getImage(), 100, 66)));
     private JButton bEN = new JButton("English",new ImageIcon(Outils.redimentionner(I_EN.getImage(), 100, 66)));
@@ -52,7 +52,7 @@ public class Fenetre_ChoixLangue extends JDialog implements ActionListener
     
     private JLabel lblTitre = new JLabel("Select your language");
     private static final ImageIcon I_FENETRE = new ImageIcon(
-    "../img/icones/icone_pgm.png");
+    "img/icones/icone_pgm.png");
     
     public Fenetre_ChoixLangue()
     {
@@ -125,12 +125,12 @@ public class Fenetre_ChoixLangue extends JDialog implements ActionListener
         
         if(src == bFR)
         {
-            Langue.initaliser("../lang/fr_FR.json");
+            Langue.initaliser("lang/fr_FR.json");
             dispose();
         }
         else if(src == bEN)
         {
-            Langue.initaliser("../lang/en_EN.json");
+            Langue.initaliser("lang/en_EN.json");
             dispose();
         } 
         else

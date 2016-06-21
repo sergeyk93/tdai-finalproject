@@ -59,7 +59,7 @@ public class Panel_AttendreJoueurs extends JPanel implements
     private static final long serialVersionUID = 1L;
     private final int MARGES_PANEL = 40;
     private final boolean ADMIN;
-    private JPanel parent;
+    private JFrame parent;
     private JButton bDemarrerMaintenant = new JButton(Langue.getTexte(Langue.ID_TXT_BTN_DEMARRER));
     private JLabel lblEtat = new JLabel();
     private JButton bDeconnecter = new JButton(Langue.getTexte(Langue.ID_TXT_BTN_SE_DECONNECTER));
@@ -82,7 +82,7 @@ public class Panel_AttendreJoueurs extends JPanel implements
      * @param jeu le jeu
      * @param joueur le joueur
      */
-    public Panel_AttendreJoueurs(JPanel parent, Jeu_Serveur jeuServeur, Jeu_Client jeuClient)
+    public Panel_AttendreJoueurs(JFrame parent, Jeu_Serveur jeuServeur, Jeu_Client jeuClient)
     {
         this.parent     = parent;
         this.ADMIN      = true;
@@ -101,7 +101,7 @@ public class Panel_AttendreJoueurs extends JPanel implements
      * @param jeu le jeu du client
      * @param joueur le joueur
      */
-    public Panel_AttendreJoueurs(JPanel parent, Jeu_Client jeu)
+    public Panel_AttendreJoueurs(JFrame parent, Jeu_Client jeu)
     {
         this.parent     = parent;
         this.ADMIN      = false;

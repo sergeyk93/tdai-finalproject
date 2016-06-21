@@ -50,7 +50,7 @@ public class Panel_RejoindrePartieMulti extends JPanel implements
         ActionListener, KeyListener, MouseListener, EcouteurDeClientJeu
 {  
     private final int MARGES_PANEL = 40;
-    private JPanel parent;
+    private JFrame parent;
 
     private DefaultTableModel model = new DefaultTableModel();
     private JTable tbServeurs;
@@ -152,7 +152,7 @@ public class Panel_RejoindrePartieMulti extends JPanel implements
      * 
      * @param parent le fenetre parent
      */
-    public Panel_RejoindrePartieMulti(JPanel parent)
+    public Panel_RejoindrePartieMulti(JFrame parent)
     {
         // initialisation
         super(new BorderLayout());

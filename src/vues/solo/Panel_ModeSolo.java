@@ -90,14 +90,14 @@ public class Panel_ModeSolo extends JPanel implements ActionListener, Runnable
 	private JProgressBar chargementTerrain;
 	private Thread thread;
     private boolean chargementTermine;
-	private JPanel parent;
+	private JFrame parent;
 	
 	private JLabel lblInfo = new JLabel(Langue.getTexte(Langue.ID_TXT_CLIQUER_SUR_TERRAIN));
 
 	/**
 	 * Constructeur de la fenetre du menu principal
 	 */
-	public Panel_ModeSolo(JPanel parent)
+	public Panel_ModeSolo(JFrame parent)
 	{
 		//-------------------------------
 		//-- preferances de le fenetre --

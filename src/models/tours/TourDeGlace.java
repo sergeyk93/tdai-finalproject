@@ -53,8 +53,8 @@ public class TourDeGlace extends Tour
     static
     {
         COULEUR = new Color(0,200,200);
-        IMAGE   = Toolkit.getDefaultToolkit().getImage("../img/tours/tourDeGlace.png");
-        ICONE   = Toolkit.getDefaultToolkit().getImage("../img/tours/icone_tourDeGlace.png");
+        IMAGE   = Toolkit.getDefaultToolkit().getImage("img/tours/tourDeGlace.png");
+        ICONE   = Toolkit.getDefaultToolkit().getImage("img/tours/icone_tourDeGlace.png");
     }
     
     public TourDeGlace()

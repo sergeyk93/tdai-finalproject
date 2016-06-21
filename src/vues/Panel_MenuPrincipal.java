@@ -50,7 +50,7 @@ public class Panel_MenuPrincipal extends JPanel implements ActionListener
     // constantes statiques
     private final int MARGES_PANEL = 40;
     private static final long serialVersionUID = 1L;
-    private static final Image IMAGE_DE_FOND = Toolkit.getDefaultToolkit().getImage("../img/interfaces/menuPrincipal.png");
+    private static final Image IMAGE_DE_FOND = Toolkit.getDefaultToolkit().getImage("img/interfaces/menuPrincipal.png");
     
     // elements du formulaire
     private JLabel version;
@@ -67,12 +67,12 @@ public class Panel_MenuPrincipal extends JPanel implements ActionListener
     private JLabel lblReseau = new JLabel(Langue.getTexte(Langue.ID_TITRE_RESEAU)+" \"beta\"");
     
     
-    private JPanel parent;
+    private JFrame parent;
 
     /**
      * Constructeur de la fenetre du menu principal
      */
-    public Panel_MenuPrincipal(JPanel parent)
+    public Panel_MenuPrincipal(JFrame parent)
     {
         super(new BorderLayout());
         this.parent = parent;

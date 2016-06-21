@@ -140,8 +140,8 @@ public class Panel_Terrain extends JPanel
 	private static final Color COULEUR_NIVEAU_PERIMETRE = Color.YELLOW;
 	private static final Color COULEUR_QUADRILLAGE = Color.BLACK;
 
-	private static final Image I_CHATEAU = Toolkit.getDefaultToolkit().getImage("../img/tours/chateau.png");
-	private static final Image I_CADRILLAGE = Toolkit.getDefaultToolkit().getImage("../img/animations/cadrillage.png");
+	private static final Image I_CHATEAU = Toolkit.getDefaultToolkit().getImage("img/tours/chateau.png");
+	private static final Image I_CADRILLAGE = Toolkit.getDefaultToolkit().getImage("img/animations/cadrillage.png");
 
 	/**
 	 * Thread de gestion du rafraichissement de l'affichage

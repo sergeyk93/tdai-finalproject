@@ -57,7 +57,7 @@ public class Panel_CreerPartieMulti extends JPanel implements ActionListener
     private final int MARGES_PANEL = 40;
     private final Dimension DEFAULT_DIMENTION_COMP = new Dimension(120, 25);
 
-    private JPanel parent;
+    private JFrame parent;
  
     // form
     private JLabel lblNomServeur = new JLabel(Langue.getTexte(Langue.ID_TITRE_NOM_SERVEUR));
@@ -83,7 +83,7 @@ public class Panel_CreerPartieMulti extends JPanel implements ActionListener
      * 
      * @param parent la fenetre parent
      */
-    public Panel_CreerPartieMulti(JPanel parent)
+    public Panel_CreerPartieMulti(JFrame parent)
     {
         // initialisation
         super(new BorderLayout());

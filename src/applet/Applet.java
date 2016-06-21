@@ -54,7 +54,7 @@ public class Applet extends JApplet{
 		//	
 		//	getContentPane().add(choice);
 
-		Langue.initaliser("..\\lang\\en_EN.json");
+		Langue.initaliser("lang\\en_EN.json");
 		// new Fenetre_ChoixLangue();
 		
 		container = getContentPane();

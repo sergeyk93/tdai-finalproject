@@ -66,7 +66,7 @@ import models.joueurs.Joueur;
  * @see JFrame
  * @see ActionListener
  */
-public class Fenetre_JeuVersus extends JPanel implements ActionListener, 
+public class Fenetre_JeuVersus extends JFrame implements ActionListener, 
                                                     EcouteurDeJeu,
                                                     EcouteurDeLanceurDeVagues,
                                                     EcouteurDePanelTerrain,

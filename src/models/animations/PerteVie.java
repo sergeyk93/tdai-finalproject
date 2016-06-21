@@ -44,7 +44,7 @@ public class PerteVie extends Animation
 	
 	static
     {
-        BLESSURE = Toolkit.getDefaultToolkit().getImage("../img/animations/perteVie.png");
+        BLESSURE = Toolkit.getDefaultToolkit().getImage("img/animations/perteVie.png");
     }
 	
 	/**

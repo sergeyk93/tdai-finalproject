@@ -38,7 +38,7 @@ public class GrandeAraignee extends Creature
 	
 	static
 	{
-		IMAGE = Toolkit.getDefaultToolkit().getImage("../img/creatures/grandeAraignee.png");
+		IMAGE = Toolkit.getDefaultToolkit().getImage("img/creatures/grandeAraignee.png");
 	}
 	
 	/**

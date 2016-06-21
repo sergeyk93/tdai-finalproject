@@ -38,12 +38,12 @@ public class Panel_InfosJoueurEtPartie extends JPanel
 {
     // constantes finales
     private static final long serialVersionUID      = 1L;
-    private static final ImageIcon I_PIECES         = new ImageIcon("../img/icones/coins.png");
-    private static final ImageIcon I_VIES           = new ImageIcon("../img/icones/heart.png");
-    private static final ImageIcon I_ETOILE         = new ImageIcon("../img/icones/star.png");
-    private static final ImageIcon I_TEMPS          = new ImageIcon("../img/icones/time.png");
-    private static final ImageIcon I_SCORE          = new ImageIcon("../img/icones/cup.png");
-    private static final ImageIcon I_REVENU         = new ImageIcon("../img/icones/income.png");
+    private static final ImageIcon I_PIECES         = new ImageIcon("img/icones/coins.png");
+    private static final ImageIcon I_VIES           = new ImageIcon("img/icones/heart.png");
+    private static final ImageIcon I_ETOILE         = new ImageIcon("img/icones/star.png");
+    private static final ImageIcon I_TEMPS          = new ImageIcon("img/icones/time.png");
+    private static final ImageIcon I_SCORE          = new ImageIcon("img/icones/cup.png");
+    private static final ImageIcon I_REVENU         = new ImageIcon("img/icones/income.png");
 
     private JLabel lTimer                   = new JLabel();
     private JLabel lTitreTimer              = new JLabel(I_TEMPS);

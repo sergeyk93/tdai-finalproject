@@ -17,8 +17,6 @@ package driver;
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
-import i18n.Langue;
-
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,12 +24,13 @@ import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
-import applet.Applet;
+import exceptions.AucunePlaceDisponibleException;
+import i18n.Langue;
 import models.jeu.Jeu;
 import models.jeu.Jeu_Solo;
 import models.joueurs.Equipe;
@@ -42,9 +41,10 @@ import models.terrains.ElementTD;
 import models.terrains.Spiral;
 import models.terrains.Terrain;
 import models.terrains.WaterWorld;
+import vues.Panel_MenuPrincipal;
 import vues.commun.Fenetre_HTML;
 import vues.solo.Fenetre_JeuSolo;
-import exceptions.AucunePlaceDisponibleException;
+import vues.solo.Fenetre_MeilleursScores;
 
 /**
  * Fenetre du menu principal du jeu.
@@ -59,16 +59,16 @@ import exceptions.AucunePlaceDisponibleException;
  * @version 1.0 | 15 decembre 2009
  * @since jdk1.6.0_16
  */
-public class Game extends JPanel implements ActionListener, Runnable
+public class Game extends JFrame implements ActionListener, Runnable
 {
 	// constantes statiques
     private static final long serialVersionUID 	= 1L;
-	private static final ImageIcon I_QUITTER 	= new ImageIcon("../img/icones/door_out.png");
-	private static final ImageIcon I_AIDE 		= new ImageIcon("../img/icones/help.png");
-	private static final ImageIcon I_SCORE      = new ImageIcon("../img/icones/star.png");
+	private static final ImageIcon I_QUITTER 	= new ImageIcon("img/icones/door_out.png");
+	private static final ImageIcon I_AIDE 		= new ImageIcon("img/icones/help.png");
+	private static final ImageIcon I_SCORE      = new ImageIcon("img/icones/star.png");
 	private static final int IMAGE_MENU_LARGEUR = 120;
 	private static final int IMAGE_MENU_HAUTEUR = 120;
-	private static final ImageIcon icoCADENAS      = new ImageIcon("../img/icones/lock.png");
+	private static final ImageIcon icoCADENAS      = new ImageIcon("img/icones/lock.png");
   
 	private final int MARGES_PANEL                 = 40;
     
@@ -91,22 +91,17 @@ public class Game extends JPanel implements ActionListener, Runnable
 	private JProgressBar chargementTerrain;
 	private Thread thread;
     private boolean chargementTermine;
-	private JPanel parent;
+	private JFrame parent;
 	
 	private JLabel lblInfo = new JLabel(Langue.getTexte(Langue.ID_TXT_CLIQUER_SUR_TERRAIN));
-	
-	private JPanel gamePanel;
-	
-	private Applet applet;
 
 	/**
 	 * Constructeur de la fenetre du menu principal
 	 */
-	public Game(Applet applet){
+	public Game(){
 		//-------------------------------
 		//-- preferances de le fenetre --
 		//-------------------------------
-		this.applet = applet;
 		Jeu jeu = new Jeu_Solo();
 	    lancerJeu(jeu, new ElementTD(jeu));
 	}
@@ -393,10 +388,10 @@ public class Game extends JPanel implements ActionListener, Runnable
 		    Jeu jeu = new Jeu_Solo();
 		    lancerJeu(jeu, new WaterWorld(jeu));
 		}
-		/*
+		
 		else if(source == itemMSElementTD)
 		    new Fenetre_MeilleursScores(ElementTD.NOM, parent);
-		/*else if(source == itemMSSpiral)
+		else if(source == itemMSSpiral)
             new Fenetre_MeilleursScores(Spiral.NOM, parent);
 		else if(source == itemMSDesert)
             new Fenetre_MeilleursScores(Desert.NOM, parent);
@@ -411,12 +406,12 @@ public class Game extends JPanel implements ActionListener, Runnable
 		}
 		else if(source == boutonsScore[0])
             new Fenetre_MeilleursScores("ElementTD", parent);    
-        /*else if(source == boutonsScore[1])
+        else if(source == boutonsScore[1])
             new Fenetre_MeilleursScores("Spiral", parent); 
         else if(source == boutonsScore[2])
             new Fenetre_MeilleursScores("Desert", parent); 
         else if(source == boutonsScore[3])
-            new Fenetre_MeilleursScores("WaterWorld", parent);   */
+            new Fenetre_MeilleursScores("WaterWorld", parent);   
 	}
 
 	/**
@@ -447,14 +442,10 @@ public class Game extends JPanel implements ActionListener, Runnable
         
         jeu.setJoueurPrincipal(joueur);
         jeu.initialiser();
-        gamePanel = new Fenetre_JeuSolo(jeu, applet);
+        new Fenetre_JeuSolo(jeu);
         
         chargementTermine = true;
 //        remove(parent);
-    }
-    
-    public JPanel getPanel(){
-    	return gamePanel;
     }
 
     synchronized private void actionnerBarreDeChargement()

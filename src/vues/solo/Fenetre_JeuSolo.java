@@ -46,7 +46,6 @@ import javax.swing.KeyStroke;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-import applet.Applet;
 import exceptions.ActionNonAutoriseeException;
 import i18n.Langue;
 import models.animations.Animation;
@@ -87,7 +86,7 @@ import vues.commun.Panel_Terrain;
  * @see JFrame
  * @see ActionListener
  */
-public class Fenetre_JeuSolo extends JPanel implements ActionListener, 
+public class Fenetre_JeuSolo extends JFrame implements ActionListener, 
 EcouteurDeJeu, 
 EcouteurDePanelTerrain,
 WindowListener,
@@ -96,24 +95,24 @@ KeyListener
 	// constantes statiques
 	private final int MARGES_PANEL = 10;
 	private static final long serialVersionUID = 1L;
-	private static final ImageIcon I_REDEMARRER = new ImageIcon("../img/icones/arrow_rotate_clockwise.png");
-	private static final ImageIcon I_RETOUR = new ImageIcon("../img/icones/application_home.png");
-	private static final ImageIcon I_QUITTER = new ImageIcon("../img/icones/door_out.png");
-	private static final ImageIcon I_AIDE = new ImageIcon("../img/icones/help.png");
-	private static final ImageIcon I_REGLES = new ImageIcon("../img/icones/script.png");
-	private static final ImageIcon I_ACTIF = new ImageIcon("../img/icones/tick.png");
-	private static final ImageIcon I_FENETRE = new ImageIcon("../img/icones/icone_pgm.png");
-	private static final ImageIcon I_SON_ACTIF = new ImageIcon("../img/icones/sound.png");
-	private static final ImageIcon I_VITESSE_JEU   = new ImageIcon("../img/icones/clock_play.png");
-	private static final ImageIcon I_PLEIN_ECRAN = new ImageIcon("../img/icones/arrow_out.png");
-	private static final ImageIcon I_RETRECIR = new ImageIcon("../img/icones/arrow_in.png");
-	private static final ImageIcon I_CENTRE = new ImageIcon("../img/icones/target.png");
-	private static final ImageIcon I_ZOOM = new ImageIcon("../img/icones/magnifier_zoom_in.png");
-	private static final ImageIcon I_DEZOOM = new ImageIcon("../img/icones/magnifier_zoom_out.png");
-	private static final ImageIcon I_OPTIONS = new ImageIcon("../img/icones/wrench.png");
-	private static final ImageIcon I_DEBUG = new ImageIcon("../img/icones/bug.png");
-	private static final ImageIcon I_MAILLAGE = new ImageIcon("../img/icones/mesh.png");
-	private static final ImageIcon I_RAYON = new ImageIcon("../img/icones/target.png");
+	private static final ImageIcon I_REDEMARRER = new ImageIcon("img/icones/arrow_rotate_clockwise.png");
+	private static final ImageIcon I_RETOUR = new ImageIcon("img/icones/application_home.png");
+	private static final ImageIcon I_QUITTER = new ImageIcon("img/icones/door_out.png");
+	private static final ImageIcon I_AIDE = new ImageIcon("img/icones/help.png");
+	private static final ImageIcon I_REGLES = new ImageIcon("img/icones/script.png");
+	private static final ImageIcon I_ACTIF = new ImageIcon("img/icones/tick.png");
+	private static final ImageIcon I_FENETRE = new ImageIcon("img/icones/icone_pgm.png");
+	private static final ImageIcon I_SON_ACTIF = new ImageIcon("img/icones/sound.png");
+	private static final ImageIcon I_VITESSE_JEU   = new ImageIcon("img/icones/clock_play.png");
+	private static final ImageIcon I_PLEIN_ECRAN = new ImageIcon("img/icones/arrow_out.png");
+	private static final ImageIcon I_RETRECIR = new ImageIcon("img/icones/arrow_in.png");
+	private static final ImageIcon I_CENTRE = new ImageIcon("img/icones/target.png");
+	private static final ImageIcon I_ZOOM = new ImageIcon("img/icones/magnifier_zoom_in.png");
+	private static final ImageIcon I_DEZOOM = new ImageIcon("img/icones/magnifier_zoom_out.png");
+	private static final ImageIcon I_OPTIONS = new ImageIcon("img/icones/wrench.png");
+	private static final ImageIcon I_DEBUG = new ImageIcon("img/icones/bug.png");
+	private static final ImageIcon I_MAILLAGE = new ImageIcon("img/icones/mesh.png");
+	private static final ImageIcon I_RAYON = new ImageIcon("img/icones/target.png");
 
 
 	private static final String FENETRE_TITRE = "ASD - Tower Defense";
@@ -215,7 +214,6 @@ KeyListener
 	private JButton bCentrer = new JButton(I_CENTRE);
 	private JButton bZoomAvant = new JButton(I_ZOOM);
 	private JButton bZoomArriere = new JButton(I_DEZOOM);
-	private Applet applet;
 
 	private static boolean firstWriteToConsole = true;
 
@@ -224,26 +222,18 @@ KeyListener
 	 * 
 	 * @param jeu le jeu a gerer
 	 */
-	public Fenetre_JeuSolo(Jeu jeu, Applet applet){
-		this(jeu);
-		this.applet = applet;
-
-	}
 	public Fenetre_JeuSolo(Jeu jeu)
 	{
 		this.jeu = jeu;
-
-		setLayout(new BorderLayout());
-
 		//-------------------------------
 		//-- preferences de le fenetre --
 		//-------------------------------
-		setName(FENETRE_TITRE);
-		//		setIconImage(I_FENETRE.getImage());
-		//		setResizable(false);
-		//		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		//		
-		//		addWindowListener(this);
+		setTitle(FENETRE_TITRE);
+		setIconImage(I_FENETRE.getImage());
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+		addWindowListener(this);
 		setBackground(LookInterface.COULEUR_DE_FOND_PRI);
 
 		pFormulaire.setOpaque(false);
@@ -296,8 +286,7 @@ KeyListener
 
 
 		// ajout du menu
-		//setJMenuBar(menuPrincipal);
-		//		add(menuPrincipal, BorderLayout.NORTH);
+		setJMenuBar(menuPrincipal);
 
 		JPanel pGauche = new JPanel(new BorderLayout());
 		pGauche.setOpaque(false);
@@ -420,10 +409,10 @@ KeyListener
 		//---------------------------------------
 		//-- dernieres propietes de la fenetre --
 		//---------------------------------------
-		//pack(); // adapte la taille de la fenetre a son contenu
+		pack(); // adapte la taille de la fenetre a son contenu
 		revalidate();
 		setVisible(true); // tu es toute belle, affiche toi !
-		//		setLocationRelativeTo(null); // centrage de la fenetre
+		setLocationRelativeTo(null); // centrage de la fenetre
 
 	}
 
@@ -517,26 +506,24 @@ KeyListener
 			else    
 				jeu.augmenterCoeffVitesse();
 		}
-		// Doesn't matter in applet since you can't resize
-		/*
+
 		else if(source == bPleinEcran)
-        {
+		{
 
-		      if(getExtendedState() == JFrame.MAXIMIZED_BOTH) 
-		      {
-		          pack();
-		          setLocationRelativeTo(null);
-		          bPleinEcran.setIcon(I_PLEIN_ECRAN);
-		      }
-		      else
-		      {
-		          setExtendedState(JFrame.MAXIMIZED_BOTH);
-		          bPleinEcran.setIcon(I_RETRECIR);
-		      }
+			if(getExtendedState() == JFrame.MAXIMIZED_BOTH) 
+			{
+				pack();
+				setLocationRelativeTo(null);
+				bPleinEcran.setIcon(I_PLEIN_ECRAN);
+			}
+			else
+			{
+				setExtendedState(JFrame.MAXIMIZED_BOTH);
+				bPleinEcran.setIcon(I_RETRECIR);
+			}
 
-		      panelTerrain.reinitialiserVue();
-        }
-		 */
+			panelTerrain.reinitialiserVue();
+		}
 		else if(source == bCentrer)
 		{
 			panelTerrain.reinitialiserVue();
@@ -557,17 +544,15 @@ KeyListener
 	private void demanderRedemarrerPartie()
 	{
 		JOptionPane.showMessageDialog(this, "Game Over");
-//			demanderEnregistrementDuScore();
+		//			demanderEnregistrementDuScore();
 
-			jeu.terminer();
-//			jeu.detruire();
+		jeu.terminer();
+		jeu.detruire();
+		jeu.reinitialiser();
+		new Fenetre_JeuSolo(jeu);
+		quitter();
+		remove(this);
 
-			//		jeu.reinitialiser();
-			//
-			//		new Fenetre_JeuSolo(jeu);
-			quitter();
-//			remove(this);
-		
 	}
 
 	/**
@@ -587,10 +572,8 @@ KeyListener
 	{
 		//demanderEnregistrementDuScore();
 
-		jeu.terminer();
-		jeu.detruire();
-		applet.stop();
-		applet.destroy();
+//		jeu.terminer();
+//		jeu.detruire();
 		System.exit(0); // Fermeture correcte du logiciel
 	}
 
@@ -603,7 +586,7 @@ KeyListener
 				Langue.getTexte(Langue.ID_TXT_DIALOG_ARRETER_PARTIE), 
 				"", JOptionPane.OK_CANCEL_OPTION) == JOptionPane.OK_OPTION)
 		{
-			//demanderEnregistrementDuScore();
+			//			demanderEnregistrementDuScore();
 
 			jeu.terminer();
 			jeu.detruire();
@@ -985,8 +968,8 @@ KeyListener
 		// le bouton lancer vague suivante devient un retour au menu
 		bLancerVagueSuivante.setEnabled(false);
 		vaguePeutEtreLancee = false;
-//		bLancerVagueSuivante.setText("Quit");
-//		bLancerVagueSuivante.setIcon(I_QUITTER);
+		//		bLancerVagueSuivante.setText("Quit");
+		//		bLancerVagueSuivante.setIcon(I_QUITTER);
 
 		//		demanderEnregistrementDuScore();
 		demanderRedemarrerPartie();

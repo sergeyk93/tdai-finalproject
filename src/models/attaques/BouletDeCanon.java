@@ -61,7 +61,7 @@ public class BouletDeCanon extends Attaque
     
     static
     {
-        IMAGE_BOULET   = Toolkit.getDefaultToolkit().getImage("../img/animations/attaques/bouletDeCanon.png");
+        IMAGE_BOULET   = Toolkit.getDefaultToolkit().getImage("img/animations/attaques/bouletDeCanon.png");
     }
     
     

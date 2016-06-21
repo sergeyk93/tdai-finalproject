@@ -574,12 +574,12 @@ public class Fenetre_Options extends JFrame implements ActionListener
     }
     
     
-    private static final ImageIcon I_FENETRE = new ImageIcon("../img/icones/wrench.png");
-    private static final ImageIcon I_JOUEUR = new ImageIcon("../img/icones/user_red.png");
-    private static final ImageIcon I_CMD = new ImageIcon("../img/icones/keyboard.png");
-    private static final ImageIcon I_SON = new ImageIcon("../img/icones/sound.png");
-    private static final ImageIcon I_RESEAU = new ImageIcon("../img/icones/connect.png");
-    private static final ImageIcon I_STYLE = new ImageIcon("../img/icones/palette.png");
+    private static final ImageIcon I_FENETRE = new ImageIcon("img/icones/wrench.png");
+    private static final ImageIcon I_JOUEUR = new ImageIcon("img/icones/user_red.png");
+    private static final ImageIcon I_CMD = new ImageIcon("img/icones/keyboard.png");
+    private static final ImageIcon I_SON = new ImageIcon("img/icones/sound.png");
+    private static final ImageIcon I_RESEAU = new ImageIcon("img/icones/connect.png");
+    private static final ImageIcon I_STYLE = new ImageIcon("img/icones/palette.png");
     
     private JTabbedPane onglets;
     private JButton bFermer = new JButton(Langue.getTexte(Langue.ID_TXT_BTN_FERMER));

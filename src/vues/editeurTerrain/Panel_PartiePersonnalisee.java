@@ -73,7 +73,7 @@ public class Panel_PartiePersonnalisee extends JPanel implements ActionListener
     private static final ImageIcon I_EDITEUR_T = new ImageIcon("img/icones/map_edit.png");
     private static final ImageIcon I_PLAY = new ImageIcon("img/icones/controller.png");
 
-    private JPanel parent;
+    private JFrame parent;
     
     // form
     private JLabel lblTitreTerrains = new JLabel(Langue.getTexte(Langue.ID_TITRE_CHOIX_TERRAIN));
@@ -101,7 +101,7 @@ public class Panel_PartiePersonnalisee extends JPanel implements ActionListener
      * 
      * @param parent la fenetre parent
      */
-    public Panel_PartiePersonnalisee(JPanel parent)
+    public Panel_PartiePersonnalisee(JFrame parent)
     {
         // initialisation
         super(new BorderLayout());
