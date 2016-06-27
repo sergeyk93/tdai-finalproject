@@ -66,7 +66,7 @@ public class ElementTD extends Terrain
         super(  jeu,
                 480,  // largeur
                 500,  // hauteur
-                120,  // nbPiecesOrInitiales
+                100,  // nbPiecesOrInitiales
                 20,   // nbViesInitiales
                 0,    // positionMaillageX
                 -40,    // positionMaillageY

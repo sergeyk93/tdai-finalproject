@@ -127,8 +127,9 @@ public class VagueDeCreatures
 	 */
 	public Creature getNouvelleCreature()
 	{
-		if (ai.utils.Game.isSmart())
+		if (ai.utils.Game.isSmart()){
 			return creatures.remove(0).copier();
+		}
 		return CREATURE_A_ENVOYER.copier();
 	}
 
@@ -183,7 +184,8 @@ public class VagueDeCreatures
 	 */
 
 	public static VagueDeCreatures genererVagueStandard(WaveGenerator wg, int waveNum){
-		if (Game.isSmart()){
+		ai.utils.Game.init(Boolean.parseBoolean(System.getProperty("game.mode")));
+		if (ai.utils.Game.isSmart()){
 			ArrayList<Creature> wave =  null;
 			try {
 				wave = wg.generate();

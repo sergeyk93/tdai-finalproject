@@ -48,8 +48,8 @@ public class Main
 
 		GestionnaireSons.setVolumeSysteme(GestionnaireSons.VOLUME_PAR_DEFAUT);     
 		
-		Langue.initaliser("lang\\en_EN.json");
-		new ChooseGame();
+		Langue.initaliser("lang/en_EN.json");
+//		new ChooseGame();
 		new Game();
 
 		// A shutdown hook that closes the logger's file handler
