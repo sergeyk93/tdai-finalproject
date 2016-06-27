@@ -155,7 +155,8 @@ public class GestionnaireCreatures implements Runnable
             	creatures.remove(creatureASupprimer);
             }
             creaturesASupprimer.clear();
-			
+			if (creatures.size() == 0 && jeu.getNumVagueCourante() > 30)
+				jeu.terminer();
             // gestion de la pause
             try
             {
@@ -411,7 +412,7 @@ public class GestionnaireCreatures implements Runnable
                         }
                     }
                 }
-
+                
                 if (edv != null)
                     edv.vagueEntierementLancee(vague); 
             }

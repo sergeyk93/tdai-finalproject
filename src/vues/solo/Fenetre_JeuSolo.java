@@ -286,7 +286,7 @@ KeyListener
 
 
 		// ajout du menu
-		setJMenuBar(menuPrincipal);
+		//setJMenuBar(menuPrincipal);
 
 		JPanel pGauche = new JPanel(new BorderLayout());
 		pGauche.setOpaque(false);
@@ -543,13 +543,18 @@ KeyListener
 
 	private void demanderRedemarrerPartie()
 	{
-		JOptionPane.showMessageDialog(this, "Game Over");
+		if (jeu.getNumVagueCourante() > 30){
+			JOptionPane.showMessageDialog(this, "Congratulations! You Won!");
+		}
+		else{
+			JOptionPane.showMessageDialog(this, "Game Over");
+		}
 		//			demanderEnregistrementDuScore();
 
 		jeu.terminer();
 		jeu.detruire();
-		jeu.reinitialiser();
-		new Fenetre_JeuSolo(jeu);
+//		jeu.reinitialiser();
+//		new Fenetre_JeuSolo(jeu);
 		quitter();
 		remove(this);
 

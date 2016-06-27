@@ -11,7 +11,7 @@ public class DdaExpert extends Dda{
 		thresholdTime = 4;
 		thresholdHP = 1;
 		turnsT = 12;
-		//path_method = new PathExpert();
+		waveSize = 18;
 	}
 
 	@Override

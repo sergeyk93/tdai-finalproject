@@ -194,6 +194,11 @@ public class VagueDeCreatures
 			if (wave == null || wave.size() == 0){
 				wave = defaultWave.getDefaultWave();;
 			}
+			
+			if (waveNum == 30)
+				return new VagueDeCreatures(wave.size(), wave.get(0),
+						getTempsLancement(VITESSE_CREATURE_LENTE), wave);
+				
 			return new VagueDeCreatures(wave.size(), wave.get(0),
 					getTempsLancement(VITESSE_CREATURE_NORMALE), wave);
 		}

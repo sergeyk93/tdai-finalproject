@@ -38,6 +38,7 @@ import models.joueurs.Joueur;
 import models.outils.GestionnaireSons;
 import models.terrains.Desert;
 import models.terrains.ElementTD;
+import models.terrains.SimpleFiveVersus;
 import models.terrains.Spiral;
 import models.terrains.Terrain;
 import models.terrains.WaterWorld;

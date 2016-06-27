@@ -11,7 +11,7 @@ public class DdaNormal extends Dda{
 		thresholdTime = 2;
 		thresholdHP = 2;
 		turnsT = 5;
-		//path_method = new PathNormal();
+		waveSize = 12;
 	}
 
 	@Override

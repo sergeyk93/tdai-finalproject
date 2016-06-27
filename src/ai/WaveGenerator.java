@@ -56,6 +56,16 @@ public class WaveGenerator {
 
 		DdaManager.updateTowers();
 		
+		if (waveNumber == 30){
+			GrandeAraignee boss = new GrandeAraignee();
+			boss.setSanteMax(Constants.BOSS * waveNumber / 10);
+			boss.setVitesse(Constants.NORMAL);
+			for (int i = 0; i < 5; i++){
+				wave.add(boss.copier());
+			}
+			return wave;
+		}
+		
 		if(waveNumber % 10 == 0){
 			GrandeAraignee boss = new GrandeAraignee();
 			boss.setSanteMax(Constants.BOSS * waveNumber / 10);

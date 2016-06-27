@@ -128,4 +128,8 @@ public class DdaManager {
 		return currentHP;
 	}
 
+	public static int getWaveSize() {
+		return dda.waveSize;
+	}
+
 }

@@ -11,7 +11,7 @@ public class DdaHard extends Dda{
 		thresholdTime = 4;
 		thresholdHP = 2;
 		turnsT = 10;
-		//path_method = new PathHard();
+		waveSize = 15;
 	}
 
 	@Override

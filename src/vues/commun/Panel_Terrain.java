@@ -320,7 +320,7 @@ public class Panel_Terrain extends JPanel
 		// sauvegarde du jeu
 		this.jeu = jeu;
 		this.edpt = edpt;
-		setPreferredSize(jeu.getTerrain().getTaillePanelTerrain());
+//		setPreferredSize(jeu.getTerrain().getTaillePanelTerrain());
 		setFocusable(true);
 		center();
 		// Centrage sur la zone de construction du joueur
@@ -787,12 +787,12 @@ public class Panel_Terrain extends JPanel
 			g2.setFont(policeTmp);
 		}
 
-//		if (afficherFps) {
-//			g2.setColor(Color.BLACK);
-//			g2.drawString("fps : " + fps, 0, 12);
-//			g2.setColor(Color.WHITE);
-//			g2.drawString("fps : " + fps, 1, 12 + 1);
-//		}
+		// if (afficherFps) {
+		// g2.setColor(Color.BLACK);
+		// g2.drawString("fps : " + fps, 0, 12);
+		// g2.setColor(Color.WHITE);
+		// g2.drawString("fps : " + fps, 1, 12 + 1);
+		// }
 
 	}
 
@@ -1151,7 +1151,7 @@ public class Panel_Terrain extends JPanel
 			} else // double click
 			{
 				// remise à l'échelle initiale et recentrage
-//				reinitialiserVue();
+				// reinitialiserVue();
 			}
 		} else // clique droit ou autre
 		{
@@ -1218,24 +1218,24 @@ public class Panel_Terrain extends JPanel
 
 			if (sourisX > 0 && sourisX < MARGES_DEPLACEMENT && (decaleX != 0 || coeffTaille != 1.0)) {
 				setCursor(curRedimGauche);
-//				decaleX++;
+				// decaleX++;
 			}
 
 			if (sourisX > largeurPanel - MARGES_DEPLACEMENT && sourisX < largeurPanel
 					&& (decaleX != 0 || coeffTaille != 1.0)) {
 				setCursor(curRedimDroite);
-//				decaleX--;
+				// decaleX--;
 			}
 
 			if (sourisY > 0 && sourisY < MARGES_DEPLACEMENT && (decaleY != 0 || coeffTaille != 1.0)) {
 				setCursor(curRedimBas);
-//				decaleY++;
+				// decaleY++;
 			}
 
 			if (sourisY > hauteurPanel - MARGES_DEPLACEMENT && sourisY < hauteurPanel
 					&& (decaleY != 0 || coeffTaille != 1.0)) {
 				setCursor(curRedimHaut);
-//				decaleY--;
+				// decaleY--;
 			}
 
 			// mise a jour de la position de la tour à ajoutée
@@ -1302,12 +1302,14 @@ public class Panel_Terrain extends JPanel
 				mouseMoved(me);
 
 			// si rien n'est selectionner, on autorise le grab
-//			else {
-//				setCursor(curMainAgripper);
+			// else {
+			// setCursor(curMainAgripper);
 
-//				decaleX = (int) (decaleGrabX - (sourisGrabX - me.getX()) / coeffTaille);
-//				decaleY = (int) (decaleGrabY - (sourisGrabY - me.getY()) / coeffTaille);
-//			}
+			// decaleX = (int) (decaleGrabX - (sourisGrabX - me.getX()) /
+			// coeffTaille);
+			// decaleY = (int) (decaleGrabY - (sourisGrabY - me.getY()) /
+			// coeffTaille);
+			// }
 		}
 	}
 
@@ -1407,7 +1409,7 @@ public class Panel_Terrain extends JPanel
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		zoomer(e.getWheelRotation());
+		// zoomer(e.getWheelRotation());
 	}
 
 	/**
@@ -1503,6 +1505,6 @@ public class Panel_Terrain extends JPanel
 		int hauteurPanel = getPreferredSize().height;
 
 		decaleX = (int) ((largeurPanel / 4.0 - x * coeffTaille) / coeffTaille);
-		decaleY = (int) ((hauteurPanel / 4.0 - y * coeffTaille) / coeffTaille);
+		decaleY = (int) ((hauteurPanel / 10.0 - y * coeffTaille) / coeffTaille);
 	}
 }

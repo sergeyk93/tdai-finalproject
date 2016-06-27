@@ -229,7 +229,6 @@ EcouteurDeVague
 			e.printStackTrace();
 		}
 		// Initializing a new wave generator that utilizies the AI and the DDA
-		Game.init(true);
 		wg = new WaveGenerator(this);
 		tns = new ArrayList<TowerNeighbour>();
 	}
@@ -859,8 +858,9 @@ EcouteurDeVague
 	@Override
 	public void vagueEntierementLancee(VagueDeCreatures vagueDeCreatures)
 	{
-		if(edj != null)
-			edj.vagueEntierementLancee(vagueDeCreatures); 
+		if (indiceVagueCourante <= 30)
+			if(edj != null)
+				edj.vagueEntierementLancee(vagueDeCreatures);
 	}
 
 	@Override

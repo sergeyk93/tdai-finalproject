@@ -11,7 +11,7 @@ public class DdaVeryEasy extends Dda{
 		thresholdTime = 1;
 		thresholdHP = 3;
 		turnsT = 2;
-		//path_method = new PathVeryEasy();
+		waveSize = 8;
 	}
 
 	@Override

@@ -11,6 +11,7 @@ public abstract class Dda {
 	protected int thresholdTime;
 	//protected Path path_method;
 	protected int turnsT;
+	protected int waveSize;
 	
 	public Dda(){}
 	
