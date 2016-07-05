@@ -3,13 +3,13 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="C:/tdai-finalproject.git/trunk/lib/jgrapht-jdk1.6.jar"/>
-	<classpathentry kind="lib" path="C:/tdai-finalproject.git/trunk/lib/jl1.0.1.jar"/>
-	<classpathentry kind="lib" path="C:/tdai-finalproject.git/trunk/lib/junit-4.10.jar"/>
-	<classpathentry kind="lib" path="C:/tdai-finalproject.git/trunk/lib/NativeFmodDesigner.jar"/>
-	<classpathentry kind="lib" path="C:/tdai-finalproject.git/trunk/lib/NativeFmodEx.jar">
+	<classpathentry kind="lib" path="C:/Users/Sergey/Desktop/tdai-finalproject/lib/jgrapht-jdk1.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sergey/Desktop/tdai-finalproject/lib/jl1.0.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sergey/Desktop/tdai-finalproject/lib/junit-4.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sergey/Desktop/tdai-finalproject/lib/NativeFmodDesigner.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sergey/Desktop/tdai-finalproject/lib/NativeFmodEx.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/tdai-finalproject.git/trunk/lib/fmod"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/Sergey/Desktop/tdai-finalproject/lib/fmod"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="output" path="bin"/>

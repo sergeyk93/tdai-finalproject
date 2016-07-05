@@ -1,0 +1,56 @@
+ιεμ 05, 2016 12:30:20 PM ai.utils.AILogger initLogger
+INFO: 
+*********************** Game Iteration #3 ***********************
+
+ιεμ 05, 2016 12:30:22 PM ai.utils.AILogger info
+INFO: 
+----------- Wave #1 creature grades: -----------
+Current budget: 666.6666666666666
+
+Eagle[HP: 30.0, Speed: 50.0]
+Grade: 8.333333333333334
+Price: 180.0
+Previous alive time: 0
+
+Spider[HP: 25.0, Speed: 60.0]
+Grade: 8.823529411764707
+Price: 170.0
+Previous alive time: 0
+
+Elephant[HP: 100.0, Speed: 30.0]
+Grade: 11.538461538461538
+Price: 260.0
+Previous alive time: 0
+
+Sheep[HP: 30.0, Speed: 50.0]
+Grade: 9.375
+Price: 160.0
+Previous alive time: 0
+
+Black_Sheep[HP: 50.0, Speed: 50.0]
+Grade: 12.5
+Price: 200.0
+Previous alive time: 0
+
+Peasant[HP: 60.0, Speed: 50.0]
+Grade: 13.636363636363637
+Price: 220.0
+Previous alive time: 0
+
+Pigeon[HP: 45.0, Speed: 50.0]
+Grade: 10.714285714285714
+Price: 210.0
+Previous alive time: 0
+
+Rhino[HP: 70.0, Speed: 30.0]
+Grade: 10.5
+Price: 200.0
+Previous alive time: 0
+
+The chosen wave is: 
+Peasant
+Peasant
+Peasant
+
+After budget: 6.666666666666629
+

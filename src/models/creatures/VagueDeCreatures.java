@@ -184,7 +184,6 @@ public class VagueDeCreatures
 	 */
 
 	public static VagueDeCreatures genererVagueStandard(WaveGenerator wg, int waveNum){
-		ai.utils.Game.init(Boolean.parseBoolean(System.getProperty("game.mode")));
 		if (ai.utils.Game.isSmart()){
 			ArrayList<Creature> wave =  null;
 			try {
